@@ -1,0 +1,3 @@
+.search-bar::after {
+  @apply content-['×'] absolute top-1/2 right-[0.75rem] -translate-y-1/2 cursor-pointer text-white;
+}
