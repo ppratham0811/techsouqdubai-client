@@ -7,11 +7,26 @@ import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import Menu from "./Menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
+import { getCategories } from "../../actions";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
+
+  const [categories, setCategories] = useState([]);
+  const loadAllCategories = async () => {
+    await getCategories()
+      .then((response) => {
+        setCategories(response.documents);
+        console.log(response.documents);
+      })
+      .catch((e) => console.error());
+  };
+
+  useEffect(() => {
+    loadAllCategories();
+  }, []);
 
   return (
     <>
@@ -107,7 +122,7 @@ const Navbar = () => {
         <Menu />
       </header>
 
-      {menu && <MobileMenu menu={menu} setMenu={setMenu} />}
+      {menu && <MobileMenu menu={menu} setMenu={setMenu} categories={categories} />}
     </>
   );
 };

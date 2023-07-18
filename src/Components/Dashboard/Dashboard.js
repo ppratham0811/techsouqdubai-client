@@ -38,11 +38,11 @@ const Dashboard = () => {
     <>
       <Navbar />
       <div className="mx-auto my-5 px-2 sm:px-8">
-        <div className="grid grid-cols-12 gap-5">
-          <div className="col-span-8">
-            <img src="playyourway.jpg" alt="" />
+        <div className="grid grid-cols-12 gap-5 w-full">
+          <div className="col-span-12 lg:col-span-8 shadow-lg mx-4 md:mx-0 lg:mx-0">
+            <img src="playyourway.jpg" className="w-full rounded-lg" alt="" />
           </div>
-          <div className="group relative col-span-4 hidden overflow-hidden rounded-lg md:block">
+          <div className="group relative col-span-12 lg:col-span-4 overflow-hidden rounded-lg md:block shadow-lg mx-4">
             <div className="overlay-gradient absolute z-[1] h-full w-full"></div>
             <img
               className="transition-all duration-300 h-full w-full object-cover hover:transform group-hover:scale-110"
@@ -71,7 +71,7 @@ const Dashboard = () => {
 
       <div className="information-section container mx-auto my-5 px-2 sm:px-8">
         <div className="grid grid-cols-12 gap-5">
-          <div className="col-span-12 flex sm:col-span-6 lg:col-span-3">
+          <div className="col-span-12 flex sm:col-span-6 lg:col-span-3 shadow-lg mx-4 lg:mr-4 rounded-lg">
             <div className="transition-all-300 flex w-full items-center gap-4 rounded-lg bg-white p-5 hover:shadow-lg xs:pl-[20%] sm:pl-5">
               <div className="rounded-full border-2">
                 <LocalShippingIcon />
@@ -84,7 +84,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-12 flex sm:col-span-6 lg:col-span-3">
+          <div className="col-span-12 flex sm:col-span-6 lg:col-span-3 shadow-lg mx-4 rounded-lg">
             <div className="transition-all-300 flex w-full items-center gap-4 rounded-lg bg-white p-5 hover:shadow-lg xs:pl-[20%] sm:pl-5">
               <div className="rounded-full border-2">
                 <PaidIcon />
@@ -95,7 +95,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-12 flex sm:col-span-6 lg:col-span-3">
+          <div className="col-span-12 flex sm:col-span-6 lg:col-span-3 shadow-lg mx-4 rounded-lg">
             <div className="transition-all-300 flex w-full items-center gap-4 rounded-lg bg-white p-5 hover:shadow-lg xs:pl-[20%] sm:pl-5">
               <div className="rounded-full border-2">
                 <HttpsIcon />
@@ -108,7 +108,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-12 flex sm:col-span-6 lg:col-span-3">
+          <div className="col-span-12 flex sm:col-span-6 lg:col-span-3 shadow-lg mx-4 lg:ml-4 rounded-lg">
             <div className="transition-all-300 flex w-full items-center gap-4 rounded-lg bg-white p-5 hover:shadow-lg xs:pl-[20%] sm:pl-5">
               <div className="rounded-full border-2">
                 <HelpIcon />
@@ -122,7 +122,13 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* <Products title="Innovative Devices" products={getProductsFromCategory()} /> */}
+      {/* {categories.map(category => {
+        return (
+          <>
+            <Products title={category.name} products={getProductsFromCategory(category.$id)} />
+          </>
+        )
+      })} */}
 
       <Products title="Categories" products={categories} />
 
