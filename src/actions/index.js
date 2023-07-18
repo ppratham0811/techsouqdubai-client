@@ -37,4 +37,39 @@ const getCategories = async () => {
   }
 };
 
-export { getAllProducts, registerUser, getCategories };
+const getCategoryById = async (categoryId) => {
+  try {
+    return await database
+      .getDocument(mainDatabaseID, categoryCollectionID, categoryId)
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
+const getProductsFromCategory = async (categoryId) => {
+  try {
+    return await database
+      .listDocuments(mainDatabaseID, productsCollectionID, {
+        category: categoryId,
+      })
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export {
+  getAllProducts,
+  registerUser,
+  getCategories,
+  getCategoryById,
+  getProductsFromCategory,
+};

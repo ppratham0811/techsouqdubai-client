@@ -28,15 +28,13 @@ const Categories = () => {
           <div className="swiper swiper-default group relative grid items-center py-5 swiper-initialized swiper-horizontal swiper-backface-hidden">
             <div className="grid grid-cols-3 xs:grid-cols-6 sm:grid-cols-9 lg:grid-cols-12">
               {categories?.map((category, idx) => (
-                <div key={idx} className="col-span-3 flex border">
-                  <a
-                    className="transition-all-300 flex w-full justify-center bg-white p-5 hover:relative hover:z-[2] hover:shadow-xl"
-                    href="#"
-                  >
-                    <div>
-                      <span className="text-gray-40">{category.name}</span>
-                    </div>
-                  </a>
+                <div
+                  key={idx}
+                  className="col-span-3 flex border transition-all-300 flex w-full justify-center bg-white p-5 hover:relative hover:z-[2] hover:shadow-xl"
+                >
+                  <div>
+                    <span className="text-gray-40">{category.name}</span>
+                  </div>
                 </div>
               ))}
             </div>

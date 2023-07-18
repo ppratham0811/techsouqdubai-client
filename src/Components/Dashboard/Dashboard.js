@@ -4,39 +4,48 @@ import PaidIcon from "@mui/icons-material/Paid";
 import HttpsIcon from "@mui/icons-material/Https";
 import HelpIcon from "@mui/icons-material/Help";
 import Products from "./Products/Products";
-import { useState } from "react";
-import { Carousel, initTE } from "tw-elements";
+import { useEffect, useState } from "react";
 import Categories from "./Categories/Categories";
-
-initTE({ Carousel });
+import Navbar from "../Navbar/Navbar.js";
+import { getCategories, getAllProducts, getProductsFromCategory } from "../../actions";
+import Footer from "../Footer/Footer";
+import Slider from "react-slick";
 
 const Dashboard = () => {
-  const [products, setProducts] = useState({});
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const loadAllProducts = async () => {
+    await getAllProducts()
+      .then((res) => setProducts(res.documents))
+      .catch((e) => console.error(e));
+  };
+
+  const loadAllCategories = async () => {
+    await getCategories()
+      .then((response) => {
+        setCategories(response.documents);
+      })
+      .catch((e) => console.error());
+  };
+
+  useEffect(() => {
+    loadAllCategories();
+    loadAllProducts();
+  }, []);
+
   return (
     <>
-      <div className="banners-section container mx-auto my-5 px-2 sm:px-8">
+      <Navbar />
+      <div className="mx-auto my-5 px-2 sm:px-8">
         <div className="grid grid-cols-12 gap-5">
-          <div className="swiper-container col-span-12 overflow-hidden rounded-lg md:col-span-8">
-            <div className="swiper swiper-banner group relative flex items-center swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden">
-              <div
-                className="swiper-wrapper max-h-[377px]"
-                id="swiper-wrapper-545eccdb5ac9fef9"
-                aria-live="off"
-                // style="transition-duration: 0ms;"
-              >
-                <div
-                  className="swiper-slide swiper-slide-next"
-                  role="group"
-                >
-                  <img src="playyourway.jpg" alt="banner 2" className="h-full w-full" />
-                </div>
-              </div>
-            </div>
+          <div className="col-span-8">
+            <img src="playyourway.jpg" alt="" />
           </div>
           <div className="group relative col-span-4 hidden overflow-hidden rounded-lg md:block">
             <div className="overlay-gradient absolute z-[1] h-full w-full"></div>
             <img
-              className="transition-all-300 h-full w-full object-cover hover:transform group-hover:scale-110"
+              className="transition-all duration-300 h-full w-full object-cover hover:transform group-hover:scale-110"
               src="armedpc.jpg"
               alt="banner-img"
             />
@@ -69,7 +78,9 @@ const Dashboard = () => {
               </div>
               <div>
                 <h6 className="font-bold capitalize">Free shipping</h6>
-                <p className="break-all text-sm text-gray-400">Orders over $100</p>
+                <p className="break-all text-sm text-gray-400">
+                  Orders over $100
+                </p>
               </div>
             </div>
           </div>
@@ -91,7 +102,9 @@ const Dashboard = () => {
               </div>
               <div>
                 <h6 className="font-bold capitalize">Secure payment</h6>
-                <p className="break-all text-sm text-gray-400">Secured payment</p>
+                <p className="break-all text-sm text-gray-400">
+                  Secured payment
+                </p>
               </div>
             </div>
           </div>
@@ -109,13 +122,13 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <Products title="Offers" products={products} />
+      {/* <Products title="Innovative Devices" products={getProductsFromCategory()} /> */}
 
-      <Products title="Notebooks" products={products} />
-
-      <Products title="Categories" products={products} />
+      <Products title="Categories" products={categories} />
 
       <Categories />
+
+      <Footer />
     </>
   );
 };

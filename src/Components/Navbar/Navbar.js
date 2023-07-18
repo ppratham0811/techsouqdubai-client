@@ -89,28 +89,10 @@ const Navbar = () => {
                   <div className="relative">
                     <ul className="overflow-hidden rounded-md bg-white p-[6px]">
                       <li className="hover:font-semibold">
-                        <a
-                          href="#"
-                          className="btn-open-modal"
-                          data-tab="0"
-                          data-target=".entry-modal"
-                        >
+                        <a href="/login">
                           <div className="pointer-events-none flex items-center gap-2 p-1">
                             <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />
                             <span>Login</span>
-                          </div>
-                        </a>
-                      </li>
-                      <li className="hover:font-semibold">
-                        <a
-                          href="#"
-                          className="btn-open-modal"
-                          data-tab="1"
-                          data-target=".entry-modal"
-                        >
-                          <div className="pointer-events-none flex items-center gap-2 p-1">
-                            <PersonOutlineOutlinedIcon className="bi bi-person flex text-xl text-primary-color" />
-                            <span>Sign up</span>
                           </div>
                         </a>
                       </li>
