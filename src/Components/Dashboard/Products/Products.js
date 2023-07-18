@@ -5,28 +5,28 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 const Products = ({ title, products }) => {
   return (
     <>
-      <div class="liner-container mt-5 flex justify-center border-b-2 border-[rgba(119,119,119,.17)]">
-        <h1 class="mb-[-2px] inline-block border-b-2 border-sky-500 pb-3 text-2xl font-bold uppercase">
+      <div className="liner-container mt-5 flex justify-center border-b-2 border-[rgba(119,119,119,.17)]">
+        <h1 className="mb-[-2px] inline-block border-b-2 border-sky-500 pb-3 text-2xl font-bold uppercase">
           {title}
         </h1>
       </div>
-      <div class="w-full first-letter:grid grid-cols-1 md:grid-cols-full mx-auto my-5 gap-2 px-2 sm:px-8">
-        {/* <div class="group relative my-5 hidden overflow-hidden rounded-l-lg xl:block">
+      <div className="w-full first-letter:grid grid-cols-1 md:grid-cols-full mx-auto my-5 gap-2 px-2 sm:px-8">
+        {/* <div className="group relative my-5 hidden overflow-hidden rounded-l-lg xl:block">
           <img
-            class="transition-all-300 h-full w-[50%] object-cover hover:transform group-hover:scale-110"
+            className="transition-all-300 h-full w-[50%] object-cover hover:transform group-hover:scale-110"
             src="smartphones.jpg"
             alt="banner-img"
           />
-          <div class="absolute top-0 left-0 flex h-full w-full items-center">
-            <div class="z-[2] p-5">
-              <h3 class="text-lg font-bold uppercase text-white drop-shadow-xl">
+          <div className="absolute top-0 left-0 flex h-full w-full items-center">
+            <div className="z-[2] p-5">
+              <h3 className="text-lg font-bold uppercase text-white drop-shadow-xl">
                 Smartphones
               </h3>
-              <p class="my-5 text-white drop-shadow-md">
+              <p className="my-5 text-white drop-shadow-md">
                 Choose your smartphone now!
               </p>
               <a
-                class="btn-effect inline-block rounded-lg bg-blue-500 py-2 px-3 text-white"
+                className="btn-effect inline-block rounded-lg bg-blue-500 py-2 px-3 text-white"
                 href="#"
               >
                 <span>Show more</span>
@@ -34,34 +34,34 @@ const Products = ({ title, products }) => {
             </div>
           </div>
         </div> */}
-        <div class="swiper-container">
-          <div class="swiper swiper-cards group relative lg:flex items-center py-5 swiper-initialized swiper-horizontal swiper-free-mode swiper-backface-hidden md:grid-cols-1 md:grid md:col-span-1">
+        <div className="swiper-container">
+          <div className="swiper swiper-cards group relative lg:flex items-center py-5 swiper-initialized swiper-horizontal swiper-free-mode swiper-backface-hidden md:grid-cols-1 md:grid md:col-span-1">
             <div
-              class="swiper-wrapper mx-4 sm:col-span-full"
+              className="swiper-wrapper mx-4 sm:col-span-full"
               id="swiper-wrapper-ef2d6c9ac9163c76"
               aria-live="off"
               // style="transition-duration: 0ms; transform: translate3d(-1585px, 0px, 0px);"
             >
               <div
-                class="swiper-slide h-auto"
+                className="swiper-slide h-auto"
                 // style="width: 297px; margin-right: 20px;"
                 role="group"
                 aria-label="3 / 8"
                 data-swiper-slide-index="2"
               >
-                <div class="card-container transition-all-300 translateY-2 relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl">
-                  <div class="absolute top-[10px] right-[10px]">
-                    <div class="p-[2px]">
+                <div className="card-container transition-all-300 translateY-2 relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl">
+                  <div className="absolute top-[10px] right-[10px]">
+                    <div className="p-[2px]">
                       <a
-                        class="tippy tippy-left-wishlist btn-wishlist transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
+                        className="tippy tippy-left-wishlist btn-wishlist transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
                         href="javascript:void(0)"
                       >
                         <FavoriteBorderIcon className="text-white" />
                       </a>
                     </div>
-                    <div class="p-[2px]">
+                    <div className="p-[2px]">
                       <a
-                        class="tippy tippy-left-card-view btn-open-modal transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
+                        className="tippy tippy-left-card-view btn-open-modal transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
                         href="javascript:void(0)"
                         data-target=".quick-view-modal"
                       >
@@ -69,52 +69,52 @@ const Products = ({ title, products }) => {
                       </a>
                     </div>
                   </div>
-                  <div class="absolute top-0 left-0 flex h-[35px] w-[90px] items-center justify-center rounded-br-lg bg-blue-500">
-                    <span class="text-md text-center font-semibold uppercase text-white">
+                  <div className="absolute top-0 left-0 flex h-[35px] w-[90px] items-center justify-center rounded-br-lg bg-blue-500">
+                    <span className="text-md text-center font-semibold uppercase text-white">
                       25% Off
                     </span>
                   </div>
-                  <div class="h-[190px] overflow-hidden rounded-lg">
+                  <div className="h-[190px] overflow-hidden rounded-lg">
                     <a href="#">
                       <img
-                        class="object-contain h-full w-full"
+                        className="object-contain h-full w-full"
                         src="mousepadhyperx.jpg"
                         alt="product"
                       />
                     </a>
                   </div>
-                  <div class="my-2 flex justify-between">
+                  <div className="my-2 flex justify-between">
                     <div>
-                      <span class="rounded-md bg-green-300 py-1 px-2 text-xs font-bold uppercase text-white">
+                      <span className="rounded-md bg-green-300 py-1 px-2 text-xs font-bold uppercase text-white">
                         instock
                       </span>
                     </div>
                   </div>
-                  <div class="my-1">
-                    <a class="clamp break-all font-medium" href="#">
+                  <div className="my-1">
+                    <a className="clamp break-all font-medium" href="#">
                       Mousepad Hyperx Fury S Pro Speed
                     </a>
                   </div>
-                  <div class="my-1">
-                    <p class="clamp-2 text-sm text-gray-400">
+                  <div className="my-1">
+                    <p className="clamp-2 text-sm text-gray-400">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Itaque culpa, odio, qui praesentium dignissimos eaque
                       dolorum porro alias neque, eius animi ipsa voluptates.
                       Optio repellat tempora voluptas, dolores ipsam ad!
                     </p>
                   </div>
-                  <div class="my-1">
-                    <span class="text-lg font-bold">$37.00</span>
-                    <span class="text-sm text-primary-color line-through">
+                  <div className="my-1">
+                    <span className="text-lg font-bold">$37.00</span>
+                    <span className="text-sm text-primary-color line-through">
                       $50.00
                     </span>
                   </div>
-                  <div class="mt-auto">
+                  <div className="mt-auto">
                     <a
-                      class="btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-blue-500 p-2"
+                      className="btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-blue-500 p-2"
                       href="#"
                     >
-                      <span class="font-bold uppercase text-white">
+                      <span className="font-bold uppercase text-white">
                         View details
                       </span>
                     </a>
@@ -123,31 +123,31 @@ const Products = ({ title, products }) => {
               </div>
             </div>
             <div
-              class="swiper-wrapper mx-4"
+              className="swiper-wrapper mx-4"
               id="swiper-wrapper-ef2d6c9ac9163c76"
               aria-live="off"
               // style="transition-duration: 0ms; transform: translate3d(-1585px, 0px, 0px);"
             >
               <div
-                class="swiper-slide h-auto"
+                className="swiper-slide h-auto"
                 // style="width: 297px; margin-right: 20px;"
                 role="group"
                 aria-label="3 / 8"
                 data-swiper-slide-index="2"
               >
-                <div class="card-container transition-all-300 translateY-2 relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl">
-                  <div class="absolute top-[10px] right-[10px]">
-                    <div class="p-[2px]">
+                <div className="card-container transition-all-300 translateY-2 relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl">
+                  <div className="absolute top-[10px] right-[10px]">
+                    <div className="p-[2px]">
                       <a
-                        class="tippy tippy-left-wishlist btn-wishlist transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
+                        className="tippy tippy-left-wishlist btn-wishlist transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
                         href="javascript:void(0)"
                       >
                         <FavoriteBorderIcon className="text-white" />
                       </a>
                     </div>
-                    <div class="p-[2px]">
+                    <div className="p-[2px]">
                       <a
-                        class="tippy tippy-left-card-view btn-open-modal transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
+                        className="tippy tippy-left-card-view btn-open-modal transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
                         href="javascript:void(0)"
                         data-target=".quick-view-modal"
                       >
@@ -155,52 +155,52 @@ const Products = ({ title, products }) => {
                       </a>
                     </div>
                   </div>
-                  <div class="absolute top-0 left-0 flex h-[35px] w-[90px] items-center justify-center rounded-br-lg bg-blue-500">
-                    <span class="text-md text-center font-semibold uppercase text-white">
+                  <div className="absolute top-0 left-0 flex h-[35px] w-[90px] items-center justify-center rounded-br-lg bg-blue-500">
+                    <span className="text-md text-center font-semibold uppercase text-white">
                       25% Off
                     </span>
                   </div>
-                  <div class="h-[190px] overflow-hidden rounded-lg">
+                  <div className="h-[190px] overflow-hidden rounded-lg">
                     <a href="#">
                       <img
-                        class="object-contain h-full w-full"
+                        className="object-contain h-full w-full"
                         src="msi-stealth.png"
                         alt="product"
                       />
                     </a>
                   </div>
-                  <div class="my-2 flex justify-between">
+                  <div className="my-2 flex justify-between">
                     <div>
-                      <span class="rounded-md bg-green-300 py-1 px-2 text-xs font-bold uppercase text-white">
+                      <span className="rounded-md bg-green-300 py-1 px-2 text-xs font-bold uppercase text-white">
                         instock
                       </span>
                     </div>
                   </div>
-                  <div class="my-1">
-                    <a class="clamp break-all font-medium" href="#">
+                  <div className="my-1">
+                    <a className="clamp break-all font-medium" href="#">
                       MSI Stealth
                     </a>
                   </div>
-                  <div class="my-1">
-                    <p class="clamp-2 text-sm text-gray-400">
+                  <div className="my-1">
+                    <p className="clamp-2 text-sm text-gray-400">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Itaque culpa, odio, qui praesentium dignissimos eaque
                       dolorum porro alias neque, eius animi ipsa voluptates.
                       Optio repellat tempora voluptas, dolores ipsam ad!
                     </p>
                   </div>
-                  <div class="my-1">
-                    <span class="text-lg font-bold">$400.00</span>
-                    <span class="text-sm text-primary-color line-through">
+                  <div className="my-1">
+                    <span className="text-lg font-bold">$400.00</span>
+                    <span className="text-sm text-primary-color line-through">
                       $500.00
                     </span>
                   </div>
-                  <div class="mt-auto">
+                  <div className="mt-auto">
                     <a
-                      class="btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-blue-500 p-2"
+                      className="btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-blue-500 p-2"
                       href="#"
                     >
-                      <span class="font-bold uppercase text-white">
+                      <span className="font-bold uppercase text-white">
                         View details
                       </span>
                     </a>
@@ -209,31 +209,31 @@ const Products = ({ title, products }) => {
               </div>
             </div>
             <div
-              class="swiper-wrapper mx-4"
+              className="swiper-wrapper mx-4"
               id="swiper-wrapper-ef2d6c9ac9163c76"
               aria-live="off"
               // style="transition-duration: 0ms; transform: translate3d(-1585px, 0px, 0px);"
             >
               <div
-                class="swiper-slide h-auto"
+                className="swiper-slide h-auto"
                 // style="width: 297px; margin-right: 20px;"
                 role="group"
                 aria-label="3 / 8"
                 data-swiper-slide-index="2"
               >
-                <div class="card-container transition-all-300 translateY-2 relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl">
-                  <div class="absolute top-[10px] right-[10px]">
-                    <div class="p-[2px]">
+                <div className="card-container transition-all-300 translateY-2 relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl">
+                  <div className="absolute top-[10px] right-[10px]">
+                    <div className="p-[2px]">
                       <a
-                        class="tippy tippy-left-wishlist btn-wishlist transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
+                        className="tippy tippy-left-wishlist btn-wishlist transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
                         href="javascript:void(0)"
                       >
                         <FavoriteBorderIcon className="text-white" />
                       </a>
                     </div>
-                    <div class="p-[2px]">
+                    <div className="p-[2px]">
                       <a
-                        class="tippy tippy-left-card-view btn-open-modal transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
+                        className="tippy tippy-left-card-view btn-open-modal transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-[rgba(0,0,0,.3)] hover:bg-primary-hover"
                         href="javascript:void(0)"
                         data-target=".quick-view-modal"
                       >
@@ -241,52 +241,52 @@ const Products = ({ title, products }) => {
                       </a>
                     </div>
                   </div>
-                  <div class="absolute top-0 left-0 flex h-[35px] w-[90px] items-center justify-center rounded-br-lg bg-blue-500">
-                    <span class="text-md text-center font-semibold uppercase text-white">
+                  <div className="absolute top-0 left-0 flex h-[35px] w-[90px] items-center justify-center rounded-br-lg bg-blue-500">
+                    <span className="text-md text-center font-semibold uppercase text-white">
                       25% Off
                     </span>
                   </div>
-                  <div class="h-[190px] overflow-hidden rounded-lg">
+                  <div className="h-[190px] overflow-hidden rounded-lg">
                     <a href="#">
                       <img
-                        class="object-contain h-full w-full"
+                        className="object-contain h-full w-full"
                         src="macbook-pro.jpg"
                         alt="product"
                       />
                     </a>
                   </div>
-                  <div class="my-2 flex justify-between">
+                  <div className="my-2 flex justify-between">
                     <div>
-                      <span class="rounded-md bg-green-300 py-1 px-2 text-xs font-bold uppercase text-white">
+                      <span className="rounded-md bg-green-300 py-1 px-2 text-xs font-bold uppercase text-white">
                         instock
                       </span>
                     </div>
                   </div>
-                  <div class="my-1">
-                    <a class="clamp break-all font-medium" href="#">
+                  <div className="my-1">
+                    <a className="clamp break-all font-medium" href="#">
                       Apple Macbook Pro
                     </a>
                   </div>
-                  <div class="my-1">
-                    <p class="clamp-2 text-sm text-gray-400">
+                  <div className="my-1">
+                    <p className="clamp-2 text-sm text-gray-400">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Itaque culpa, odio, qui praesentium dignissimos eaque
                       dolorum porro alias neque, eius animi ipsa voluptates.
                       Optio repellat tempora voluptas, dolores ipsam ad!
                     </p>
                   </div>
-                  <div class="my-1">
-                    <span class="text-lg font-bold">$899.00</span>
-                    <span class="text-sm text-primary-color line-through">
+                  <div className="my-1">
+                    <span className="text-lg font-bold">$899.00</span>
+                    <span className="text-sm text-primary-color line-through">
                       $999.00
                     </span>
                   </div>
-                  <div class="mt-auto">
+                  <div className="mt-auto">
                     <a
-                      class="btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-blue-500 p-2"
+                      className="btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-blue-500 p-2"
                       href="#"
                     >
-                      <span class="font-bold uppercase text-white">
+                      <span className="font-bold uppercase text-white">
                         View details
                       </span>
                     </a>
