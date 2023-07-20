@@ -20,7 +20,7 @@ const Login = () => {
     <>
       <Navbar />
       <div className="bg-gray-100">
-        <div className="mx-auto max-w-[500px] rounded-lg my-10 bg-white p-5">
+        <div className="mx-auto max-w-[500px] rounded-lg my-14 bg-white p-5">
           <div className="my-5 flex items-center justify-center">
             <img className="h-16 w-16" src="logo.png" alt="logo" />
             <p className="font-bold mx-2 text-2xl">TechSouqDubai</p>

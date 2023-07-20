@@ -4,49 +4,11 @@ import PaidIcon from "@mui/icons-material/Paid";
 import HttpsIcon from "@mui/icons-material/Https";
 import HelpIcon from "@mui/icons-material/Help";
 import Products from "./Products/Products";
-import { useEffect, useState } from "react";
 import Categories from "./Categories/Categories";
 import Navbar from "../Navbar/Navbar.js";
-import {
-  getCategories,
-  getAllProducts,
-  getProductsFromCategory,
-} from "../../actions";
 import Footer from "../Footer/Footer";
-import Slider from "react-slick";
 
-const Dashboard = () => {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-
-  const loadAllProducts = async () => {
-    await getAllProducts()
-      .then((res) => {
-        console.log(res);
-        let publishedProducts = [];
-        for (let prods of res.documents) {
-          if (prods.published) {
-            publishedProducts.push(prods);
-          }
-        }
-        setProducts(publishedProducts);
-      })
-      .catch((e) => console.error(e));
-  };
-
-  const loadAllCategories = async () => {
-    await getCategories()
-      .then((response) => {
-        setCategories(response.documents);
-      })
-      .catch((e) => console.error());
-  };
-
-  useEffect(() => {
-    loadAllCategories();
-    loadAllProducts();
-  }, []);
-
+const Dashboard = ({ products, categories }) => {
   return (
     <>
       <Navbar />
