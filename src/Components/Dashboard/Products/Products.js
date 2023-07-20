@@ -3,6 +3,13 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 /* ########## OFFERS ########## */
 const Products = ({ title, products }) => {
+  function trimCharacters(str) {
+    if (str.length <= 7) {
+      return "";
+    }
+    return str.substring(3, str.length - 4);
+  }
+
   return (
     <>
       <div className="liner-container mt-5 flex justify-center border-b-2 border-[rgba(119,119,119,.17)]">
@@ -40,24 +47,26 @@ const Products = ({ title, products }) => {
                     <a href="#">
                       <img
                         className="object-contain h-full w-full"
-                        src={prod.image}
+                        src={prod.images[0]}
                         alt="product"
                       />
                     </a>
                   </div>
                   <div className="my-1">
                     <a className="clamp break-all font-medium" href="#">
-                      {prod.name}
+                      {prod.title}
                     </a>
                   </div>
                   <div className="my-1">
-                    <p className="clamp-2 text-sm text-gray-400">{prod.desc}</p>
+                    <p className="clamp-2 text-sm text-gray-400">
+                      {trimCharacters(prod.description)}
+                    </p>
                   </div>
 
                   <div className="mt-auto">
                     <a
                       className="btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-primary p-2"
-                      href="#"
+                      href="/"
                     >
                       <span className="font-bold uppercase text-white">
                         View details

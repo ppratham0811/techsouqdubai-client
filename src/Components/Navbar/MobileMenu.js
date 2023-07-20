@@ -43,19 +43,10 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                 <div className="metismenu-content mm-collapse">
                   <a
                     className="btn-open-modal ml-10 block p-1"
-                    href="#"
-                    data-tab="0"
-                    data-target=".entry-modal"
+                    href="/login"
+                    
                   >
                     Login
-                  </a>
-                  <a
-                    className="btn-open-modal ml-10 block p-1"
-                    href="#"
-                    data-tab="1"
-                    data-target=".entry-modal"
-                  >
-                    Sign Up
                   </a>
                 </div>
               </li>

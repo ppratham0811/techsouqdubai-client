@@ -20,10 +20,17 @@ const registerUser = async (userData) => {
 };
 
 const getAllProducts = async () => {
-  await database
-    .listDocuments(mainDatabaseID, productsCollectionID)
-    .then((res) => res)
-    .catch((e) => console.error(e));
+  try {
+    return await database
+      .listDocuments(mainDatabaseID, productsCollectionID)
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const getCategories = async () => {
@@ -51,9 +58,9 @@ const getCategoryById = async (categoryId) => {
 const getProductsFromCategory = async (categoryId) => {
   try {
     return await database
-      .listDocuments(mainDatabaseID, productsCollectionID, {
-        category: categoryId,
-      })
+      .listDocuments(mainDatabaseID, productsCollectionID, [
+        `category=${categoryId}`,
+      ])
       .then((res) => {
         console.log(res);
         return res;
