@@ -4,7 +4,6 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import Menu from "./Menu";
 import { useEffect, useState } from "react";
@@ -34,9 +33,7 @@ const Navbar = () => {
         <div className="bg-secondary-color">
           <div className="container mx-auto grid grid-cols-4 gap-1 px-2 py-4 sm:px-8 lg:grid-cols-12 lg:gap-0">
             <div className="flex items-center order-1 col-span-2 lg:order-1 lg:col-span-3">
-              <a href="index.html">
-                <img className="w-8 h-8 mx-2" src="logo.png" alt="logo" />
-              </a>
+              <img className="w-8 h-8 mx-2" src="/logo.png" alt="logo" />
               <h3 className="text-white text-bold">TechSouqDubai</h3>
             </div>
             <div className="transition-all-300 order-3 col-span-4 mt-[10px] hidden self-center lg:order-2 lg:col-span-6 lg:mt-0 lg:block">
@@ -54,11 +51,6 @@ const Navbar = () => {
               </form>
             </div>
             <div className="order-2 col-span-2 flex gap-2 self-center justify-self-end lg:order-3 lg:col-span-3 xl:gap-5">
-              <div className="flex items-center lg:hidden">
-                <button className="btn-search-mob p-[5px] text-white">
-                  <SearchOutlinedIcon />
-                </button>
-              </div>
               <div className="flex items-center lg:hidden">
                 <button
                   className="btn-open-modal text-white"
@@ -122,7 +114,9 @@ const Navbar = () => {
         <Menu />
       </header>
 
-      {menu && <MobileMenu menu={menu} setMenu={setMenu} categories={categories} />}
+      {menu && (
+        <MobileMenu menu={menu} setMenu={setMenu} categories={categories} />
+      )}
     </>
   );
 };

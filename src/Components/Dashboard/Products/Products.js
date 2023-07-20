@@ -1,8 +1,13 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import { Link } from "react-router-dom";
 
 /* ########## OFFERS ########## */
 const Products = ({ title, products }) => {
+  function trimCharacters(str) {
+    return str.substring(3, str.length - 4);
+  }
+
   return (
     <>
       <div className="liner-container mt-5 flex justify-center border-b-2 border-[rgba(119,119,119,.17)]">
@@ -15,7 +20,7 @@ const Products = ({ title, products }) => {
         {products?.map((prod, idx) => {
           return (
             <>
-              <div className="">
+              <div key={prod.$id}>
                 <div className="card-container transition-all-300 translateY-2 relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl">
                   <div className="absolute top-[10px] right-[10px]">
                     <div className="p-[2px]">
@@ -32,7 +37,7 @@ const Products = ({ title, products }) => {
                         href="javascript:void(0)"
                         data-target=".quick-view-modal"
                       >
-                        <RemoveRedEyeOutlinedIcon />
+                        <AddShoppingCartOutlinedIcon />
                       </a>
                     </div>
                   </div>
@@ -40,24 +45,26 @@ const Products = ({ title, products }) => {
                     <a href="#">
                       <img
                         className="object-contain h-full w-full"
-                        src={prod.image}
+                        src={prod.images[0]}
                         alt="product"
                       />
                     </a>
                   </div>
                   <div className="my-1">
                     <a className="clamp break-all font-medium" href="#">
-                      {prod.name}
+                      {prod.title}
                     </a>
                   </div>
                   <div className="my-1">
-                    <p className="clamp-2 text-sm text-gray-400">{prod.desc}</p>
+                    <p className="clamp-2 text-sm text-gray-400">
+                      {trimCharacters(prod.description)}
+                    </p>
                   </div>
 
                   <div className="mt-auto">
                     <a
                       className="btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-primary p-2"
-                      href="#"
+                      href={`/products/${prod.$id}`}
                     >
                       <span className="font-bold uppercase text-white">
                         View details

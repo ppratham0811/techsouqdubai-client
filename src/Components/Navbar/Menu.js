@@ -35,7 +35,7 @@ const Menu = () => {
     // Navbar Menu
     <div className="hidden bg-white lg:block">
       <nav className="container mx-auto px-2 sm:px-8 shadow-xl">
-        <ul className="menu flex flex-wrap items-center justify-between py-[10px] text-lg">
+        <ul className="flex flex-wrap items-center justify-between py-[10px] text-lg">
           <li className="underlined-animated group relative group-hover:border-b-2 border-b-4 border-transparent hover:border-primary">
             <a
               href="#"
@@ -46,15 +46,13 @@ const Menu = () => {
             </a>
             <div className="hidden my-2 group-hover:block absolute w-80 bg-white top-[30px] z-20 shadow-lg p-4">
               <ul>
-                {parentCategories.map((p, idx) => {
-                  return (
-                    <>
-                      <li key={idx} className="my-2 group">
-                        {p.name}
-                      </li>
-                    </>
-                  );
-                })}
+                {parentCategories.map((p, idx) => (
+                  <>
+                    <li key={idx} className="my-2 group">
+                      {p.name}
+                    </li>
+                  </>
+                ))}
               </ul>
             </div>
           </li>

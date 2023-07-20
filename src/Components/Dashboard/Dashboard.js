@@ -4,36 +4,11 @@ import PaidIcon from "@mui/icons-material/Paid";
 import HttpsIcon from "@mui/icons-material/Https";
 import HelpIcon from "@mui/icons-material/Help";
 import Products from "./Products/Products";
-import { useEffect, useState } from "react";
 import Categories from "./Categories/Categories";
 import Navbar from "../Navbar/Navbar.js";
-import { getCategories, getAllProducts, getProductsFromCategory } from "../../actions";
 import Footer from "../Footer/Footer";
-import Slider from "react-slick";
 
-const Dashboard = () => {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-
-  const loadAllProducts = async () => {
-    await getAllProducts()
-      .then((res) => setProducts(res.documents))
-      .catch((e) => console.error(e));
-  };
-
-  const loadAllCategories = async () => {
-    await getCategories()
-      .then((response) => {
-        setCategories(response.documents);
-      })
-      .catch((e) => console.error());
-  };
-
-  useEffect(() => {
-    loadAllCategories();
-    loadAllProducts();
-  }, []);
-
+const Dashboard = ({ products, categories }) => {
   return (
     <>
       <Navbar />
@@ -73,8 +48,8 @@ const Dashboard = () => {
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-12 flex sm:col-span-6 lg:col-span-3 shadow-lg mx-4 lg:mr-4 rounded-lg">
             <div className="transition-all-300 flex w-full items-center gap-4 rounded-lg bg-white p-5 hover:shadow-lg xs:pl-[20%] sm:pl-5">
-              <div className="rounded-full border-2">
-                <LocalShippingIcon />
+              <div className="rounded-full border-2 p-2">
+                <LocalShippingIcon className="text-primary" />
               </div>
               <div>
                 <h6 className="font-bold capitalize">Free shipping</h6>
@@ -86,8 +61,8 @@ const Dashboard = () => {
           </div>
           <div className="col-span-12 flex sm:col-span-6 lg:col-span-3 shadow-lg mx-4 rounded-lg">
             <div className="transition-all-300 flex w-full items-center gap-4 rounded-lg bg-white p-5 hover:shadow-lg xs:pl-[20%] sm:pl-5">
-              <div className="rounded-full border-2">
-                <PaidIcon />
+              <div className="rounded-full border-2 p-2">
+                <PaidIcon className="text-primary" />
               </div>
               <div>
                 <h6 className="font-bold capitalize">Money back</h6>
@@ -97,8 +72,8 @@ const Dashboard = () => {
           </div>
           <div className="col-span-12 flex sm:col-span-6 lg:col-span-3 shadow-lg mx-4 rounded-lg">
             <div className="transition-all-300 flex w-full items-center gap-4 rounded-lg bg-white p-5 hover:shadow-lg xs:pl-[20%] sm:pl-5">
-              <div className="rounded-full border-2">
-                <HttpsIcon />
+              <div className="rounded-full border-2 p-2">
+                <HttpsIcon className="text-primary" />
               </div>
               <div>
                 <h6 className="font-bold capitalize">Secure payment</h6>
@@ -110,8 +85,8 @@ const Dashboard = () => {
           </div>
           <div className="col-span-12 flex sm:col-span-6 lg:col-span-3 shadow-lg mx-4 lg:ml-4 rounded-lg">
             <div className="transition-all-300 flex w-full items-center gap-4 rounded-lg bg-white p-5 hover:shadow-lg xs:pl-[20%] sm:pl-5">
-              <div className="rounded-full border-2">
-                <HelpIcon />
+              <div className="rounded-full border-2 p-2">
+                <HelpIcon className="text-primary" />
               </div>
               <div>
                 <h6 className="font-bold capitalize">Online support</h6>
@@ -122,15 +97,9 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* {categories.map(category => {
-        return (
-          <>
-            <Products title={category.name} products={getProductsFromCategory(category.$id)} />
-          </>
-        )
-      })} */}
+      <Products title="Products Range" products={products} />
 
-      <Products title="Categories" products={categories} />
+      {/* <Products title="Categories" products={categories} /> */}
 
       <Categories />
 

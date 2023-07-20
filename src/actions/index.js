@@ -2,7 +2,6 @@ import { Account, ID, Databases } from "appwrite";
 import {
   client,
   mainDatabaseID,
-  usersDatabaseID,
   usersCollectionID,
   productsCollectionID,
   ordersCollectionID,
@@ -14,16 +13,34 @@ const database = new Databases(client);
 
 const registerUser = async (userData) => {
   await database
-    .createDocument(usersDatabaseID, usersCollectionID, ID.unique(), userData)
+    .createDocument(mainDatabaseID, usersCollectionID, ID.unique(), userData)
     .then((res) => res)
     .catch((e) => console.error(e));
 };
 
 const getAllProducts = async () => {
-  await database
-    .listDocuments(mainDatabaseID, productsCollectionID)
-    .then((res) => res)
-    .catch((e) => console.error(e));
+  try {
+    return await database
+      .listDocuments(mainDatabaseID, productsCollectionID)
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getProductById = async (productId) => {
+  try {
+    return await database
+      .getDocument(mainDatabaseID, productsCollectionID, productId)
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e.message);
+  }
 };
 
 const getCategories = async () => {
@@ -51,9 +68,9 @@ const getCategoryById = async (categoryId) => {
 const getProductsFromCategory = async (categoryId) => {
   try {
     return await database
-      .listDocuments(mainDatabaseID, productsCollectionID, {
-        category: categoryId,
-      })
+      .listDocuments(mainDatabaseID, productsCollectionID, [
+        `category=${categoryId}`,
+      ])
       .then((res) => {
         console.log(res);
         return res;
@@ -72,4 +89,5 @@ export {
   getCategories,
   getCategoryById,
   getProductsFromCategory,
+  getProductById,
 };

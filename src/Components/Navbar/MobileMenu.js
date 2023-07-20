@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import "./MobileMenu.css";
 import { getCategories } from "../../actions";
 
 const MobileMenu = ({ menu, setMenu, categories }) => {
+  useEffect(() => {
+    // Add event listeners to disable scrolling when the menu is open
+    if (menu) {
+      document.body.classList.add("disable-scroll");
+    } else {
+      document.body.classList.remove("disable-scroll");
+    }
+
+    // Clean up event listeners on component unmount
+    return () => {
+      document.body.classList.remove("disable-scroll");
+    };
+  }, [menu]);
+
   return (
     <>
-      <div className="md:hidden lg:hidden flex h-full w-full z-120 bg-black bg-opacity-50 items-center justify-center">
+      <div className="absolute top-0 md:hidden lg:hidden flex h-full w-full z-[100] bg-black bg-opacity-50 items-center justify-center">
         <div className="transition-all-300 relative left-0 mr-auto flex h-full w-full min-w-[250px] flex-col bg-white px-8 overflow-auto">
           <CloseIcon
             className="absolute top-4 right-4"
@@ -21,6 +37,16 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
             </div>
           </div>
           <nav className="h-full w-full overflow-auto bg-white">
+            <div className="flex h-[40px] overflow-hidden shadow-lg border-gray-200 border-[1px] border-solid mb-4 rounded-[50px] bg-white">
+              <input
+                className="w-full text-sm border-none py-[5px] bg-white pl-5 text-black focus:border-none focus:outline-none appearance-none search-bar placeholder-black"
+                type="search"
+                placeholder="Search..."
+              />
+              <button className="px-3 text-black" type="submit">
+                <SearchOutlinedIcon />
+              </button>
+            </div>
             <ul className="metismenu">
               <li className="border-b border-gray-200">
                 <a
@@ -41,21 +67,8 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                   <span className="font-semibold">My Account</span>
                 </div>
                 <div className="metismenu-content mm-collapse">
-                  <a
-                    className="btn-open-modal ml-10 block p-1"
-                    href="#"
-                    data-tab="0"
-                    data-target=".entry-modal"
-                  >
+                  <a className="btn-open-modal ml-10 block p-1" href="/login">
                     Login
-                  </a>
-                  <a
-                    className="btn-open-modal ml-10 block p-1"
-                    href="#"
-                    data-tab="1"
-                    data-target=".entry-modal"
-                  >
-                    Sign Up
                   </a>
                 </div>
               </li>
