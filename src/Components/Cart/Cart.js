@@ -194,13 +194,13 @@ const Cart = () => {
                                 className="quantity-value input-number w-12 border-none bg-transparent p-1 text-center text-lg text-gray-400 focus:border-none focus:ring-0"
                                 type="number"
                                 min={1}
-                                onChange={(e) =>{
-                                  console.log("Here " ,e.target.value);
-                                  /* handleQuantityIncrease(
+                                onChange={(e) =>
+                                 
+                                  handleQuantityIncrease(
                                     prodObj.productId,
                                     e.target.value
-                                    ) */
-                                  }
+                                    )
+                                  
                                 }
                                 value={prodObj.qty}
                               />
