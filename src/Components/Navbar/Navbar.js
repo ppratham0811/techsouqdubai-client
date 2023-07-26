@@ -9,16 +9,19 @@ import Menu from "./Menu";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { getCategories } from "../../actions";
+import { currentState } from "../../app/cartSlice";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
+
+  const cart = useSelector(currentState);
 
   const [categories, setCategories] = useState([]);
   const loadAllCategories = async () => {
     await getCategories()
       .then((response) => {
         setCategories(response.documents);
-        console.log(response.documents);
       })
       .catch((e) => console.error());
   };
@@ -65,7 +68,7 @@ const Navbar = () => {
                   <a
                     className="btn-open-modal"
                     data-target=".wishlist-modal"
-                    href="javascript:void(0)"
+                    href="/wishlist"
                   >
                     <FavoriteBorderOutlinedIcon />
                   </a>
@@ -77,12 +80,12 @@ const Navbar = () => {
                   <a
                     className="btn-open-modal"
                     data-target=".shopping-cart-modal"
-                    href="javascript:void(0)"
+                    href="/cart"
                   >
                     <ShoppingCartOutlinedIcon className="text-xl" />
                   </a>
                   <span className="absolute bg-blue-500 top-0 right-[-6px] h-[15px] min-w-[15px] p-0 rounded-[50%] text-center text-sm">
-                    0
+                    {cart.products.length}
                   </span>
                 </div>
               </div>

@@ -5,6 +5,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LockIcon from "@mui/icons-material/Lock";
 import { useState } from "react";
+import { registerUser } from "../../actions";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -15,6 +16,10 @@ const Login = () => {
   });
 
   const [login, setLogin] = useState(true);
+
+  const registerNewUser = async (userData) => {
+    
+  }
 
   return (
     <>
@@ -27,7 +32,7 @@ const Login = () => {
           </div>
 
           {login ? (
-            <form action="">
+            <form onSubmit={(e) => registerNewUser()}>
               <div className="flex flex-col gap-4">
                 <div className="relative flex h-[40px] items-center focus:border-primary border-2 p-2 border-solid rounded-lg">
                   <EmailIcon />

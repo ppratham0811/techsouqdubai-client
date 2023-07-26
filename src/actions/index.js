@@ -23,7 +23,6 @@ const getAllProducts = async () => {
     return await database
       .listDocuments(mainDatabaseID, productsCollectionID)
       .then((res) => {
-        console.log(res);
         return res;
       })
       .catch((e) => console.error(e));
@@ -83,6 +82,17 @@ const getProductsFromCategory = async (categoryId) => {
   }
 };
 
+const getWishlist = async ({ userId }) => {
+  try {
+    return await database
+      .getDocument(mainDatabaseID, usersCollectionID, userId)
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export {
   getAllProducts,
   registerUser,
@@ -90,4 +100,5 @@ export {
   getCategoryById,
   getProductsFromCategory,
   getProductById,
+  getWishlist,
 };
