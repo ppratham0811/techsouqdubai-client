@@ -28,7 +28,9 @@ const Cart = () => {
   };
 
   const handleQuantityIncrease = (productId, qty) => {
-    dispatch(updateQty({ payload: { productId, qty } }));
+    console.log(productId, qty);
+    const data = {productId, qty}
+    dispatch(updateQty(data));
     console.log(store.getState());
   };
 
@@ -115,11 +117,14 @@ const Cart = () => {
                                 className="quantity-value input-number w-12 border-none bg-transparent p-1 text-center text-lg text-gray-400 focus:border-none focus:ring-0"
                                 type="number"
                                 min={1}
-                                onChange={(e) =>
+                                onChange={(e) =>{
+
+                                  console.log(e.target.value);
                                   handleQuantityIncrease(
                                     prodObj.productId,
                                     e.target.value
-                                  )
+                                    )
+                                  }
                                 }
                                 value={prodObj.qty}
                               />
@@ -189,11 +194,13 @@ const Cart = () => {
                                 className="quantity-value input-number w-12 border-none bg-transparent p-1 text-center text-lg text-gray-400 focus:border-none focus:ring-0"
                                 type="number"
                                 min={1}
-                                onChange={(e) =>
-                                  handleQuantityIncrease(
+                                onChange={(e) =>{
+                                  console.log("Here " ,e.target.value);
+                                  /* handleQuantityIncrease(
                                     prodObj.productId,
                                     e.target.value
-                                  )
+                                    ) */
+                                  }
                                 }
                                 value={prodObj.qty}
                               />
@@ -201,7 +208,8 @@ const Cart = () => {
                           </td>
                           <td className="p-2">
                             <span className="font-bold text-primary">
-                              AEDsubtotal
+                            AED {prodObj.product.salePrice * prodObj.qty}
+
                             </span>
                           </td>
                           <td className="p-2">
