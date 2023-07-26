@@ -10,7 +10,6 @@ const Menu = () => {
   const loadAllCategories = async () => {
     await getCategories()
       .then((response) => {
-        console.log(response);
         setAllCategories(response.documents);
       })
       .catch((e) => console.error());
@@ -18,14 +17,12 @@ const Menu = () => {
 
   useEffect(() => {
     loadAllCategories();
-    console.log(allCategories);
     let parentCats = [];
     for (let category of allCategories) {
       if (category.parent === "isParent") {
         parentCats.push(category);
       }
     }
-    console.log(parentCats);
     setParentCategories(parentCats);
   }, []);
 

@@ -6,6 +6,8 @@ import { ProgressBar } from "react-loader-spinner";
 import ProductPage from "./Components/ProductPage/ProductPage.js";
 import { getCategories, getAllProducts } from "./actions";
 import Loading from "./utils/Loading.js";
+import Wishlist from "./Components/Wishlist/Wishlist.js";
+import Cart from "./Components/Cart/Cart.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +18,6 @@ function App() {
   const loadAllProducts = async () => {
     await getAllProducts()
       .then((res) => {
-        console.log(res);
         let publishedProducts = [];
         for (let prods of res.documents) {
           if (prods.published) {
@@ -67,10 +68,12 @@ function App() {
                 }
               />
               <Route path="/login" element={<Login />} />
+              <Route path="/wishlist" element={<Wishlist />} />
               <Route
                 path="/products/:productId"
                 element={<ProductPage products={products} />}
               />
+              <Route path="/cart" element={<Cart />} />
             </Routes>
           </BrowserRouter>
         </div>

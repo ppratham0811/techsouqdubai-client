@@ -3,8 +3,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import "./MobileMenu.css";
 import { getCategories } from "../../actions";
+import { store } from "../../app/persist";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { useSelector } from "react-redux";
+import { currentState } from "../../app/cartSlice";
 
 const MobileMenu = ({ menu, setMenu, categories }) => {
+  const cart = useSelector(currentState);
+  
   useEffect(() => {
     // Add event listeners to disable scrolling when the menu is open
     if (menu) {
@@ -21,7 +28,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
 
   return (
     <>
-      <div className="absolute top-0 md:hidden lg:hidden flex h-full w-full z-[100] bg-black bg-opacity-50 items-center justify-center">
+      <div className="absolute top-0 lg:hidden flex h-full w-full z-[100] bg-black bg-opacity-50 items-center justify-center">
         <div className="transition-all-300 relative left-0 mr-auto flex h-full w-full min-w-[250px] flex-col bg-white px-8 overflow-auto">
           <CloseIcon
             className="absolute top-4 right-4"
@@ -32,7 +39,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
               <i className="bi bi-x-lg text-stroke-medium pointer-events-none flex text-xl"></i>
             </button>
             <div className="py-12 flex items-center justify-center">
-              <img src="logo.png" className="h-16 w-16" alt="logo" />
+              <img src="/logo.png" className="h-16 w-16" alt="logo" />
               <p className="font-bold text-2xl px-4">TechSouqDubai</p>
             </div>
           </div>
@@ -49,37 +56,29 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
             </div>
             <ul className="metismenu">
               <li className="border-b border-gray-200">
-                <a
-                  className="flex select-none items-center p-2"
-                  href="index.html"
-                >
+                <a className="flex select-none items-center p-2" href="/">
                   <i className="bi bi-house-door mr-3 flex text-xl text-primary-color"></i>
                   <span className="font-semibold">Home</span>
                 </a>
               </li>
               <li className="border-b border-gray-200">
-                <div
-                  className="metismenu-btn has-arrow flex cursor-pointer select-none items-center p-2"
-                  aria-expanded="false"
-                  role="menu"
-                >
+                <div className="metismenu-btn has-arrow flex cursor-pointer select-none items-center p-2">
                   <i className="bi bi-person mr-3 flex text-xl text-primary-color"></i>
                   <span className="font-semibold">My Account</span>
                 </div>
                 <div className="metismenu-content mm-collapse">
-                  <a className="btn-open-modal ml-10 block p-1" href="/login">
+                  <a className="ml-10 block p-1" href="/login">
                     Login
                   </a>
                 </div>
               </li>
               <li className="border-b border-gray-200">
-                <div
-                  className="btn-open-modal cursor-pointer p-2"
-                  data-target=".wishlist-modal"
-                >
-                  <div className="pointer-events-none flex cursor-pointer select-none items-center">
-                    <i className="bi bi-heart mr-3 flex text-xl text-primary-color"></i>
-                    <span className="font-semibold">Wishlist</span>
+                <div className="cursor-pointer p-2">
+                  <div className="flex cursor-pointer items-center">
+                    <a href="/wishlist">
+                      <FavoriteBorderOutlinedIcon />
+                      <span className="font-semibold">Wishlist</span>
+                    </a>
                     <span className="badge ml-auto h-[22px] min-w-[22px] px-[6px]">
                       0
                     </span>
@@ -91,29 +90,23 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                   className="btn-open-modal cursor-pointer p-2"
                   data-target=".shopping-cart-modal"
                 >
-                  <div className="pointer-events-none flex cursor-pointer select-none items-center">
-                    <i className="bi bi-cart mr-3 flex text-xl text-primary-color"></i>
-                    <span className="font-semibold">Shopping Cart</span>
+                  <div className="flex cursor-pointer items-center">
+                    <a href="/cart">
+                      <ShoppingCartOutlinedIcon />
+                      <span className="font-semibold">Shopping Cart</span>
+                    </a>
                     <span className="badge ml-auto h-[22px] min-w-[22px] px-[6px]">
-                      0
+                      {cart.products.length}
                     </span>
                   </div>
                 </div>
               </li>
               <li className="border-b border-gray-200 px-3">
-                <a
-                  className="flex select-none items-center p-2"
-                  href="faqs.html"
-                >
-                  <span className="font-semibold">Categories</span>
-                </a>
+                <span className="font-semibold">Categories</span>
               </li>
               {categories?.map((cat, idx) => (
                 <li key={idx} className="border-b border-gray-200 px-9">
-                  <a
-                    className="flex select-none items-center p-2"
-                    href="faqs.html"
-                  >
+                  <a className="flex select-none items-center p-2" href="/">
                     <span>{cat.name}</span>
                   </a>
                 </li>
