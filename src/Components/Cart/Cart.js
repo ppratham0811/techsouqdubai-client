@@ -126,7 +126,7 @@ const Cart = () => {
                             </div>
                           </div>
                           <div
-                            className="tippy tippy-remove transition-all-300 cursor-pointer text-slate-400 hover:text-primary"
+                            className="transition-all-300 cursor-pointer text-slate-400 hover:text-primary"
                             onClick={() =>
                               handleDeleteProductFromCart(prodObj.productId)
                             }
@@ -180,7 +180,7 @@ const Cart = () => {
                           </td>
                           <td className="p-2">
                             <span className="font-bold text-primary">
-                              AED{prodObj.product.salePrice}
+                              AED {prodObj.product.salePrice}
                             </span>
                           </td>
                           <td className="p-2">
@@ -201,7 +201,7 @@ const Cart = () => {
                           </td>
                           <td className="p-2">
                             <span className="font-bold text-primary">
-                              AEDsubtotal
+                              AED {prodObj.product.salePrice * prodObj.qty}
                             </span>
                           </td>
                           <td className="p-2">

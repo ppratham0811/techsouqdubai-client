@@ -2,21 +2,21 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Heading from "../../Widgets/Heading";
-import { getWishlist } from "../../actions"; 
+import { getWishlist } from "../../actions";
 import { useEffect, useState } from "react";
 
 const Wishlist = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
-  
-  
-  
+
   const getWishlistItems = async () => {
     await getWishlist()
-  }
-  
+      .then((res) => setWishlistItems(res.documents))
+      .catch((e) => console.error(e));
+  };
+
   useEffect(() => {
-    
-  }, [])
+    getWishlistItems();
+  }, []);
 
   return (
     <>
@@ -167,7 +167,9 @@ const Wishlist = () => {
                         className="btn-effect rounded-lg bg-primary p-2 text-white"
                         href="#"
                       >
-                        <span className="font-bold uppercase">View Details</span>
+                        <span className="font-bold uppercase">
+                          View Details
+                        </span>
                       </a>
                       <div className="tippy tippy-remove transition-all-300 hidden cursor-pointer text-slate-400 hover:text-primary sm:inline">
                         <DeleteForeverIcon />
