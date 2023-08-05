@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
+import Navbar from "../../Components/Navbar/Navbar";
+import Footer from "../../Components/Footer/Footer";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../../actions";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Loading from "../../utils/Loading";
-import Products from "../Dashboard/Products/Products";
+import Products from "../../Components/Dashboard/Products/Products";
 import { addToCart } from "../../app/cartSlice";
 import { useDispatch } from "react-redux";
 import { store } from "../../app/persist";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 const ProductPage = ({ products }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const [exist, setExist] = useState(false);
   const dispatch = useDispatch();
 
   const fetchProductById = async () => {
     await getProductById(productId)
       .then((res) => {
-        setProduct(res);
+        console.log("res: ", res);
+        if (res.status) {
+          setProduct(res.res);
+          setExist(true);
+        }
       })
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        console.error(e.message);
+      });
   };
 
   useEffect(() => {
@@ -38,6 +46,9 @@ const ProductPage = ({ products }) => {
   };
 
   if (!product) {
+    if (!exist) {
+      return <ErrorPage />;
+    }
     return <Loading />;
   }
 

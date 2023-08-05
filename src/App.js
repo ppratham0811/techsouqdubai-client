@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import Dashboard from "./Components/Dashboard/Dashboard.js";
-import Login from "./Components/Login/Login.js";
+import Login from "./pages/Login/Login.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProgressBar } from "react-loader-spinner";
-import ProductPage from "./Components/ProductPage/ProductPage.js";
+import ProductPage from "./pages/ProductPage/ProductPage.js";
 import { getCategories, getAllProducts } from "./actions";
 import Loading from "./utils/Loading.js";
-import Wishlist from "./Components/Wishlist/Wishlist.js";
-import Cart from "./Components/Cart/Cart.js";
+import Wishlist from "./pages/Wishlist/Wishlist.js";
+import Cart from "./pages/Cart/Cart.js";
+import Profile from "./pages/Profile/Profile.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -68,12 +69,13 @@ function App() {
                 }
               />
               <Route path="/login" element={<Login />} />
-              <Route path="/wishlist" element={<Wishlist />} />
               <Route
                 path="/products/:productId"
                 element={<ProductPage products={products} />}
               />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/wishlist" element={<Wishlist />} />
             </Routes>
           </BrowserRouter>
         </div>

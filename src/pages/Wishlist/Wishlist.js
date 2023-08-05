@@ -1,5 +1,5 @@
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
+import Navbar from "../../Components/Navbar/Navbar";
+import Footer from "../../Components/Footer/Footer";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Heading from "../../Widgets/Heading";
 import { getWishlist } from "../../actions";
