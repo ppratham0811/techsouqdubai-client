@@ -21,7 +21,7 @@ const Cart = () => {
 
   const calculateSubtotal = () => {
     let total = 0;
-    for (let c of cart.products) {
+    for (let c of cart) {
       total += c.qty * c.product.salePrice;
     }
     setCartTotal(total);
@@ -52,8 +52,8 @@ const Cart = () => {
         >
           <div className="col-span-12 lg:col-span-8">
             {/* Mobile Screen view */}
-            {cart.products ? (
-              cart.products.map((prodObj, idx) => {
+            {cart ? (
+              cart.map((prodObj, idx) => {
                 return (
                   <div
                     key={idx}
@@ -156,8 +156,8 @@ const Cart = () => {
                     <th></th>
                   </tr>
                 </thead>
-                {cart.products ? (
-                  cart.products.map((prodObj, idx) => {
+                {cart ? (
+                  cart.map((prodObj, idx) => {
                     return (
                       <tbody>
                         <tr className="hover:bg-gray-100">
