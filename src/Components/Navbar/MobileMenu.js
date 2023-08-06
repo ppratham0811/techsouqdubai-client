@@ -11,7 +11,7 @@ import { currentState } from "../../app/cartSlice";
 
 const MobileMenu = ({ menu, setMenu, categories }) => {
   const cart = useSelector(currentState);
-  
+
   useEffect(() => {
     // Add event listeners to disable scrolling when the menu is open
     if (menu) {
@@ -96,7 +96,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                       <span className="font-semibold">Shopping Cart</span>
                     </a>
                     <span className="badge ml-auto h-[22px] min-w-[22px] px-[6px]">
-                      {cart.products.length}
+                      {cart.length}
                     </span>
                   </div>
                 </div>

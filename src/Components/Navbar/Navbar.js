@@ -8,13 +8,17 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import Menu from "./Menu";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
-import { getCategories } from "../../actions";
+import {
+  getCategories,
+  getCurrentUser,
+  deleteCurrentSession,
+} from "../../actions";
 import { currentState } from "../../app/cartSlice";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
-
+  const [user, setUser] = useState(false);
   const cart = useSelector(currentState);
 
   const [categories, setCategories] = useState([]);
@@ -26,8 +30,23 @@ const Navbar = () => {
       .catch((e) => console.error());
   };
 
+  const loadCurrentUser = async () => {
+    const currentUser = await getCurrentUser();
+    if (currentUser) {
+      console.log(currentUser);
+      setUser(true);
+    }
+    return currentUser;
+  };
+
+  const logoutCurrentUser = async () => {
+    await deleteCurrentSession();
+    console.log(loadCurrentUser());
+  };
+
   useEffect(() => {
     loadAllCategories();
+    loadCurrentUser();
   }, []);
 
   return (
@@ -85,7 +104,7 @@ const Navbar = () => {
                     <ShoppingCartOutlinedIcon className="text-xl" />
                   </a>
                   <span className="absolute bg-blue-500 top-0 right-[-6px] h-[15px] min-w-[15px] p-0 rounded-[50%] text-center text-sm">
-                    {cart.products.length}
+                    {cart.length}
                   </span>
                 </div>
               </div>
@@ -98,14 +117,41 @@ const Navbar = () => {
                 <div className="transition-all-300 invisible absolute top-full z-30 w-[120%] pt-[10px] opacity-0 group-hover:visible group-hover:opacity-100">
                   <div className="relative">
                     <ul className="overflow-hidden rounded-md bg-white p-[6px]">
-                      <li className="hover:font-semibold">
-                        <a href="/login">
-                          <div className="pointer-events-none flex items-center gap-2 p-1">
-                            <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />
-                            <span>Login</span>
-                          </div>
-                        </a>
-                      </li>
+                      {user ? (
+                        <>
+                          <li key={1} className="hover:font-semibold">
+                            <a href="/profile">
+                              <div className="pointer-events-none flex items-center gap-2 p-1">
+                                <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />
+                                <span>Profile</span>
+                              </div>
+                            </a>
+                          </li>
+                          <li
+                            key={2}
+                            className="cursor-pointer hover:font-semibold"
+                          >
+                            <button
+                              onClick={() => logoutCurrentUser()}
+                              className="flex items-center gap-2 p-1"
+                            >
+                              <a href="/login">
+                                <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />
+                                <span>Log Out</span>
+                              </a>
+                            </button>
+                          </li>
+                        </>
+                      ) : (
+                        <li className="hover:font-semibold">
+                          <a href="/login">
+                            <div className="pointer-events-none flex items-center gap-2 p-1">
+                              <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />
+                              <span>Login</span>
+                            </div>
+                          </a>
+                        </li>
+                      )}
                     </ul>
                   </div>
                 </div>
