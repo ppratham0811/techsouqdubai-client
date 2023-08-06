@@ -13,14 +13,17 @@ import {
   getCurrentUser,
   deleteCurrentSession,
 } from "../../actions";
-import { currentState } from "../../app/cartSlice";
+import { currentCartState } from "../../app/cartSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { currentWishlistState } from "../../app/wishlistSlice";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const [user, setUser] = useState(false);
-  const cart = useSelector(currentState);
+  const cartProducts = useSelector(currentCartState);
+  const wishlistProducts = useSelector(currentWishlistState);
+
   const navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
@@ -97,7 +100,7 @@ const Navbar = () => {
                     <FavoriteBorderOutlinedIcon />
                   </a>
                   <span className="absolute bg-blue-500 top-0 right-[-6px] h-[15px] min-w-[15px] rounded-[50%] text-center text-sm">
-                    0
+                    {wishlistProducts.length}
                   </span>
                 </div>
                 <div className="relative cursor:pointer">
@@ -109,7 +112,7 @@ const Navbar = () => {
                     <ShoppingCartOutlinedIcon className="text-xl" />
                   </a>
                   <span className="absolute bg-blue-500 top-0 right-[-6px] h-[15px] min-w-[15px] p-0 rounded-[50%] text-center text-sm">
-                    {cart.length}
+                    {cartProducts.length}
                   </span>
                 </div>
               </div>
@@ -140,10 +143,8 @@ const Navbar = () => {
                               onClick={() => logoutCurrentUser()}
                               className="flex items-center gap-2 p-1"
                             >
-                              
-                                <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />
-                                <span>Log Out</span>
-                              
+                              <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />
+                              <span>Log Out</span>
                             </button>
                           </li>
                         </>

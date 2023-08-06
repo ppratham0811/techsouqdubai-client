@@ -7,10 +7,10 @@ import { store } from "../../app/persist";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useSelector } from "react-redux";
-import { currentState } from "../../app/cartSlice";
+import { currentCartState } from "../../app/cartSlice";
 
 const MobileMenu = ({ menu, setMenu, categories }) => {
-  const cart = useSelector(currentState);
+  const cart = useSelector(currentCartState);
 
   useEffect(() => {
     // Add event listeners to disable scrolling when the menu is open

@@ -3,42 +3,42 @@ import Footer from "../../Components/Footer/Footer";
 import Navbar from "../../Components/Navbar/Navbar";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { currentState, removeFromCart } from "../../app/cartSlice";
+import { currentCartState, removeFromCart } from "../../app/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../app/persist";
 import Loading from "../../utils/Loading";
 import { updateQty } from "../../app/cartSlice";
 
 const Cart = () => {
-  const cart = useSelector(currentState);
+  const cartProducts = useSelector(currentCartState);
   const [cartTotal, setCartTotal] = useState(0);
   const dispatch = useDispatch();
 
   useEffect(() => {
     calculateSubtotal();
-    console.log(cart);
-  }, [cart]);
+    console.log(cartProducts);
+  }, [cartProducts]);
 
   const calculateSubtotal = () => {
     let total = 0;
-    for (let c of cart) {
+    for (let c of cartProducts) {
       total += c.qty * c.product.salePrice;
     }
     setCartTotal(total);
   };
 
   const handleQuantityIncrease = (productId, qty) => {
-    dispatch(updateQty( { productId, qty } ));
+    dispatch(updateQty({ productId, qty }));
     console.log(store.getState());
   };
 
   const handleDeleteProductFromCart = (productId) => {
     dispatch(removeFromCart(productId));
     console.log("store: ", store.getState());
-    console.log(cart);
+    console.log(cartProducts);
   };
 
-  if (!cart) {
+  if (!cartProducts) {
     return <Loading />;
   }
 
@@ -52,8 +52,8 @@ const Cart = () => {
         >
           <div className="col-span-12 lg:col-span-8">
             {/* Mobile Screen view */}
-            {cart ? (
-              cart.map((prodObj, idx) => {
+            {cartProducts ? (
+              cartProducts.map((prodObj, idx) => {
                 return (
                   <div
                     key={idx}
@@ -153,11 +153,10 @@ const Cart = () => {
                     <th className="p-2">Unit Price</th>
                     <th className="p-2">Quantity</th>
                     <th className="p-2">Subtotal</th>
-                    <th></th>
                   </tr>
                 </thead>
-                {cart ? (
-                  cart.map((prodObj, idx) => {
+                {cartProducts ? (
+                  cartProducts.map((prodObj, idx) => {
                     return (
                       <tbody>
                         <tr className="hover:bg-gray-100">

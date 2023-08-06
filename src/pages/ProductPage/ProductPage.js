@@ -11,6 +11,7 @@ import { addToCart } from "../../app/cartSlice";
 import { useDispatch } from "react-redux";
 import { store } from "../../app/persist";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import { addToWishlist } from "../../app/wishlistSlice";
 
 const ProductPage = ({ products }) => {
   const { productId } = useParams();
@@ -45,10 +46,13 @@ const ProductPage = ({ products }) => {
     console.log(store.getState());
   };
 
-  if (!product) {
-    if (!exist) {
-      return <ErrorPage />;
-    }
+  const addProductToWishlist = async (product) => {
+    dispatch(addToWishlist(product));
+  };
+
+  if (!product && !exist) {
+    return <ErrorPage />;
+  } else if (!product) {
     return <Loading />;
   }
 
@@ -128,12 +132,12 @@ const ProductPage = ({ products }) => {
                   Add to cart
                 </span>
               </button>
-              <a
+              <button
                 className="bg-primary transition-all-300 flex min-h-[40px] min-w-[40px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-color p-2 hover:bg-primary-hover"
-                href="/"
+                onClick={() => addProductToWishlist(product)}
               >
                 <FavoriteBorderOutlinedIcon className="text-white" />
-              </a>
+              </button>
             </div>
 
             <div className="mt-5 border-t border-gray-200 pt-5">
