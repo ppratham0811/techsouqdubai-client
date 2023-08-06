@@ -40,14 +40,14 @@ const Navbar = () => {
   };
 
   const logoutCurrentUser = async () => {
-    await deleteCurrentSession();
+    await deleteCurrentSession().then(() => setUser(false));
     console.log(loadCurrentUser());
   };
 
   useEffect(() => {
     loadAllCategories();
     loadCurrentUser();
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -135,10 +135,10 @@ const Navbar = () => {
                               onClick={() => logoutCurrentUser()}
                               className="flex items-center gap-2 p-1"
                             >
-                              <a href="/login">
+                              
                                 <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />
                                 <span>Log Out</span>
-                              </a>
+                              
                             </button>
                           </li>
                         </>

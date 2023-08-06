@@ -58,7 +58,7 @@ const deleteCurrentSession = async () => {
 
     if (currentUser) {
       // Delete the current session
-      await account.deleteSession(currentUser.$id);
+      await account.deleteSession('current');
     } else {
       // The user is not logged in
       console.log("The user is not logged in");
