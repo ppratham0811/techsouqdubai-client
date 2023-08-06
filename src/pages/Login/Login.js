@@ -41,26 +41,20 @@ const Login = () => {
       setToast("Passwords don't match");
     } else {
       setToast("");
-      await deleteCurrentSession();
+      //await deleteCurrentSession();
       if (login) {
         const tryLogin = await loginUser({
           email: userData.email,
           password: userData.password,
-        });
-        if (tryLogin) {
-          console.log(tryLogin);
-          navigate("/");
-        }
+        }).then(() => navigate('/'));
+        
       } else {
         const newUser = await registerUser({
           email: userData.email,
           password: userData.password,
           name: userData.name,
-        });
-        if (newUser) {
-          console.log(newUser);
-          navigate("/");
-        }
+        }).then(() => navigate('/'));
+        
       }
     }
   };

@@ -39,15 +39,16 @@ const Navbar = () => {
     return currentUser;
   };
 
-  const logoutCurrentUser = async () => {
-    await deleteCurrentSession();
-    console.log(loadCurrentUser());
+  const logoutCurrentUser = async (e) => {
+    e.preventDefault();
+    await deleteCurrentSession().then(() => setUser(false));
+    console.log(await loadCurrentUser());
   };
 
   useEffect(() => {
     loadAllCategories();
     loadCurrentUser();
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -132,13 +133,13 @@ const Navbar = () => {
                             className="cursor-pointer hover:font-semibold"
                           >
                             <button
-                              onClick={() => logoutCurrentUser()}
+                              onClick={(e) => logoutCurrentUser(e)}
                               className="flex items-center gap-2 p-1"
                             >
-                              <a href="/login">
+                             {/*  <a href="/login"> */}
                                 <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />
                                 <span>Log Out</span>
-                              </a>
+                            {/*   </a> */}
                             </button>
                           </li>
                         </>
