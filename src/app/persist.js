@@ -1,5 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./cartSlice";
+import userReducer from "./userSlice";
 import {
   persistReducer,
   FLUSH,
@@ -16,8 +17,8 @@ const persistConfig = {
   key: "techs0uqdubai",
   storage: localStorage,
 };
-
-export const persistedReducer = persistReducer(persistConfig, cartReducer);
+const rootReducer = combineReducers({ user: userReducer, cart: cartReducer });
+export const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
@@ -28,5 +29,5 @@ export const store = configureStore({
       },
     }),
 });
-export const currentStore = (state) => state.cart;
+// export const currentStore = (state) => state.cart;
 export default persistStore(store);

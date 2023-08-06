@@ -3,9 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: null,
-    email: null,
-    token: null,
+    userId: "",
+    email: "",
   },
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
@@ -13,7 +12,8 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
     logout: (state) => {
-      state.user = null;
+      state.userId = "";
+      state.email = "";
     },
     setEmail: (state, action) => {
       state.email = action.payload;
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
 
 export const { login, logout, setEmail } = userSlice.actions;
 
-export const selectUser = (state) => state.user.user;
+export const selectUser = (state) => state.userId;
 export const getEmail = (state) => state.email;
 
 export default userSlice.reducer;

@@ -15,11 +15,13 @@ import {
 } from "../../actions";
 import { currentState } from "../../app/cartSlice";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const [user, setUser] = useState(false);
   const cart = useSelector(currentState);
+  const navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
   const loadAllCategories = async () => {
@@ -40,7 +42,10 @@ const Navbar = () => {
   };
 
   const logoutCurrentUser = async () => {
-    await deleteCurrentSession().then(() => setUser(false));
+    await deleteCurrentSession().then(() => {
+      setUser(false);
+      navigate("/login");
+    });
     console.log(loadCurrentUser());
   };
 
