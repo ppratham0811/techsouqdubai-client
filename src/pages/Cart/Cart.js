@@ -28,7 +28,7 @@ const Cart = () => {
   };
 
   const handleQuantityIncrease = (productId, qty) => {
-    dispatch(updateQty({ payload: { productId, qty } }));
+    dispatch(updateQty( { productId, qty } ));
     console.log(store.getState());
   };
 
