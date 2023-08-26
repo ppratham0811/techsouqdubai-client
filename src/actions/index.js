@@ -13,7 +13,6 @@ const database = new Databases(client);
 const getCurrentUser = async () => {
   try {
     const currentUser = await account.get();
-    console.log(currentUser);
     if (currentUser) {
       return currentUser;
     }

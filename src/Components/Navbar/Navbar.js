@@ -38,7 +38,6 @@ const Navbar = () => {
   const loadCurrentUser = async () => {
     const currentUser = await getCurrentUser();
     if (currentUser) {
-      console.log(currentUser);
       setUser(true);
     }
     return currentUser;

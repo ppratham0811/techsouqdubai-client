@@ -34,11 +34,11 @@ const Categories = () => {
                 return (
                   <div
                     key={idx}
-                    className="col-span-3 flex border transition-all-300 w-full justify-center bg-white p-5 hover:relative hover:z-[2] hover:shadow-xl"
+                    className="col-span-3 flex border transition-all-300 w-full justify-center bg-white hover:cursor-pointer p-5 hover:relative hover:z-[2] hover:shadow-xl"
                   >
-                    <div>
+                    <a href={`/category/${category.$id}`}>
                       <span className="text-gray-40">{category.name}</span>
-                    </div>
+                    </a>
                   </div>
                 );
               })}
