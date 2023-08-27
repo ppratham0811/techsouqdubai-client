@@ -12,20 +12,26 @@ import { updateQty } from "../../app/cartSlice";
 const Cart = () => {
   const cartProducts = useSelector(currentCartState);
   const [cartTotal, setCartTotal] = useState(0);
+  const [quote, setQuote] = useState(false);
   const dispatch = useDispatch();
-
+  const calculateSubtotal = () => {
+    let total = 0;
+    for (let c of cartProducts) {
+      if (c.contactForPrice) {
+        setQuote(true);
+        break;
+      } else {
+        total += c.qty * c.product.salePrice;
+      }
+    }
+    if (!quote) {
+      setCartTotal(total);
+    }
+  };
   useEffect(() => {
     calculateSubtotal();
     console.log(cartProducts);
   }, [cartProducts]);
-
-  const calculateSubtotal = () => {
-    let total = 0;
-    for (let c of cartProducts) {
-      total += c.qty * c.product.salePrice;
-    }
-    setCartTotal(total);
-  };
 
   const handleQuantityIncrease = (productId, qty) => {
     dispatch(updateQty({ productId, qty }));
@@ -229,8 +235,14 @@ const Cart = () => {
                 Summary of your purchase:
               </span>
               <div className="flex justify-between border-t-2 border-gray-200 py-4 text-xl font-bold uppercase">
-                <span>Total:</span>
-                <span>AED {cartTotal}</span>
+                {quote ? (
+                  <span>Get Quote</span>
+                ) : (
+                  <>
+                    <span>Total:</span>
+                    <span>AED {cartTotal}</span>
+                  </>
+                )}
               </div>
               <button
                 className="btn-view-shopping-cart btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-primary p-2"
