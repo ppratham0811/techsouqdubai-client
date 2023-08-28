@@ -9,6 +9,7 @@ import Loading from "./utils/Loading.js";
 import Wishlist from "./pages/Wishlist/Wishlist.js";
 import Cart from "./pages/Cart/Cart.js";
 import Profile from "./pages/Profile/Profile.js";
+import CategoryPage from "./pages/Category/CategoryPage.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -74,6 +75,7 @@ function App() {
                 element={<ProductPage products={products} />}
               />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/category/:categoryId" element={<CategoryPage />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/wishlist" element={<Wishlist />} />
             </Routes>

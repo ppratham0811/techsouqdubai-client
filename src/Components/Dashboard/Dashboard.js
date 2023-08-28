@@ -7,6 +7,7 @@ import Products from "./Products/Products";
 import Categories from "./Categories/Categories";
 import Navbar from "../Navbar/Navbar.js";
 import Footer from "../Footer/Footer";
+import { useEffect } from "react";
 
 const Dashboard = ({ products, categories }) => {
   return (
@@ -97,7 +98,17 @@ const Dashboard = ({ products, categories }) => {
         </div>
       </div>
 
-      <Products title="Products Range" products={products} />
+      {categories.map((cat, idx) => {
+        let relevantProducts = [];
+        for (let prod of products) {
+          if (prod.category.$id === cat.$id) {
+            relevantProducts.push(prod);
+          }
+        }
+
+        if (relevantProducts.length)
+          return <Products title={cat.name} products={relevantProducts} />;
+      })}
 
       {/* <Products title="Categories" products={categories} /> */}
 

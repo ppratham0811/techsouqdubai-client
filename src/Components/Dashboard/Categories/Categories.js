@@ -26,7 +26,7 @@ const Categories = () => {
   return (
     <>
       <div className="categories-section container mx-auto my-5 px-2 sm:px-8">
-        <Heading title="Categories" />
+        <Heading title="Browse All Categories" />
         <div className="swiper-container col-span-12 overflow-hidden rounded-lg md:col-span-8">
           <div className="swiper swiper-default group relative grid items-center py-5 swiper-initialized swiper-horizontal swiper-backface-hidden">
             <div className="grid grid-cols-3 xs:grid-cols-6 sm:grid-cols-9 lg:grid-cols-12">
@@ -34,11 +34,11 @@ const Categories = () => {
                 return (
                   <div
                     key={idx}
-                    className="col-span-3 flex border transition-all-300 w-full justify-center bg-white p-5 hover:relative hover:z-[2] hover:shadow-xl"
+                    className="col-span-3 flex border transition-all-300 w-full justify-center bg-white hover:cursor-pointer p-5 hover:relative hover:z-[2] hover:shadow-xl"
                   >
-                    <div>
+                    <a href={`/category/${category.$id}`}>
                       <span className="text-gray-40">{category.name}</span>
-                    </div>
+                    </a>
                   </div>
                 );
               })}

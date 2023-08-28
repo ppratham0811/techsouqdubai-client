@@ -7,6 +7,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import { useEffect, useState } from "react";
 import { loginUser, registerUser, deleteCurrentSession } from "../../actions";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -17,7 +18,9 @@ const Login = () => {
   });
   const [modal, setModal] = useState(false);
   const [toast, setToast] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,6 +29,20 @@ const Login = () => {
       }
     }, 2000);
   }, [toast]);
+
+  useEffect(() => {
+    if (
+      ((userData.password !== "" && userData.confirmPassword !== "") ||
+        userData.password !== "") &&
+      userData.password !== userData.confirmPassword
+    ) {
+      setMessage("Passwords don't match");
+    } else if (userData.password.length < 8) {
+      setMessage("*Password should be more than 8 characters long");
+    } else {
+      setMessage("");
+    }
+  }, [userData]);
 
   const [login, setLogin] = useState(true);
 
@@ -43,18 +60,28 @@ const Login = () => {
       setToast("");
       //await deleteCurrentSession();
       if (login) {
-        const tryLogin = await loginUser({
+        const loggedUser = await loginUser({
           email: userData.email,
           password: userData.password,
-        }).then(() => navigate('/'));
-        
+        });
+
+        if (loggedUser.status) {
+          navigate("/");
+        } else {
+          setToast(loggedUser.error.message);
+        }
       } else {
-        const newUser = await registerUser({
+        const user = await registerUser({
           email: userData.email,
           password: userData.password,
           name: userData.name,
-        }).then(() => navigate('/'));
-        
+        });
+
+        if (user.status) {
+          navigate("/");
+        } else {
+          setToast(user.error.message);
+        }
       }
     }
   };
@@ -172,28 +199,10 @@ const Login = () => {
                     value={userData.confirmPassword}
                   />
                 </div>
-                <div className="my-2 flex items-center justify-between">
-                  <label className="flex select-none items-center gap-2">
-                    <input className="checkbox" type="checkbox" required />
-                    <span className="text-gray-title">
-                      I agree with all{" "}
-                      <a
-                        className="underlined-animated text-[#3091ff] after:bottom-0"
-                        href="#"
-                      >
-                        Terms of Use{" "}
-                      </a>
-                      &amp;
-                      <a
-                        className="underlined-animated text-[#3091ff] after:bottom-0"
-                        href="#"
-                      >
-                        {" "}
-                        Privacy Policy
-                      </a>
-                      .
-                    </span>
-                  </label>
+                <div className="m-0 mb-1">
+                  {message.length > 0 && (
+                    <p className="text-red-500 text-sm">{message}</p>
+                  )}
                 </div>
                 <button
                   className="btn-effect transition-all-300 h-full w-full rounded-lg bg-primary p-2"

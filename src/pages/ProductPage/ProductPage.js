@@ -11,10 +11,12 @@ import { addToCart } from "../../app/cartSlice";
 import { useDispatch } from "react-redux";
 import { store } from "../../app/persist";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import { addToWishlist } from "../../app/wishlistSlice";
 
 const ProductPage = ({ products }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const [exist, setExist] = useState(false);
   const dispatch = useDispatch();
 
@@ -32,8 +34,23 @@ const ProductPage = ({ products }) => {
       });
   };
 
+  const getRelevantProducts = async () => {
+    console.log(product);
+    let relevantProducts = [];
+    for (let prod of products) {
+      if (
+        prod.category.$id === product.category.$id &&
+        prod.$id !== productId
+      ) {
+        relevantProducts.push(prod);
+      }
+    }
+    setRelatedProducts(relevantProducts);
+  };
+
   useEffect(() => {
     fetchProductById();
+    getRelevantProducts();
   }, [productId]);
 
   function trimCharacters(str) {
@@ -45,10 +62,13 @@ const ProductPage = ({ products }) => {
     console.log(store.getState());
   };
 
-  if (!product) {
-    if (!exist) {
-      return <ErrorPage />;
-    }
+  const addProductToWishlist = async (product) => {
+    dispatch(addToWishlist(product));
+  };
+
+  if (!product && !exist) {
+    return <ErrorPage />;
+  } else if (!product) {
     return <Loading />;
   }
 
@@ -56,7 +76,7 @@ const ProductPage = ({ products }) => {
     <>
       <Navbar />
       <div className="bg-gray-100 px-2 sm:px-8">
-        <div className="grid grid-cols-12 gap-5 my-8 mx-4 rounded-lg bg-white p-6 xs:p-8">
+        <div className="grid grid-cols-12 gap-5 my-8 mx-4 rounded-lg bg-white shadow-xl p-6 xs:p-8">
           <div className="col-span-12 max-h-[500px] md:col-span-6">
             <div className="swiper swiper-top group relative flex items-center rounded-lg swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden">
               <div
@@ -79,7 +99,7 @@ const ProductPage = ({ products }) => {
           </div>
           <div className="col-span-12 md:col-span-6">
             <div className="my-1 flex justify-between items-center">
-              <p className="transition-all-300 break-all text-2xl font-medium hover:text-primary">
+              <p className="transition-all-300 break-all text-4xl font-medium hover:text-primary">
                 {product.title}
               </p>
               {product.quantity > 0 ? (
@@ -95,14 +115,24 @@ const ProductPage = ({ products }) => {
             <div className="product-val-stock my-2 flex justify-between">
               <div className="ml-auto"></div>
             </div>
-            <div className="my-5 flex items-center gap-5">
-              <div className="flex rounded-lg bg-white px-3 py-2 text-primary-color shadow">
-                <span className="text-sm text-primary">AED</span>
-                <span className="text-2xl text-primary font-semibold leading-7">
-                  {product.salePrice}
-                </span>
+            {!product.contactForPrice ? (
+              <div className="my-5 flex items-center gap-5">
+                <div className="flex rounded-lg bg-white px-3 py-2 text-primary-color shadow">
+                  <span className="text-sm text-primary">AED</span>
+                  <span className="text-2xl text-primary font-semibold leading-7">
+                    {product.salePrice}
+                  </span>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="my-5 flex items-center gap-5">
+                <div className="flex rounded-lg bg-white px-3 py-2 shadow-lg hover:scale-105 cursor-pointer hover:transition-all hover:duration-200">
+                  <span className="text-2xl text-primary font-semibold leading-7">
+                    Contact For Price
+                  </span>
+                </div>
+              </div>
+            )}
             <div className="my-4">
               <p className="clamp-5 break-all">
                 {trimCharacters(product.description)}
@@ -128,19 +158,22 @@ const ProductPage = ({ products }) => {
                   Add to cart
                 </span>
               </button>
-              <a
+              <button
                 className="bg-primary transition-all-300 flex min-h-[40px] min-w-[40px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-color p-2 hover:bg-primary-hover"
-                href="/"
+                onClick={() => addProductToWishlist(product)}
               >
                 <FavoriteBorderOutlinedIcon className="text-white" />
-              </a>
+              </button>
             </div>
 
             <div className="mt-5 border-t border-gray-200 pt-5">
               <div>
                 <b>Categories: </b>
                 <span>
-                  <a href="/" className="text-zinc-500">
+                  <a
+                    href={`/category/${product.category?.$id}`}
+                    className="text-zinc-500"
+                  >
                     {product.category?.name}
                   </a>
                 </span>
@@ -165,7 +198,8 @@ const ProductPage = ({ products }) => {
             </div>
           )}
         </div>
-        <Products title="Related Products" products={products} />
+
+        <Products title={"Related Products"} products={relatedProducts} />
       </div>
 
       <Footer />

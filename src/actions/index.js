@@ -1,4 +1,4 @@
-import { Account, ID, Databases, Permission, Role } from "appwrite";
+import { Account, ID, Databases } from "appwrite";
 import {
   client,
   mainDatabaseID,
@@ -13,7 +13,6 @@ const database = new Databases(client);
 const getCurrentUser = async () => {
   try {
     const currentUser = await account.get();
-    console.log(currentUser);
     if (currentUser) {
       return currentUser;
     }
@@ -24,30 +23,43 @@ const getCurrentUser = async () => {
 
 const registerUser = async (userData) => {
   try {
-    const user = await account.create(
+    const userRegistered = await account.create(
       ID.unique(),
       userData.email,
       userData.password,
       userData.name
     );
-    if (user) {
-      await loginUser({ email: userData.email, password: userData.password });
-    } else {
-      return undefined;
+    if (userRegistered) {
+      return await loginUser({
+        email: userData.email,
+        password: userData.password,
+      });
     }
   } catch (error) {
-    console.error(error);
+    return {
+      status: false,
+      error,
+    };
   }
 };
 
 const loginUser = async (loginDetails) => {
   try {
-    return await account.createEmailSession(
+    const loggedUser = await account.createEmailSession(
       loginDetails.email,
       loginDetails.password
     );
+    if (loggedUser) {
+      return {
+        status: true,
+        userId: loggedUser.$id,
+      };
+    }
   } catch (error) {
-    console.error(error);
+    return {
+      status: false,
+      error,
+    };
   }
 };
 
@@ -59,8 +71,7 @@ const deleteCurrentSession = async () => {
     console.log("current user: ", currentUser)
     if (currentUser) {
       // Delete the current session
-      await account.deleteSession('current');
-      console.log("deleted session: ");
+      await account.deleteSession("current");
     } else {
       // The user is not logged in
       console.log("The user is not logged in");

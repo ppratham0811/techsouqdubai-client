@@ -3,42 +3,48 @@ import Footer from "../../Components/Footer/Footer";
 import Navbar from "../../Components/Navbar/Navbar";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { currentState, removeFromCart } from "../../app/cartSlice";
+import { currentCartState, removeFromCart } from "../../app/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../app/persist";
 import Loading from "../../utils/Loading";
 import { updateQty } from "../../app/cartSlice";
 
 const Cart = () => {
-  const cart = useSelector(currentState);
+  const cartProducts = useSelector(currentCartState);
   const [cartTotal, setCartTotal] = useState(0);
+  const [quote, setQuote] = useState(false);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    calculateSubtotal();
-    console.log(cart);
-  }, [cart]);
-
   const calculateSubtotal = () => {
     let total = 0;
-    for (let c of cart) {
-      total += c.qty * c.product.salePrice;
+    for (let c of cartProducts) {
+      if (c.contactForPrice) {
+        setQuote(true);
+        break;
+      } else {
+        total += c.qty * c.product.salePrice;
+      }
     }
-    setCartTotal(total);
+    if (!quote) {
+      setCartTotal(total);
+    }
   };
+  useEffect(() => {
+    calculateSubtotal();
+    console.log(cartProducts);
+  }, [cartProducts]);
 
   const handleQuantityIncrease = (productId, qty) => {
-    dispatch(updateQty( { productId, qty } ));
+    dispatch(updateQty({ productId, qty }));
     console.log(store.getState());
   };
 
   const handleDeleteProductFromCart = (productId) => {
     dispatch(removeFromCart(productId));
     console.log("store: ", store.getState());
-    console.log(cart);
+    console.log(cartProducts);
   };
 
-  if (!cart) {
+  if (!cartProducts) {
     return <Loading />;
   }
 
@@ -52,8 +58,8 @@ const Cart = () => {
         >
           <div className="col-span-12 lg:col-span-8">
             {/* Mobile Screen view */}
-            {cart ? (
-              cart.map((prodObj, idx) => {
+            {cartProducts ? (
+              cartProducts.map((prodObj, idx) => {
                 return (
                   <div
                     key={idx}
@@ -153,11 +159,10 @@ const Cart = () => {
                     <th className="p-2">Unit Price</th>
                     <th className="p-2">Quantity</th>
                     <th className="p-2">Subtotal</th>
-                    <th></th>
                   </tr>
                 </thead>
-                {cart ? (
-                  cart.map((prodObj, idx) => {
+                {cartProducts ? (
+                  cartProducts.map((prodObj, idx) => {
                     return (
                       <tbody>
                         <tr className="hover:bg-gray-100">
@@ -230,8 +235,14 @@ const Cart = () => {
                 Summary of your purchase:
               </span>
               <div className="flex justify-between border-t-2 border-gray-200 py-4 text-xl font-bold uppercase">
-                <span>Total:</span>
-                <span>AED {cartTotal}</span>
+                {quote ? (
+                  <span>Get Quote</span>
+                ) : (
+                  <>
+                    <span>Total:</span>
+                    <span>AED {cartTotal}</span>
+                  </>
+                )}
               </div>
               <button
                 className="btn-view-shopping-cart btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-primary p-2"
