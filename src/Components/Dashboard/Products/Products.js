@@ -77,6 +77,7 @@ const Products = ({ title, products }) => {
                 </div>
               </div>
             </div>
+            
           );
         })}
       </div>

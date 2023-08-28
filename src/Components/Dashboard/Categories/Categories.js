@@ -10,6 +10,7 @@ const Categories = () => {
     getAllCategories();
   }, []);
 
+
   const getAllCategories = async () => {
     await getCategories()
       .then((res) => {

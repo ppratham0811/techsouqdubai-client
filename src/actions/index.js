@@ -59,7 +59,7 @@ const loginUser = async (loginDetails) => {
     return {
       status: false,
       error,
-    };
+    };  
   }
 };
 
