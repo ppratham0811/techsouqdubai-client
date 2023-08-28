@@ -1,6 +1,7 @@
 import { getCategories } from "../../../actions";
 import React, { useEffect, useState } from "react";
 import Heading from "../../../Widgets/Heading";
+import { Link } from "react-router-dom";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -32,14 +33,14 @@ const Categories = () => {
             <div className="grid grid-cols-3 xs:grid-cols-6 sm:grid-cols-9 lg:grid-cols-12">
               {categories?.map((category, idx) => {
                 return (
+                  <Link to={`/category/${category.$id}`} className="col-span-3 flex border transition-all-300 w-full justify-center bg-white hover:cursor-pointer p-5 hover:relative hover:z-[2] hover:shadow-xl">
                   <div
                     key={idx}
-                    className="col-span-3 flex border transition-all-300 w-full justify-center bg-white hover:cursor-pointer p-5 hover:relative hover:z-[2] hover:shadow-xl"
+                    
                   >
-                    <a href={`/category/${category.$id}`}>
                       <span className="text-gray-40">{category.name}</span>
-                    </a>
                   </div>
+                    </Link>
                 );
               })}
             </div>

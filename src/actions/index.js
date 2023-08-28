@@ -64,10 +64,11 @@ const loginUser = async (loginDetails) => {
 };
 
 const deleteCurrentSession = async () => {
+  console.log("here");
   try {
     // Get the current user
     const currentUser = await account.get();
-
+    console.log("current user: ", currentUser)
     if (currentUser) {
       // Delete the current session
       await account.deleteSession("current");

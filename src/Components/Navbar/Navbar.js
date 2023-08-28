@@ -139,7 +139,7 @@ const Navbar = () => {
                             className="cursor-pointer hover:font-semibold"
                           >
                             <button
-                              onClick={() => logoutCurrentUser()}
+                              onClick={(e) => logoutCurrentUser(e)}
                               className="flex items-center gap-2 p-1"
                             >
                               <LoginOutlinedIcon className="bi bi-box-arrow-in-right flex text-xl text-primary-color" />

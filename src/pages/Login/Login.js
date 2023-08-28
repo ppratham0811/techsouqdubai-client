@@ -58,7 +58,7 @@ const Login = () => {
       setToast("Passwords don't match");
     } else {
       setToast("");
-      await deleteCurrentSession();
+      //await deleteCurrentSession();
       if (login) {
         const loggedUser = await loginUser({
           email: userData.email,
