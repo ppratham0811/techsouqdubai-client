@@ -1,11 +1,34 @@
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-import { Link } from "react-router-dom";
-import Heading from "../../../Widgets/Heading";
-import { addToCart } from "../../../app/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { store } from "../../../app/persist";
-import { addToWishlist } from "../../../app/wishlistSlice";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import { Link } from 'react-router-dom';
+import Heading from '../../../Widgets/Heading';
+import { addToCart } from '../../../app/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { store } from '../../../app/persist';
+import { addToWishlist } from '../../../app/wishlistSlice';
+
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 748 },
+    items: 4,
+  },
+  tablet: {
+    breakpoint: { max: 748, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 
 /* ########## OFFERS ########## */
 const Products = ({ title, products }) => {
@@ -26,60 +49,66 @@ const Products = ({ title, products }) => {
   return (
     <>
       <Heading title={title} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 m-4">
-        {products?.map((prod, idx) => {
-          return (
-            <div key={prod.$id}>
-              <div className="card-container transition-all-300 translateY-2 relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl">
-                <div className="absolute top-[10px] right-[10px]">
-                  <div
-                    className="p-[2px] transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover"
-                    onClick={() => addProductToWishlist(prod)}
-                  >
-                    <FavoriteBorderIcon />
+      <div className='md:px-8 px-3 '>
+        <Carousel
+          responsive={responsive}
+          itemClass='w-full flex justify-center p-3'
+          className='w-full'
+        >
+          {products?.map((prod, idx) => {
+            return (
+              <div key={prod.$id} className='flex flex-col h-full'>
+                <div className='card-container  transition-all-300 translateY-2 relative flex h-full flex-col  rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl'>
+                  <div className='absolute top-[10px] right-[10px]'>
+                    <div
+                      className='p-[2px] transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover'
+                      onClick={() => addProductToWishlist(prod)}
+                    >
+                      <FavoriteBorderIcon />
+                    </div>
+                    <div
+                      className='p-[2px] my-2 transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover'
+                      onClick={() => addProductToCart(prod)}
+                    >
+                      <AddShoppingCartOutlinedIcon />
+                    </div>
                   </div>
-                  <div
-                    className="p-[2px] my-2 transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover"
-                    onClick={() => addProductToCart(prod)}
-                  >
-                    <AddShoppingCartOutlinedIcon />
+                  <div className='h-[190px] flex w-full justify-center overflow-hidden rounded-lg'>
+                    <a>
+                      <img
+                        className='object-contain h-full w-full'
+                        src={prod.images[0]}
+                        alt='product'
+                      />
+                    </a>
                   </div>
-                </div>
-                <div className="h-[190px] overflow-hidden rounded-lg">
-                  <a href="#">
-                    <img
-                      className="object-contain h-full w-full"
-                      src={prod.images[0]}
-                      alt="product"
-                    />
-                  </a>
-                </div>
-                <div className="my-1">
-                  <a className="clamp break-all font-medium" href="#">
-                    {prod.title}
-                  </a>
-                </div>
-                <div className="my-1">
-                  <p className="clamp-2 text-sm text-gray-400">
-                    {trimCharacters(prod.description)}
-                  </p>
-                </div>
+                  <div className='my-3'>
+                    <a className='clamp break-normal text-lg md:text-xl font-medium'>
+                      {prod.title}
+                    </a>
+                  </div>
+                  <div className='mt-1 mb-6'>
+                    <p className='clamp-2 line-clamp-3 text-sm text-gray-400'>
+                      {trimCharacters(prod.description)}
+                    </p>
+                  </div>
 
-                <div className="mt-auto">
-                  <a
-                    className="btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-primary p-2"
-                    href={`/products/${prod.$id}`}
-                  >
-                    <span className="font-bold uppercase text-white">
-                      View details
-                    </span>
-                  </a>
+                  <div className='mt-auto'>
+                    <a
+                      className='btn-effect transition-all-300  flex w-full items-center justify-center rounded-lg bg-primary px-3 py-4'
+                      href={`/products/${prod.$id}`}
+                    >
+                      <span className='font-bold uppercase text-white'>
+                        View details
+                      </span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-          );
-        })}
+            );
+          })}
+        </Carousel>
+        ;
       </div>
     </>
   );

@@ -14,7 +14,7 @@ const CarouselImages = () => {
             infiniteLoop={true}
             swipeable={true}
             autoPlay={true}
-            className='w-full h-full rounded-lg bg-purple-100'
+            className='w-full h-full rounded-lg'
          >
                 
                     <img src="https://appwrite.techsouqdubai.com/v1/storage/buckets/647724cbbee87d2e8f59/files/6477428a26296fd65760/view?project=646339a61beac87efd09&mode=admin" alt='banner1' className='bg-green-100 object-cover rounded-lg'/>
