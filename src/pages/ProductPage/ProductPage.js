@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { store } from '../../app/persist';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import { addToWishlist } from '../../app/wishlistSlice';
+import ProductImageSlider from '../../Components/Dashboard/Products/ProductImageSlider';
 
 const ProductPage = ({ products }) => {
   const { productId } = useParams();
@@ -76,34 +77,27 @@ const ProductPage = ({ products }) => {
     return <Loading />;
   }
 
+  console.log(product.quantity);
+
   return (
     <>
       <Navbar />
       <div className='bg-gray-100 px-2 sm:px-8'>
         <div className='grid grid-cols-12 gap-5 my-8 mx-4 rounded-lg bg-white shadow-xl p-6 xs:p-8'>
           <div className='col-span-12 max-h-[500px] md:col-span-6'>
-            <div className='swiper swiper-top group relative flex items-center rounded-lg swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden'>
-              <div
-                className='swiper-wrapper'
-                id='swiper-wrapper-e287106774368dfb3'
-                aria-live='polite'
-              >
-                <div
-                  className='swiper-slide swiper-slide-visible swiper-slide-active'
-                  // style="width: 437px; opacity: 1; transform: translate3d(0px, 0px, 0px);"
-                  role='group'
-                  aria-label='1 / 3'
-                >
-                  <div className='w-full p-4'>
-                    <img src={`${product.images[0]}`} alt='product' />
-                  </div>
-                </div>
-              </div>
-            </div>
+            
+              
+                  {/* <div className='w-full justify-center flex h-full p-4'>
+                    <img src={`${product.images[0]}`} alt='product' className='w-full object-contain h-full' />
+                  </div> */}
+
+                  <ProductImageSlider images={product.images} />
+                
+              
           </div>
           <div className='col-span-12 md:col-span-6'>
             <div className='my-1 flex justify-between items-center'>
-              <p className='transition-all-300 break-all text-4xl font-medium hover:text-primary'>
+              <p className='transition-all-300 break-normal text-4xl font-medium hover:text-primary'>
                 {product.title}
               </p>
               {product.quantity > 0 ? (
@@ -111,8 +105,8 @@ const ProductPage = ({ products }) => {
                   instock
                 </span>
               ) : (
-                <span className='rounded-md bg-green-300 px-2 py-1 text-xs font-bold uppercase text-white'>
-                  instock
+                <span className='rounded-md bg-red-300 px-2 py-1 text-xs font-bold uppercase text-white'>
+                  out of stock
                 </span>
               )}
             </div>
@@ -143,7 +137,7 @@ const ProductPage = ({ products }) => {
               </p>
             </div>
 
-            <div className='flex justify-start items-center gap-4'>
+            {product.quantity>0 ? <div className='flex justify-start items-center gap-4'>
               <div className='inline-flex rounded-lg bg-white shadow'>
                 <input
                   className='w-12 p-2 border-none bg-transparent text-center text-lg text-gray-800 focus:border-none focus:outline-none focus:ring-0'
@@ -168,7 +162,7 @@ const ProductPage = ({ products }) => {
               >
                 <FavoriteBorderOutlinedIcon className='text-white' />
               </button>
-            </div>
+            </div> : <div className='w-full flex h-[100px] items-center text-red-500'>Product will be back in stock soon!</div> }
 
             <div className='mt-5 border-t border-gray-200 pt-5'>
               <div>
