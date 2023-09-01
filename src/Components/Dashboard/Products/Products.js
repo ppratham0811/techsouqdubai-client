@@ -105,10 +105,10 @@ const Products = ({ title, products }) => {
                   </div>
                 </div>
               </div>
-            );
+            )
           })}
         </Carousel>
-        ;
+        
       </div>
     </>
   );
