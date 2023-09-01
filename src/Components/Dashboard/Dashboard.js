@@ -114,7 +114,7 @@ const Dashboard = ({ products, categories }) => {
         }
 
         if (relevantProducts.length)
-          return <Products title={cat.name} products={relevantProducts} />;
+          return <Products title={cat.name} products={relevantProducts} />
       })}
 
       {/* <Products title="Categories" products={categories} /> */}
