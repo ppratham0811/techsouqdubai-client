@@ -55,15 +55,17 @@ const Navbar = () => {
     loadAllCategories();
     loadCurrentUser();
   }, [user]);
-
+  /* font-family: 'Audiowide', cursive;
+  font-family: 'Poppins', sans-serif; */
   return (
     <>
-      <header className="relative z-30 bg-primary text-xl">
+      <header className="relative bg-primary text-xl">
+      
         <div className="bg-secondary-color">
           <div className="container mx-auto grid grid-cols-4 gap-1 px-2 py-4 sm:px-8 lg:grid-cols-12 lg:gap-0">
             <div className="flex items-center order-1 col-span-2 lg:order-1 lg:col-span-3">
-              <img className="w-8 h-8 mx-2" src="/logo.png" alt="logo" />
-              <h3 className="text-white text-bold">TechSouqDubai</h3>
+              {/* <img className="w-8 h-8 mx-2" src="/logo.png" alt="logo" /> */}
+              <h3 className="text-white text-2xl text-bold" style={{fontFamily:"'Audiowide', cursive"}}>TechSouqDubai</h3>
             </div>
             <div className="transition-all-300 order-3 col-span-4 mt-[10px] hidden self-center lg:order-2 lg:col-span-6 lg:mt-0 lg:block">
               <form className="search" action="#">
