@@ -43,11 +43,12 @@ const Menu = () => {
               <ArrowDropDownIcon className='transform transition-transform duration-300 hover:rotate-180 flex text-xs text-primary-color text-primary' />
             </button>
             {menu && (
-              <div className=' my-2  absolute w-80 bg-white top-[30px] z-20 shadow-lg p-4'>
+              <div className=' my-2  absolute w-80 bg-white top-[30px] z-20 shadow-lg'>
                 <ul>
                   {parentCategories.map((p, idx) => (
                     <>
-                      <li key={idx} className='py-2 group'>
+                      <li key={idx} className='py-2 px-4 group'>
+                        
                         <a href={`/category/${p.$id}`}>{p.name}</a>
                       </li>
                     </>

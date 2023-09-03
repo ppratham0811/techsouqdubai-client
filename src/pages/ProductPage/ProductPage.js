@@ -144,6 +144,7 @@ const ProductPage = ({ products }) => {
                   type='number'
                   defaultValue={1}
                   min={1}
+                  max={product.quantity}
                 />
               </div>
               <button
