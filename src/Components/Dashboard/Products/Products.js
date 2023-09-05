@@ -57,7 +57,7 @@ const Products = ({ title, products }) => {
         >
           {products?.map((prod, idx) => {
             return (
-              <div key={prod.$id} className='flex flex-col h-full'>
+              <div key={prod.$id} className='flex flex-col w-full h-full'>
                 <div className='card-container  transition-all-300 translateY-2 relative flex h-full flex-col  rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl'>
                   <div className='absolute top-[10px] right-[10px]'>
                     <div
