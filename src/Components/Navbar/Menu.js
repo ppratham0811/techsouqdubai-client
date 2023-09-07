@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { getCategories } from '../../actions';
+import { getCategories, getNavLinks } from '../../actions';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ const Menu = () => {
   const [allCategories, setAllCategories] = useState([]);
   const [parentCategories, setParentCategories] = useState([]);
   const [menu, setMenu] = useState(false);
+  const [navbar, setNavBar] = useState([]);
 
   useEffect(() => {
     const loadAllCategories = async () => {
@@ -19,6 +20,9 @@ const Menu = () => {
               (category) => category.parent === 'isParent'
             )
           );
+          getNavLinks()
+            .then((response) => setNavBar(response.documents))
+            .catch((error) => console.error(error.message));
         })
         .catch((e) => console.error());
     };
@@ -48,7 +52,6 @@ const Menu = () => {
                   {parentCategories.map((p, idx) => (
                     <>
                       <li key={idx} className='py-2 px-4 group'>
-                        
                         <a href={`/category/${p.$id}`}>{p.name}</a>
                       </li>
                     </>
@@ -60,20 +63,10 @@ const Menu = () => {
           <li className='underlined-animated border-b-4 border-transparent hover:border-primary'>
             <a href='/'>Home</a>
           </li>
-          <li className='underlined-animated border-b-4 border-transparent hover:border-primary'>
-            <a href='#'>Computers</a>
-          </li>
-          <li className='underlined-animated border-b-4 border-transparent hover:border-primary'>
-            <a href='#'>Airocide</a>
-          </li>
-          <li className='underlined-animated border-b-4 border-transparent hover:border-primary'>
-            <a href='#'>Innovation</a>
-          </li>
-          <li className='underlined-animated group border-b-4 border-transparent hover:border-primary'>
-            <a href='#' className='flex items-center gap-1'>
-              <span>Components</span>
-            </a>
-          </li>
+          {navbar && navbar.map((nav, idx) => (<li className='underlined-animated border-b-4 border-transparent hover:border-primary'>
+            <a href='/'>{nav?.name}</a>
+          </li>))}
+          
           <li className='underlined-animated border-b-4 border-transparent hover:border-primary'>
             <a href='faqs.html'>FAQ's</a>
           </li>

@@ -40,7 +40,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
             </button>
             <div className="py-12 flex items-center justify-center">
               <img src="/logo.png" className="h-16 w-16" alt="logo" />
-              <p className="font-bold text-2xl px-4">TechSouqDubai</p>
+              <p className="font-bold text-2xl px-4" style={{fontFamily:"'Audiowide', cursive"}}>TechSouqDubai</p>
             </div>
           </div>
           <nav className="h-full w-full overflow-auto bg-white">

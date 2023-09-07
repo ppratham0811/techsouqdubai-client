@@ -1,11 +1,12 @@
-import { Account, ID, Databases } from "appwrite";
+import { Account, ID, Databases } from 'appwrite';
 import {
   client,
   mainDatabaseID,
   usersCollectionID,
   productsCollectionID,
   categoryCollectionID,
-} from "../Appwrite";
+  navLinkCollectionID
+} from '../Appwrite';
 
 const account = new Account(client);
 const database = new Databases(client);
@@ -59,22 +60,22 @@ const loginUser = async (loginDetails) => {
     return {
       status: false,
       error,
-    };  
+    };
   }
 };
 
 const deleteCurrentSession = async () => {
-  console.log("here");
+  console.log('here');
   try {
     // Get the current user
     const currentUser = await account.get();
-    console.log("current user: ", currentUser)
+    console.log('current user: ', currentUser);
     if (currentUser) {
       // Delete the current session
-      await account.deleteSession("current");
+      await account.deleteSession('current');
     } else {
       // The user is not logged in
-      console.log("The user is not logged in");
+      console.log('The user is not logged in');
     }
   } catch (error) {
     console.error(error);
@@ -116,6 +117,17 @@ const getProductById = async (productId) => {
   }
 };
 
+const getNavLinks = async () => {
+  try {
+    return await database
+      .listDocuments(mainDatabaseID, navLinkCollectionID)
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e.message);
+  }
+}
+
 const getCategories = async () => {
   try {
     return await database
@@ -126,6 +138,7 @@ const getCategories = async () => {
     console.error(e.message);
   }
 };
+
 
 const getCategoryById = async (categoryId) => {
   try {
@@ -178,4 +191,5 @@ export {
   getProductsFromCategory,
   getProductById,
   getWishlist,
+  getNavLinks
 };

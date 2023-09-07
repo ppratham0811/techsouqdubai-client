@@ -12,6 +12,7 @@ import {
   getCategories,
   getCurrentUser,
   deleteCurrentSession,
+  getNavLinks,
 } from "../../actions";
 import { currentCartState } from "../../app/cartSlice";
 import { useSelector } from "react-redux";
@@ -28,7 +29,7 @@ const Navbar = () => {
 
   const [categories, setCategories] = useState([]);
   const loadAllCategories = async () => {
-    await getCategories()
+    await getNavLinks()
       .then((response) => {
         setCategories(response.documents);
       })

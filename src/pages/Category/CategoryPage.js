@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getAllProducts, getCategoryById } from "../../actions";
+import { getAllProducts, getCategoryById} from "../../actions";
 import { useState } from "react";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import Loading from "../../utils/Loading";
@@ -15,16 +15,7 @@ const CategoryPage = () => {
   const [categoryExists, setCategoryExists] = useState(false);
   const [products, setProducts] = useState([]);
 
-  const fetchCategory = async () => {
-    await getCategoryById(categoryId)
-      .then((res) => {
-        setCategoryExists(true);
-        setCategory(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+
 
   const fetchRelevantProducts = async () => {
     await getAllProducts()
@@ -44,7 +35,6 @@ const CategoryPage = () => {
   };
 
   useEffect(() => {
-    fetchCategory();
     fetchRelevantProducts();
     // setProducts(relevantProducts);
   }, []);
