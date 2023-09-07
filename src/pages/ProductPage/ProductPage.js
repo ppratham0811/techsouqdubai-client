@@ -19,7 +19,7 @@ const ProductPage = ({ products }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [exist, setExist] = useState(false);
+  const [exist, setExist] = useState(true);
   const dispatch = useDispatch();
   const currentCart = useSelector(currentCartState);
   const [toast, setToast] = useState("");
@@ -38,7 +38,8 @@ const ProductPage = ({ products }) => {
       .then((res) => {
         if (res.status) {
           setProduct(res.res);
-          setExist(true);
+        }else{
+          setExist(false);
         }
       })
       .catch((e) => {

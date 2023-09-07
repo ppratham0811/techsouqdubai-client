@@ -45,6 +45,7 @@ const Profile = () => {
     }
   }, [user]);
 
+
   if (!user) {
     return <Loading />;
   }
@@ -148,9 +149,9 @@ const Profile = () => {
                         productsOrdered.push(JSON.parse(prod));
                       }
                       return (
-                        <div class="mix mix-main mix-processing col-span-12">
+                        <div class="mix mix-main mix-processing col-span-12 ">
                           <a
-                            class="btn-open-modal transition-all-300 relative block p-4 hover:bg-gray-100"
+                            class="btn-open-modal transition-all-300 border-b-[1.5px] border-gray-200 relative block p-4 hover:bg-gray-100"
                             href={`/orders/${order.invoice}`}
                           >
                             <div class="pointer-events-none flex flex-col gap-5 sm:flex-row">
@@ -172,7 +173,7 @@ const Profile = () => {
                                 </span>
                               </div>
                               <span class="absolute top-0 right-0 m-2 rounded-xl bg-yellow-200 py-px px-2 text-sm text-yellow-500">
-                                {order.status}
+                                {order.Status}
                               </span>
                             </div>
                           </a>

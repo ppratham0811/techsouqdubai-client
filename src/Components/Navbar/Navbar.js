@@ -24,6 +24,7 @@ const Navbar = () => {
   const [user, setUser] = useState(false);
   const cartProducts = useSelector(currentCartState);
   const wishlistProducts = useSelector(currentWishlistState);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const navigate = useNavigate();
 
@@ -56,6 +57,18 @@ const Navbar = () => {
     loadAllCategories();
     loadCurrentUser();
   }, [user]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(searchTerm.length > 0){
+      navigate("/search", {
+        state:{
+          searchTerm: searchTerm
+        }
+      })
+      setSearchTerm('');
+    }
+  }
   /* font-family: 'Audiowide', cursive;
   font-family: 'Poppins', sans-serif; */
   return (
@@ -77,9 +90,11 @@ const Navbar = () => {
               </h3>
             </div>
             <div className="transition-all-300 order-3 col-span-4 mt-[10px] hidden self-center lg:order-2 lg:col-span-6 lg:mt-0 lg:block">
-              <form className="search" action="#">
+              <form onSubmit={(e) => handleSubmit(e)}  className="search">
                 <div className="flex h-[40px] overflow-hidden rounded-[50px] bg-white">
                   <input
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full text-sm border-none py-[5px] bg-white pl-5 text-black focus:border-none focus:outline-none appearance-none search-bar placeholder-black"
                     type="search"
                     placeholder="Search..."

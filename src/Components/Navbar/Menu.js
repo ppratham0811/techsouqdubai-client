@@ -29,8 +29,6 @@ const Menu = () => {
     loadAllCategories();
   }, []);
 
-  console.log(menu);
-
   const [productMenu, setProductMenu] = useState(false);
 
   return (

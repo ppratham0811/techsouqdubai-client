@@ -85,6 +85,7 @@ const OrderPage = ({ items }) => {
       templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ORDERS;
     const orderContent = {
       user_email: formDetails.email,
+      user_email: formDetails.email,
       to_name: customer,
       message: "Order Placed successfully",
     };
