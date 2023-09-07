@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getCategories } from "../../actions";
+import { getCategories, getNavLinks } from "../../actions";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link } from "react-router-dom";
 
@@ -8,6 +8,7 @@ const Menu = () => {
   const [allCategories, setAllCategories] = useState([]);
   const [parentCategories, setParentCategories] = useState([]);
   const [menu, setMenu] = useState(false);
+  const [navbar, setNavBar] = useState([]);
 
   useEffect(() => {
     const loadAllCategories = async () => {
@@ -19,11 +20,16 @@ const Menu = () => {
               (category) => category.parent === "isParent"
             )
           );
+          getNavLinks()
+            .then((response) => setNavBar(response.documents))
+            .catch((error) => console.error(error.message));
         })
         .catch((e) => console.error());
     };
     loadAllCategories();
   }, []);
+
+  console.log(menu);
 
   const [productMenu, setProductMenu] = useState(false);
 
@@ -41,11 +47,11 @@ const Menu = () => {
               <ArrowDropDownIcon className="transform transition-transform duration-300 hover:rotate-180 flex text-xs text-primary-color text-primary" />
             </button>
             {menu && (
-              <div className=" my-2  absolute w-80 bg-white top-[30px] z-20 shadow-lg p-4">
+              <div className=" my-2  absolute w-80 bg-white top-[30px] z-20 shadow-lg">
                 <ul>
                   {parentCategories.map((p, idx) => (
                     <>
-                      <li key={idx} className="py-2 group">
+                      <li key={idx} className="py-2 px-4 group">
                         <a href={`/category/${p.$id}`}>{p.name}</a>
                       </li>
                     </>
@@ -57,20 +63,13 @@ const Menu = () => {
           <li className="underlined-animated border-b-4 border-transparent hover:border-primary">
             <a href="/">Home</a>
           </li>
-          <li className="underlined-animated border-b-4 border-transparent hover:border-primary">
-            <a href="#">Computers</a>
-          </li>
-          <li className="underlined-animated border-b-4 border-transparent hover:border-primary">
-            <a href="#">Airocide</a>
-          </li>
-          <li className="underlined-animated border-b-4 border-transparent hover:border-primary">
-            <a href="#">Innovation</a>
-          </li>
-          <li className="underlined-animated group border-b-4 border-transparent hover:border-primary">
-            <a href="#" className="flex items-center gap-1">
-              <span>Components</span>
-            </a>
-          </li>
+          {navbar &&
+            navbar.map((nav, idx) => (
+              <li className="underlined-animated border-b-4 border-transparent hover:border-primary">
+                <a href={`/group/${nav.$id}`}>{nav?.name}</a>
+              </li>
+            ))}
+
           <li className="underlined-animated border-b-4 border-transparent hover:border-primary">
             <a href="faqs.html">FAQ's</a>
           </li>

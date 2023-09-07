@@ -23,6 +23,7 @@ const ProductPage = ({ products }) => {
   const dispatch = useDispatch();
   const currentCart = useSelector(currentCartState);
   const [toast, setToast] = useState("");
+  const [addQtyValue, setAddQtyValue] = useState(1);
 
   useEffect(() => {
     setTimeout(() => {
@@ -80,10 +81,17 @@ const ProductPage = ({ products }) => {
     }
 
     if (flag) {
-      dispatch(updateQty({ productId: flag.productId, qty: flag.qty + 1 }));
+      dispatch(
+        updateQty({
+          productId: flag.productId,
+          qty: parseInt(flag.qty) + parseInt(addQtyValue),
+        })
+      );
       setToast("Updated Cart");
     } else {
-      dispatch(addToCart({ productId: product.$id, product, qty: 1 }));
+      dispatch(
+        addToCart({ productId: product.$id, product, qty: addQtyValue })
+      );
       setToast("Added to Cart");
     }
   };
@@ -171,7 +179,8 @@ const ProductPage = ({ products }) => {
                   <input
                     className="w-12 p-2 border-none bg-transparent text-center text-lg text-gray-800 focus:border-none focus:outline-none focus:ring-0"
                     type="number"
-                    defaultValue={1}
+                    value={addQtyValue}
+                    onChange={(e) => setAddQtyValue(e.target.value)}
                     min={1}
                   />
                 </div>

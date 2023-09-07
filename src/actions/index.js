@@ -1,4 +1,4 @@
-import { Account, ID, Databases } from "appwrite";
+import { Account, ID, Databases, Query } from "appwrite";
 import {
   client,
   mainDatabaseID,
@@ -6,6 +6,8 @@ import {
   productsCollectionID,
   categoryCollectionID,
   ordersCollectionID,
+  navLinkCollectionID,
+  categoryRelationCollectionID,
 } from "../Appwrite";
 
 const account = new Account(client);
@@ -144,6 +146,17 @@ const getProductById = async (productId) => {
   }
 };
 
+const getNavLinks = async () => {
+  try {
+    return await database
+      .listDocuments(mainDatabaseID, navLinkCollectionID)
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
 const getCategories = async () => {
   try {
     return await database
@@ -246,6 +259,40 @@ const placeOrder = async (orderData) => {
     console.log({ message: e.message });
   }
 };
+const getNavBarLink = async (id) => {
+  try {
+    return await database
+      .getDocument(mainDatabaseID, navLinkCollectionID, id)
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getRelations = async () => {
+  try {
+    return await database
+      .listDocuments(mainDatabaseID, categoryRelationCollectionID)
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getChildCategories = async (parentId) => {
+  try {
+    return await database
+      .listDocuments(mainDatabaseID, categoryRelationCollectionID, [
+        Query.equal("parent", parentId),
+      ])
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export {
   getCurrentUser,
@@ -261,4 +308,8 @@ export {
   placeOrder,
   getAllOrders,
   getCurrentUserOrders,
+  getNavLinks,
+  getNavBarLink,
+  getChildCategories,
+  getRelations,
 };

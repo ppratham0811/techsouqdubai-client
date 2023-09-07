@@ -41,8 +41,13 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
               <i className="bi bi-x-lg text-stroke-medium pointer-events-none flex text-xl"></i>
             </button>
             <div className="py-12 flex items-center justify-center">
-              <img src="/logo.png" className="h-16 w-16" alt="logo" />
-              <p className="font-bold text-2xl px-4">TechSouqDubai</p>
+              <img src="/logo2.png" className="h-16 w-16" alt="logo" />
+              <p
+                className="font-bold text-2xl px-4"
+                style={{ fontFamily: "'Audiowide', cursive" }}
+              >
+                TechSouqDubai
+              </p>
             </div>
           </div>
           <nav className="h-full w-full overflow-auto bg-white">
@@ -110,7 +115,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                 <li key={idx} className="border-b border-gray-200 px-9">
                   <a
                     className="flex select-none items-center p-2"
-                    href={`/category/${cat.$id}`}
+                    href={`/group/${cat.$id}`}
                   >
                     <span>{cat.name}</span>
                   </a>
