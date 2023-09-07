@@ -9,54 +9,59 @@ import Heading from "../../Widgets/Heading";
 import Footer from "../../Components/Footer/Footer";
 import Products from "../../Components/Dashboard/Products/Products";
 
-const CategoryPage = () => {
+const CategoryPage = ({relations, categories, products}) => {
   const { categoryId } = useParams();
-  const [category, setCategory] = useState({});
-  const [categoryExists, setCategoryExists] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [categoryExists, setCategoryExists] = useState(true);
 
 
 
-  const fetchRelevantProducts = async () => {
-    await getAllProducts()
-      .then((res) => {
-        const relevantProducts = [];
-        for (let prod of res.documents) {
-          if (prod.category.$id === categoryId) {
-            relevantProducts.push(prod);
-          }
-        }
-        console.log(relevantProducts);
-        setProducts(relevantProducts);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  
+
+  const getCategory = () => {
+    const data = []
+    const cat = categories.find((category) => category.$id === categoryId);
+    if(!cat) setCategoryExists(false);
+    data.push(cat);
+    const related = relations.filter(
+      (relation) => relation.parent.$id === categoryId
+    );
+    related.map((x) => data.push(x?.child));
+
+    setCategory(data);
+  }
 
   useEffect(() => {
-    fetchRelevantProducts();
+    getCategory();
+    
     // setProducts(relevantProducts);
   }, []);
 
+
   if (!categoryExists) {
     return <ErrorPage />;
-  } else if (!category) {
+  } else if (category.length < 1) {
     return <Loading />;
   }
 
   return (
     <>
       <Navbar />
-      {products.length > 0 ? (
-        <div className="h-screen">
-          <Products title={category.name} products={products} />
-        </div>
-      ) : (
-        <div className="h-screen text-center text-2xl my-10 font-bold">
-          No products to show
-        </div>
-      )}
+      <p className='px-3 md:px-8 text-3xl font-semibold py-3'>{category[0]?.name}</p>
+      {category &&
+        category.map((cat, idx) => {
+          let relevantProducts = [];
+          for (let prod of products) {
+            if (prod.category.$id === cat.$id) {
+              relevantProducts.push(prod);
+            }
+          }
+
+          if (relevantProducts.length > 0)
+            return <Products title={cat.name} products={relevantProducts} />;
+          
+        })}
+      
 
       <Footer />
     </>

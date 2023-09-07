@@ -1,11 +1,12 @@
-import { Account, ID, Databases } from 'appwrite';
+import { Account, ID, Databases, Query } from 'appwrite';
 import {
   client,
   mainDatabaseID,
   usersCollectionID,
   productsCollectionID,
   categoryCollectionID,
-  navLinkCollectionID
+  navLinkCollectionID,
+  categoryRelationCollectionID,
 } from '../Appwrite';
 
 const account = new Account(client);
@@ -126,7 +127,7 @@ const getNavLinks = async () => {
   } catch (e) {
     console.error(e.message);
   }
-}
+};
 
 const getCategories = async () => {
   try {
@@ -138,7 +139,6 @@ const getCategories = async () => {
     console.error(e.message);
   }
 };
-
 
 const getCategoryById = async (categoryId) => {
   try {
@@ -180,6 +180,46 @@ const getWishlist = async ({ userId }) => {
   }
 };
 
+const getNavBarLink = async (id) => {
+  try {
+    return await database
+      .getDocument(mainDatabaseID, navLinkCollectionID, id)
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getRelations = async () => {
+  try {
+    return await database
+      .listDocuments(
+        mainDatabaseID,
+        categoryRelationCollectionID,
+      )
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+const getChildCategories = async (parentId) => {
+  try {
+    return await database
+      .listDocuments(
+        mainDatabaseID,
+        categoryRelationCollectionID,
+        [Query.equal('parent', parentId)]
+      )
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export {
   getCurrentUser,
   getAllProducts,
@@ -191,5 +231,8 @@ export {
   getProductsFromCategory,
   getProductById,
   getWishlist,
-  getNavLinks
+  getNavLinks,
+  getNavBarLink,
+  getChildCategories,
+  getRelations
 };

@@ -187,7 +187,7 @@ const Footer = () => {
           </div>
           <div className="col-span-12 pb-5">
             <p className="text-center">
-              © <span className="current-year">2023</span> Example. All rights
+              © <span className="current-year">2023</span> TechSouqDubai. All rights
               reserved
             </p>
           </div>

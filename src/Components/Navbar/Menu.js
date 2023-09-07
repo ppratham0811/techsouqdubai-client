@@ -64,7 +64,7 @@ const Menu = () => {
             <a href='/'>Home</a>
           </li>
           {navbar && navbar.map((nav, idx) => (<li className='underlined-animated border-b-4 border-transparent hover:border-primary'>
-            <a href='/'>{nav?.name}</a>
+            <a href={`/group/${nav.$id}`}>{nav?.name}</a>
           </li>))}
           
           <li className='underlined-animated border-b-4 border-transparent hover:border-primary'>
