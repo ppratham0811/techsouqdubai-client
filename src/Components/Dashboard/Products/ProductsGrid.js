@@ -57,7 +57,7 @@ const Products = ({ title, products }) => {
   return (
     <>
       <div
-        className={`mb-3 absolute top-0 left-1/2 transform -translate-x-1/2 ${
+        className={`absolute top-0 left-1/2 transform -translate-x-1/2 ${
           toast ? "top-2" : "translate-y-[-100%]"
         } transition-all duration-300`}
       >
@@ -68,7 +68,7 @@ const Products = ({ title, products }) => {
         )}
       </div>
       <Heading title={title} />
-      <div className="md:px-8 px-3">
+      <div className="md:px-8 px-3 mb-3">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {products?.map((prod, idx) => {
             return (
