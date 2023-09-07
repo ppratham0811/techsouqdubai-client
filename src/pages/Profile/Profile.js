@@ -45,7 +45,6 @@ const Profile = () => {
     }
   }, [user]);
 
-  console.log(userOrders)
 
   if (!user) {
     return <Loading />;
