@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
-import Dashboard from "./Components/Dashboard/Dashboard.js";
-import Login from "./pages/Login/Login.js";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ProductPage from "./pages/ProductPage/ProductPage.js";
-import Loading from "./utils/Loading.js";
-import OrderPage from "./pages/Order/OrderPage.js";
-import OrderDetails from "./pages/Order/OrderDetails.js";
-import { getCategories, getAllProducts, getRelations } from "./actions";
-import Wishlist from "./pages/Wishlist/Wishlist.js";
-import Cart from "./pages/Cart/Cart.js";
-import Profile from "./pages/Profile/Profile.js";
-import CategoryPage from "./pages/Category/CategoryPage.js";
-import GroupPage from "./pages/GroupCategory/GroupPage.js";
+import { useEffect, useState } from 'react';
+import Dashboard from './Components/Dashboard/Dashboard.js';
+import Login from './pages/Login/Login.js';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ProgressBar } from 'react-loader-spinner';
+import ProductPage from './pages/ProductPage/ProductPage.js';
+import { getCategories, getAllProducts, getRelations } from './actions';
+import Loading from './utils/Loading.js';
+import Wishlist from './pages/Wishlist/Wishlist.js';
+import Cart from './pages/Cart/Cart.js';
+import Profile from './pages/Profile/Profile.js';
+import CategoryPage from './pages/Category/CategoryPage.js';
+import GroupPage from './pages/GroupCategory/GroupPage.js';
+import SearchPage from './pages/Search/SearchPage.js';
+import OrderDetails from './pages/Order/OrderDetails.js';
+import OrderPage from './pages/Order/OrderPage.js';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -102,6 +104,9 @@ function App() {
                   />
                 }
               />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/wishlist' element={<Wishlist />} />
+              <Route path='/search' element={<SearchPage products={products} />} />
               <Route
                 path="/group/:groupID"
                 element={

@@ -9,10 +9,14 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useSelector } from "react-redux";
 import { currentCartState } from "../../app/cartSlice";
 import { currentWishlistState } from "../../app/wishlistSlice";
+import { useNavigate } from "react-router-dom";
 
 const MobileMenu = ({ menu, setMenu, categories }) => {
   const cartProducts = useSelector(currentCartState);
   const wishlistProducts = useSelector(currentWishlistState);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     // Add event listeners to disable scrolling when the menu is open
@@ -27,6 +31,19 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
       document.body.classList.remove("disable-scroll");
     };
   }, [menu]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(searchTerm.length > 0){
+      navigate("/search", {
+        state:{
+          searchTerm: searchTerm
+        }
+      })
+      setSearchTerm('');
+      setMenu(false);
+    }
+  }
 
   return (
     <>
@@ -51,16 +68,20 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
             </div>
           </div>
           <nav className="h-full w-full overflow-auto bg-white">
+              <form onSubmit={(e) => handleSubmit(e)} className="search" >
             <div className="flex h-[40px] overflow-hidden shadow-lg border-gray-200 border-[1px] border-solid mb-4 rounded-[50px] bg-white">
               <input
                 className="w-full text-sm border-none py-[5px] bg-white pl-5 text-black focus:border-none focus:outline-none appearance-none search-bar placeholder-black"
                 type="search"
                 placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <button className="px-3 text-black" type="submit">
                 <SearchOutlinedIcon />
               </button>
             </div>
+              </form>
             <ul className="metismenu">
               <li className="border-b border-gray-200">
                 <a className="flex select-none items-center p-2" href="/">

@@ -78,7 +78,7 @@ const OrderPage = ({ items }) => {
     const serviceId = process.env.REACT_APP_EMAILJS_SERVICE,
       templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ORDERS;
     const orderContent = {
-      user_email: "ppratham0811@gmail.com",
+      user_email: formDetails.email,
       to_name: customer,
       message: "Order Placed successfully",
     };
@@ -274,13 +274,13 @@ const OrderPage = ({ items }) => {
                               {item.product.title}
                             </h6>
                             <div className="flex gap-2">
-                              <div className="font-bold flex gap-1 leading-7">
-                                Qty: {item.qty}
+                              <div className="flex gap-1 leading-7">
+                                Qty: <span className="font-bold">{item.qty}</span>
                               </div>
                               <div className="flex items-center">
-                                <span className="font-bold text-primary-color">
+                                <span className="text-primary-color">
                                   Price:{" "}
-                                  {`${item.product.currency} ${item.product.salePrice}`}
+                                  <span className="font-bold">{`${item.product.currency.toUpperCase()} ${item.product.salePrice}`}</span>
                                 </span>
                               </div>
                             </div>
@@ -292,7 +292,7 @@ const OrderPage = ({ items }) => {
                 })}
                 <div className="mt-2 flex justify-between border-t-2 border-gray-200 pt-4 text-xl font-bold uppercase">
                   <span>Total:</span>
-                  <span>{cartTotal}</span>
+                  <span>AED {cartTotal}</span>
                 </div>
               </div>
             </div>
