@@ -285,10 +285,25 @@ const getChildCategories = async (parentId) => {
   try {
     return await database
       .listDocuments(mainDatabaseID, categoryRelationCollectionID, [
-        Query.equal("parent", parentId),
+        Query.equal('parent', parentId),
       ])
       .then((res) => res)
       .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getProudctsWithSearchTerm = async (text) => {
+  try {
+    return await database
+      .listDocuments(mainDatabaseID, productsCollectionID, [
+        Query.search('title', text),
+        Query.search('description', text),
+        Query.search('tags', text),
+      ])
+      .then((res) => res)
+      .catch((e) => console.error(e.message));
   } catch (e) {
     console.error(e);
   }
@@ -312,4 +327,5 @@ export {
   getNavBarLink,
   getChildCategories,
   getRelations,
+  getProudctsWithSearchTerm
 };
