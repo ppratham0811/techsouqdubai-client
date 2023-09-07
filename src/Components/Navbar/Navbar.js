@@ -66,6 +66,7 @@ const Navbar = () => {
           searchTerm: searchTerm
         }
       })
+      setSearchTerm('');
     }
   }
   /* font-family: 'Audiowide', cursive;

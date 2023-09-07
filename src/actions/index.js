@@ -32,7 +32,6 @@ const getAllUsers = async () => {
 const getCurrentUser = async () => {
   try {
     const currentUser = await account.get();
-    console.log(currentUser);
     if (currentUser) {
       return currentUser;
     }
@@ -298,9 +297,7 @@ const getProudctsWithSearchTerm = async (text) => {
   try {
     return await database
       .listDocuments(mainDatabaseID, productsCollectionID, [
-        Query.search('title', text),
-        Query.search('description', text),
-        Query.search('tags', text),
+        Query.search('title', text)
       ])
       .then((res) => res)
       .catch((e) => console.error(e.message));

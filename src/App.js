@@ -12,6 +12,8 @@ import Profile from './pages/Profile/Profile.js';
 import CategoryPage from './pages/Category/CategoryPage.js';
 import GroupPage from './pages/GroupCategory/GroupPage.js';
 import SearchPage from './pages/Search/SearchPage.js';
+import OrderDetails from './pages/Order/OrderDetails.js';
+import OrderPage from './pages/Order/OrderPage.js';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
