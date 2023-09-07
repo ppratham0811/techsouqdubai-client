@@ -1,11 +1,13 @@
-import { Account, ID, Databases } from "appwrite";
+import { Account, ID, Databases, Query } from 'appwrite';
 import {
   client,
   mainDatabaseID,
   usersCollectionID,
   productsCollectionID,
   categoryCollectionID,
-} from "../Appwrite";
+  navLinkCollectionID,
+  categoryRelationCollectionID,
+} from '../Appwrite';
 
 const account = new Account(client);
 const database = new Databases(client);
@@ -59,22 +61,22 @@ const loginUser = async (loginDetails) => {
     return {
       status: false,
       error,
-    };  
+    };
   }
 };
 
 const deleteCurrentSession = async () => {
-  console.log("here");
+  console.log('here');
   try {
     // Get the current user
     const currentUser = await account.get();
-    console.log("current user: ", currentUser)
+    console.log('current user: ', currentUser);
     if (currentUser) {
       // Delete the current session
-      await account.deleteSession("current");
+      await account.deleteSession('current');
     } else {
       // The user is not logged in
-      console.log("The user is not logged in");
+      console.log('The user is not logged in');
     }
   } catch (error) {
     console.error(error);
@@ -111,6 +113,17 @@ const getProductById = async (productId) => {
           error: e.message,
         };
       });
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
+const getNavLinks = async () => {
+  try {
+    return await database
+      .listDocuments(mainDatabaseID, navLinkCollectionID)
+      .then((res) => res)
+      .catch((e) => console.error(e));
   } catch (e) {
     console.error(e.message);
   }
@@ -167,6 +180,46 @@ const getWishlist = async ({ userId }) => {
   }
 };
 
+const getNavBarLink = async (id) => {
+  try {
+    return await database
+      .getDocument(mainDatabaseID, navLinkCollectionID, id)
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getRelations = async () => {
+  try {
+    return await database
+      .listDocuments(
+        mainDatabaseID,
+        categoryRelationCollectionID,
+      )
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+const getChildCategories = async (parentId) => {
+  try {
+    return await database
+      .listDocuments(
+        mainDatabaseID,
+        categoryRelationCollectionID,
+        [Query.equal('parent', parentId)]
+      )
+      .then((res) => res)
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export {
   getCurrentUser,
   getAllProducts,
@@ -178,4 +231,8 @@ export {
   getProductsFromCategory,
   getProductById,
   getWishlist,
+  getNavLinks,
+  getNavBarLink,
+  getChildCategories,
+  getRelations
 };
