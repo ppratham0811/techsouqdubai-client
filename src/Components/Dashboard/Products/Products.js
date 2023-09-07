@@ -72,12 +72,13 @@ const Products = ({ title, products }) => {
 
   const addProductToWishlist = (product) => {
     dispatch(addToWishlist(product));
+    setToast("Product added to wishlist");
   };
 
   return (
     <>
       <div
-        className={`absolute top-0 left-1/2 transform -translate-x-1/2 ${
+        className={`fixed top-0 left-1/2 transform -translate-x-1/2 ${
           toast ? "top-2" : "translate-y-[-100%]"
         } transition-all duration-300`}
       >

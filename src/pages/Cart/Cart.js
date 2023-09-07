@@ -242,16 +242,16 @@ const Cart = () => {
                   </>
                 )}
               </div>
-              <button
-                className="btn-view-shopping-cart btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-primary p-2"
-                type="submit"
-              >
-                <a href="/order-checkout">
+              <a href="/order-checkout">
+                <button
+                  className="btn-view-shopping-cart btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-primary p-2"
+                  type="submit"
+                >
                   <span className="font-bold uppercase text-white">
                     Continue
                   </span>
-                </a>
-              </button>
+                </button>
+              </a>
             </div>
             <a
               className="transition-all-300 my-5 flex items-center justify-center gap-2 hover:text-primary"
