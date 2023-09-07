@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../app/persist";
 import Loading from "../../utils/Loading";
 import { updateQty } from "../../app/cartSlice";
+import Heading from "../../Widgets/Heading";
 
 const Cart = () => {
   const cartProducts = useSelector(currentCartState);
@@ -30,7 +31,6 @@ const Cart = () => {
   };
   useEffect(() => {
     calculateSubtotal();
-    console.log(cartProducts);
   }, [cartProducts]);
 
   const handleQuantityIncrease = (productId, qty) => {
@@ -52,10 +52,8 @@ const Cart = () => {
     <>
       <Navbar />
       <div className="bg-gray-100 px-2 sm:px-8">
-        <div
-          className="grid grid-cols-12 gap-5 my-10 rounded-lg bg-white p-2 xs:p-5"
-          action="#"
-        >
+        <Heading title="Your Cart" />
+        <div className="grid grid-cols-12 gap-5 my-10 rounded-lg bg-white p-10 xs:p-5">
           <div className="col-span-12 lg:col-span-8">
             {/* Mobile Screen view */}
             {cartProducts ? (
@@ -248,7 +246,11 @@ const Cart = () => {
                 className="btn-view-shopping-cart btn-effect transition-all-300 flex w-full items-center justify-center rounded-lg bg-primary p-2"
                 type="submit"
               >
-                <span className="font-bold uppercase text-white">Continue</span>
+                <a href="/order-checkout">
+                  <span className="font-bold uppercase text-white">
+                    Continue
+                  </span>
+                </a>
               </button>
             </div>
             <a

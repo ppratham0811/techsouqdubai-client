@@ -45,10 +45,12 @@ const CategoryPage = () => {
 
   useEffect(() => {
     fetchCategory();
-    fetchRelevantProducts();
     // setProducts(relevantProducts);
-  }, []);
+  }, [categoryId]);
 
+  useEffect(() => {
+    fetchRelevantProducts();
+  }, []);
   if (!categoryExists) {
     return <ErrorPage />;
   } else if (!category) {

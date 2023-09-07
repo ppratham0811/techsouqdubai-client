@@ -5,14 +5,32 @@ import {
   usersCollectionID,
   productsCollectionID,
   categoryCollectionID,
+  ordersCollectionID,
 } from "../Appwrite";
 
 const account = new Account(client);
 const database = new Databases(client);
 
+const getAllUsers = async () => {
+  try {
+    await database
+      .listDocuments(mainDatabaseID, usersCollectionID)
+      .then((res) => {
+        console.log(res.documents);
+        return res.documents;
+      })
+      .catch((e) => {
+        return e.message;
+      });
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
 const getCurrentUser = async () => {
   try {
     const currentUser = await account.get();
+    console.log(currentUser);
     if (currentUser) {
       return currentUser;
     }
@@ -29,7 +47,18 @@ const registerUser = async (userData) => {
       userData.password,
       userData.name
     );
-    if (userRegistered) {
+
+    const userSaved = await database.createDocument(
+      mainDatabaseID,
+      usersCollectionID,
+      ID.unique(),
+      {
+        email: userData.email,
+        fullName: userData.name,
+      }
+    );
+    if (userRegistered && userSaved) {
+      console.log(userSaved);
       return await loginUser({
         email: userData.email,
         password: userData.password,
@@ -59,16 +88,15 @@ const loginUser = async (loginDetails) => {
     return {
       status: false,
       error,
-    };  
+    };
   }
 };
 
 const deleteCurrentSession = async () => {
-  console.log("here");
   try {
     // Get the current user
     const currentUser = await account.get();
-    console.log("current user: ", currentUser)
+    console.log("current user: ", currentUser);
     if (currentUser) {
       // Delete the current session
       await account.deleteSession("current");
@@ -167,6 +195,58 @@ const getWishlist = async ({ userId }) => {
   }
 };
 
+const getAllOrders = async () => {
+  try {
+    const allOrders = await database.listDocuments(
+      mainDatabaseID,
+      ordersCollectionID
+    );
+    return allOrders.documents;
+  } catch (e) {
+    return e.message;
+  }
+};
+
+const getCurrentUserOrders = async (userEmail) => {
+  try {
+    const allOrders = await getAllOrders();
+    console.log(allOrders);
+    const userOrders = [];
+    if (allOrders?.length > 0) {
+      for (let order of allOrders) {
+        if (order.email === userEmail) {
+          userOrders.push(order);
+        }
+      }
+    }
+    return userOrders;
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+const placeOrder = async (orderData) => {
+  try {
+    console.log(orderData);
+    await database
+      .createDocument(
+        mainDatabaseID,
+        ordersCollectionID,
+        ID.unique(),
+        orderData
+      )
+      .then(async (res) => {
+        return res;
+      })
+      .catch((e) => {
+        console.log(e.message);
+        return e.message;
+      });
+  } catch (e) {
+    console.log({ message: e.message });
+  }
+};
+
 export {
   getCurrentUser,
   getAllProducts,
@@ -178,4 +258,7 @@ export {
   getProductsFromCategory,
   getProductById,
   getWishlist,
+  placeOrder,
+  getAllOrders,
+  getCurrentUserOrders,
 };

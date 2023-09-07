@@ -16,11 +16,10 @@ const Login = () => {
     password: "",
     confirmPassword: "",
   });
-  const [modal, setModal] = useState(false);
   const [toast, setToast] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -58,6 +57,7 @@ const Login = () => {
       setToast("Passwords don't match");
     } else {
       setToast("");
+      setLoading(true);
       //await deleteCurrentSession();
       if (login) {
         const loggedUser = await loginUser({
@@ -83,6 +83,7 @@ const Login = () => {
           setToast(user.error.message);
         }
       }
+      setLoading(false);
     }
   };
 
@@ -142,7 +143,10 @@ const Login = () => {
                 type="submit"
                 onClick={handleLoginFormSubmit}
               >
-                <span className="font-bold uppercase text-white">Log In</span>
+                <span className="font-bold uppercase text-white">
+                  {" "}
+                  {loading ? "Loading..." : "Login"}
+                </span>
               </button>
             </form>
           ) : (
@@ -210,7 +214,7 @@ const Login = () => {
                   onClick={handleLoginFormSubmit}
                 >
                   <span className="font-bold uppercase text-white">
-                    Sign Up
+                    {loading ? "Loading..." : "Sign Up"}
                   </span>
                 </button>
               </div>

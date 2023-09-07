@@ -7,23 +7,21 @@ import Products from "./Products/Products";
 import Categories from "./Categories/Categories";
 import Navbar from "../Navbar/Navbar.js";
 import Footer from "../Footer/Footer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CarouselImages from "./CarouselImages";
+import ContactQuery from "../ContactQuery/ContactQuery";
 
 const Dashboard = ({ products, categories }) => {
   return (
     <>
       <Navbar />
+
+      <ContactQuery />
       <div className="mx-auto my-5 md:px-12 px-8">
         <div className="grid grid-cols-12 h-[600px] gap-4 w-full">
           <div className="col-span-12 lg:col-span-8 shadow-lg">
-
             {/* Carousel */}
-            
-
-            <CarouselImages/>
-            
-            {/* <img src="playyourway.jpg" className="w-full rounded-lg" alt="" /> */}
+            <CarouselImages />
           </div>
           <div className="group relative col-span-12 lg:col-span-4 overflow-hidden rounded-lg md:block shadow-lg">
             <div className="overlay-gradient absolute z-[1] h-full w-full"></div>
@@ -114,7 +112,7 @@ const Dashboard = ({ products, categories }) => {
         }
 
         if (relevantProducts.length)
-          return <Products title={cat.name} products={relevantProducts} />
+          return <Products title={cat.name} products={relevantProducts} />;
       })}
 
       {/* <Products title="Categories" products={categories} /> */}

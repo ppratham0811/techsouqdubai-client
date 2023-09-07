@@ -8,9 +8,11 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useSelector } from "react-redux";
 import { currentCartState } from "../../app/cartSlice";
+import { currentWishlistState } from "../../app/wishlistSlice";
 
 const MobileMenu = ({ menu, setMenu, categories }) => {
-  const cart = useSelector(currentCartState);
+  const cartProducts = useSelector(currentCartState);
+  const wishlistProducts = useSelector(currentWishlistState);
 
   useEffect(() => {
     // Add event listeners to disable scrolling when the menu is open
@@ -80,7 +82,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                       <span className="font-semibold">Wishlist</span>
                     </a>
                     <span className="badge ml-auto h-[22px] min-w-[22px] px-[6px]">
-                      0
+                      {wishlistProducts.length}
                     </span>
                   </div>
                 </div>
@@ -96,7 +98,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                       <span className="font-semibold">Shopping Cart</span>
                     </a>
                     <span className="badge ml-auto h-[22px] min-w-[22px] px-[6px]">
-                      {cart.length}
+                      {cartProducts.length}
                     </span>
                   </div>
                 </div>
@@ -106,7 +108,10 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
               </li>
               {categories?.map((cat, idx) => (
                 <li key={idx} className="border-b border-gray-200 px-9">
-                  <a className="flex select-none items-center p-2" href="/">
+                  <a
+                    className="flex select-none items-center p-2"
+                    href={`/category/${cat.$id}`}
+                  >
                     <span>{cat.name}</span>
                   </a>
                 </li>
