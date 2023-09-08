@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import "./MobileMenu.css";
-import { getCategories } from "../../actions";
+import {
+  deleteCurrentSession,
+  getCategories,
+  getCurrentUser,
+} from "../../actions";
 import { store } from "../../app/persist";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -14,9 +18,28 @@ import { useNavigate } from "react-router-dom";
 const MobileMenu = ({ menu, setMenu, categories }) => {
   const cartProducts = useSelector(currentCartState);
   const wishlistProducts = useSelector(currentWishlistState);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
+  const [user, setUser] = useState(false);
+  const loadCurrentUser = async () => {
+    const currentUser = await getCurrentUser();
+    if (currentUser) {
+      setUser(true);
+    }
+    return currentUser;
+  };
+  const logoutCurrentUser = async () => {
+    await deleteCurrentSession().then(() => {
+      setUser(false);
+      navigate("/login");
+    });
+    console.log(loadCurrentUser());
+  };
+
+  useEffect(() => {
+    loadCurrentUser();
+  }, []);
 
   useEffect(() => {
     // Add event listeners to disable scrolling when the menu is open
@@ -34,16 +57,16 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(searchTerm.length > 0){
+    if (searchTerm.length > 0) {
       navigate("/search", {
-        state:{
-          searchTerm: searchTerm
-        }
-      })
-      setSearchTerm('');
+        state: {
+          searchTerm: searchTerm,
+        },
+      });
+      setSearchTerm("");
       setMenu(false);
     }
-  }
+  };
 
   return (
     <>
@@ -68,20 +91,20 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
             </div>
           </div>
           <nav className="h-full w-full overflow-auto bg-white">
-              <form onSubmit={(e) => handleSubmit(e)} className="search" >
-            <div className="flex h-[40px] overflow-hidden shadow-lg border-gray-200 border-[1px] border-solid mb-4 rounded-[50px] bg-white">
-              <input
-                className="w-full text-sm border-none py-[5px] bg-white pl-5 text-black focus:border-none focus:outline-none appearance-none search-bar placeholder-black"
-                type="search"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <button className="px-3 text-black" type="submit">
-                <SearchOutlinedIcon />
-              </button>
-            </div>
-              </form>
+            <form onSubmit={(e) => handleSubmit(e)} className="search">
+              <div className="flex h-[40px] overflow-hidden shadow-lg border-gray-200 border-[1px] border-solid mb-4 rounded-[50px] bg-white">
+                <input
+                  className="w-full text-sm border-none py-[5px] bg-white pl-5 text-black focus:border-none focus:outline-none appearance-none search-bar placeholder-black"
+                  type="search"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button className="px-3 text-black" type="submit">
+                  <SearchOutlinedIcon />
+                </button>
+              </div>
+            </form>
             <ul className="metismenu">
               <li className="border-b border-gray-200">
                 <a className="flex select-none items-center p-2" href="/">
@@ -94,11 +117,25 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                   <i className="bi bi-person mr-3 flex text-xl text-primary-color"></i>
                   <span className="font-semibold">My Account</span>
                 </div>
-                <div className="metismenu-content mm-collapse">
-                  <a className="ml-10 block p-1" href="/login">
-                    Login
-                  </a>
-                </div>
+                {!user ? (
+                  <div className="metismenu-content mm-collapse">
+                    <a className="ml-10 block p-1" href="/login">
+                      Login
+                    </a>
+                  </div>
+                ) : (
+                  <div className="metismenu-content mm-collapse">
+                    <a className="ml-10 block p-1" href="/profile">
+                      Profile
+                    </a>
+                    <button
+                      className="ml-10 block p-1"
+                      onClick={logoutCurrentUser}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
               </li>
               <li className="border-b border-gray-200">
                 <div className="cursor-pointer p-2">
