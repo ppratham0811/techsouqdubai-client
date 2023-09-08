@@ -108,20 +108,22 @@ const Products = ({ title, products }) => {
                     </span>
                   ) : null}
                 </div>
-                <div className='absolute z-10 top-[10px] right-[10px]'>
-                  <div
-                    className='p-[2px] transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover'
-                    onClick={() => addProductToWishlist(prod)}
-                  >
-                    <FavoriteBorderIcon />
+                {prod.quantity > 0 ? (
+                  <div className='absolute z-10 top-[10px] right-[10px]'>
+                    <div
+                      className='p-[2px] transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover'
+                      onClick={() => addProductToWishlist(prod)}
+                    >
+                      <FavoriteBorderIcon />
+                    </div>
+                    <div
+                      className='p-[2px] my-2 transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover'
+                      onClick={() => addProductToCart(prod)}
+                    >
+                      <AddShoppingCartOutlinedIcon />
+                    </div>
                   </div>
-                  <div
-                    className='p-[2px] my-2 transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover'
-                    onClick={() => addProductToCart(prod)}
-                  >
-                    <AddShoppingCartOutlinedIcon />
-                  </div>
-                </div>
+                ) : null}
                 <a href={`/products/${prod.$id}`} className='h-full'>
                   <div className='card-container  transition-all-300 translateY-2 relative flex h-full flex-col  rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl hover:shadow-primary'>
                     <div className='h-[190px] flex w-full justify-center overflow-hidden rounded-lg'>
