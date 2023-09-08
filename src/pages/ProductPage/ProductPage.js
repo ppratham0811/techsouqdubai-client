@@ -192,6 +192,7 @@ const ProductPage = ({ products }) => {
               <div className='flex justify-start items-center gap-4'>
                 <div className='inline-flex rounded-lg bg-white shadow'>
                   <select
+                    
                     className='w-12 p-2 border-none bg-transparent text-center text-lg text-gray-800 focus:border-none focus:outline-none focus:ring-0'
                     value={addQtyValue}
                     onChange={(e) => setAddQtyValue(e.target.value)}
