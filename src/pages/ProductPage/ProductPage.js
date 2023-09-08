@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getProductById } from '../../actions';
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -24,6 +24,7 @@ const ProductPage = ({ products }) => {
   const currentCart = useSelector(currentCartState);
   const [toast, setToast] = useState('');
   const [addQtyValue, setAddQtyValue] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => {
@@ -236,6 +237,20 @@ const ProductPage = ({ products }) => {
                     {product.category?.name}
                   </a>
                 </span>
+              </div>
+            </div>
+            <div className='mt-5 border-t border-gray-200 pt-5'>
+              <div className='flex w-full flex-wrap gap-[3px]'>
+                {product.tags.map((tag) => (
+                  <span
+                    className='flex cursor-pointer w-fit text-sm bg-primary text-white px-3 py-1 rounded-full'
+                    onClick={() =>
+                      navigate('/search', { state: { searchTerm: tag } })
+                    }
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
             {product.deliveryTime && (
