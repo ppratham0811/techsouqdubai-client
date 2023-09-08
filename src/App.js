@@ -61,7 +61,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 500);
 
     return () => {
       clearTimeout(timer);
@@ -73,29 +73,29 @@ function App() {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="App flex min-h-screen flex-col">
+        <div className='App flex min-h-screen flex-col'>
           <BrowserRouter>
             <Routes>
               <Route
-                path="/"
+                path='/'
                 exact
                 element={
                   <Dashboard products={products} categories={categories} />
                 }
               />
-              <Route path="/login" element={<Login />} />
+              <Route path='/login' element={<Login />} />
               <Route
-                path="/products/:productId"
+                path='/products/:productId'
                 element={<ProductPage products={products} />}
               />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/order-checkout" element={<OrderPage />} />
-              <Route path="/orders/:invoiceId" element={<OrderDetails />} />
+              <Route path='/cart' element={<Cart />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/wishlist' element={<Wishlist />} />
+              <Route path='/order-checkout' element={<OrderPage />} />
+              <Route path='/orders/:invoiceId' element={<OrderDetails />} />
               <Route
                 exact
-                path="/category/:categoryId"
+                path='/category/:categoryId'
                 element={
                   <CategoryPage
                     relations={relations}
@@ -106,9 +106,12 @@ function App() {
               />
               <Route path='/profile' element={<Profile />} />
               <Route path='/wishlist' element={<Wishlist />} />
-              <Route path='/search' element={<SearchPage products={products} />} />
               <Route
-                path="/group/:groupID"
+                path='/search'
+                element={<SearchPage products={products} />}
+              />
+              <Route
+                path='/group/:groupID'
                 element={
                   <GroupPage products={products} relations={relations} />
                 }
