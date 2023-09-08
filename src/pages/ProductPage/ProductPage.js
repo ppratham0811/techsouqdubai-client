@@ -194,7 +194,7 @@ const ProductPage = ({ products }) => {
                     className="w-12 p-2 border-none bg-transparent text-center text-lg text-gray-800 focus:border-none focus:outline-none focus:ring-0"
                     type="number"
                     value={addQtyValue}
-                    onChange={(e) => setAddQtyValue(e.target.value)}
+                    onChange={(e) => setAddQtyValue(e.target.value > product.quantity ? product.quantity : e.target.value<1 ? 1 : e.target.value)}
                     min={1}
                     max={product.quantity}
                   />
