@@ -14,6 +14,7 @@ const Cart = () => {
   const cartProducts = useSelector(currentCartState);
   const [cartTotal, setCartTotal] = useState(0);
   const [quote, setQuote] = useState(false);
+  const [toast, setToast] = useState("");
   const dispatch = useDispatch();
   const calculateSubtotal = () => {
     let total = 0;
@@ -33,9 +34,20 @@ const Cart = () => {
     calculateSubtotal();
   }, [cartProducts]);
 
-  const handleQuantityIncrease = (productId, qty) => {
-    dispatch(updateQty({ productId, qty }));
-    console.log(store.getState());
+  useEffect(() => {
+    setTimeout(() => {
+      if (toast.length > 0) {
+        setToast("");
+      }
+    }, 2000);
+  }, [toast]);
+
+  const handleQuantityUpdate = (productObj, qty) => {
+    if (qty <= productObj.product.quantity && qty > 0) {
+      dispatch(updateQty({ productId: productObj.productId, qty }));
+    } else {
+      setToast(`Max quantity: ${productObj.product.quantity}`);
+    }
   };
 
   const handleDeleteProductFromCart = (productId) => {
@@ -119,11 +131,9 @@ const Cart = () => {
                                 className="quantity-value input-number w-12 border-none bg-transparent p-1 text-center text-lg text-gray-400 focus:border-none focus:ring-0"
                                 type="number"
                                 min={1}
+                                max={prodObj.product.quantity}
                                 onChange={(e) =>
-                                  handleQuantityIncrease(
-                                    prodObj.productId,
-                                    e.target.value
-                                  )
+                                  handleQuantityUpdate(prodObj, e.target.value)
                                 }
                                 value={prodObj.qty}
                               />
@@ -192,11 +202,9 @@ const Cart = () => {
                                 className="quantity-value input-number w-12 border-none bg-transparent p-1 text-center text-lg text-gray-400 focus:border-none focus:ring-0"
                                 type="number"
                                 min={1}
+                                max={prodObj.product.quantity}
                                 onChange={(e) =>
-                                  handleQuantityIncrease(
-                                    prodObj.productId,
-                                    e.target.value
-                                  )
+                                  handleQuantityUpdate(prodObj, e.target.value)
                                 }
                                 value={prodObj.qty}
                               />

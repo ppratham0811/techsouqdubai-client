@@ -38,7 +38,7 @@ const ProductPage = ({ products }) => {
       .then((res) => {
         if (res.status) {
           setProduct(res.res);
-        }else{
+        } else {
           setExist(false);
         }
       })
@@ -80,8 +80,15 @@ const ProductPage = ({ products }) => {
         break;
       }
     }
-
     if (flag) {
+      console.log(flag);
+      console.log(parseInt(flag.qty) + parseInt(addQtyValue));
+    }
+
+    if (
+      flag &&
+      parseInt(flag.qty) + parseInt(addQtyValue) <= product.quantity
+    ) {
       dispatch(
         updateQty({
           productId: flag.productId,
@@ -89,6 +96,11 @@ const ProductPage = ({ products }) => {
         })
       );
       setToast("Updated Cart");
+    } else if (
+      flag &&
+      parseInt(flag.qty) + parseInt(addQtyValue) > product.quantity
+    ) {
+      setToast(`Max available units: ${product.quantity}`);
     } else {
       dispatch(
         addToCart({ productId: product.$id, product, qty: addQtyValue })
@@ -184,6 +196,7 @@ const ProductPage = ({ products }) => {
                     value={addQtyValue}
                     onChange={(e) => setAddQtyValue(e.target.value)}
                     min={1}
+                    max={product.quantity}
                   />
                 </div>
                 <button

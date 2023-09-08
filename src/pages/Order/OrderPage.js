@@ -6,7 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useSelector } from "react-redux";
 import { currentCartState } from "../../app/cartSlice";
 import emailjs from "@emailjs/browser";
-import { placeOrder } from "../../actions";
+import { placeOrder, updateProductQuantity } from "../../actions";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Loading from "../../utils/Loading";
 
@@ -31,7 +31,9 @@ const OrderPage = ({ items }) => {
   const [cartTotal, setCartTotal] = useState(0);
 
   const [orderCompleted, setOrderCompleted] = useState(false);
+  const [toast, setToast] = useState("");
   const [loading, setLoading] = useState(false);
+  const [formCompleted, setFormCompleted] = useState(true);
 
   const calculateSubtotal = () => {
     let total = 0;
@@ -48,6 +50,14 @@ const OrderPage = ({ items }) => {
   useEffect(() => {
     calculateSubtotal();
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (toast.length > 0) {
+        setToast("");
+      }
+    }, 2000);
+  }, [toast]);
 
   function generateInvoiceNumber() {
     const now = new Date();
@@ -66,42 +76,76 @@ const OrderPage = ({ items }) => {
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const customer = formDetails.firstName + " " + formDetails.lastName;
-    const address = `${formDetails.apt}, ${formDetails.address}, ${formDetails.city} - ${formDetails.postalCode}`;
-    const invoice = generateInvoiceNumber();
-    console.log(cartTotal);
-    await placeOrder({
-      customer,
-      address,
-      email: formDetails.email,
-      amount: cartTotal,
-      method: formDetails.method,
-      orderTime: new Date(),
-      products: formDetails.products,
-      invoice,
-    });
-    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE,
-      templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ORDERS;
-    const orderContent = {
-      user_email: formDetails.email,
-      user_email: formDetails.email,
-      to_name: customer,
-      message: "Order Placed successfully",
-    };
-    await emailjs
-      .send(serviceId, templateId, orderContent, "xDU7Al3eXxSSqGs_e")
-      .then(
-        (result) => {
-          return result;
-        },
-        (error) => {
-          console.log(error);
-          return error;
+    if (!formDetails.firstName) {
+      setToast("Please enter your First Name");
+      setFormCompleted(false);
+    } else if (!formDetails.lastName) {
+      setToast("Please enter your Last Name");
+      setFormCompleted(false);
+    } else if (!formDetails.email) {
+      setToast("Please enter your Last Name");
+      setFormCompleted(false);
+    } else if (!formDetails.address) {
+      setToast("Please enter your Last Name");
+      setFormCompleted(false);
+    } else if (!formDetails.city) {
+      setToast("Please enter your Last Name");
+      setFormCompleted(false);
+    } else if (!formDetails.postalCode) {
+      setToast("Please enter your Last Name");
+      setFormCompleted(false);
+    } else if (!formDetails.telephone) {
+      setToast("Please enter your Last Name");
+      setFormCompleted(false);
+    } else {
+      setToast("");
+      if (formCompleted) {
+        setLoading(true);
+        const customer = formDetails.firstName + " " + formDetails.lastName;
+        const address = `${formDetails.apt}, ${formDetails.address}, ${formDetails.city} - ${formDetails.postalCode}`;
+        const invoice = generateInvoiceNumber();
+        console.log(cartTotal);
+        await placeOrder({
+          customer,
+          address,
+          email: formDetails.email,
+          amount: cartTotal,
+          method: formDetails.method,
+          orderTime: new Date(),
+          products: formDetails.products,
+          invoice,
+        });
+        const serviceId = process.env.REACT_APP_EMAILJS_SERVICE,
+          templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ORDERS;
+        const orderContent = {
+          user_email: formDetails.email,
+          to_name: customer,
+          message: "Order Placed successfully",
+        };
+
+        for (let prod of formDetails.products) {
+          const p = JSON.parse(prod);
+          await updateProductQuantity(
+            p.product.$id,
+            p.product.quantity - p.quantity
+          );
         }
-      );
-    setLoading(false);
-    setOrderCompleted(true);
+
+        await emailjs
+          .send(serviceId, templateId, orderContent, "xDU7Al3eXxSSqGs_e")
+          .then(
+            (result) => {
+              return result;
+            },
+            (error) => {
+              console.log(error);
+              return error;
+            }
+          );
+        setLoading(false);
+        setOrderCompleted(true);
+      }
+    }
   };
 
   if (loading) {
@@ -111,6 +155,17 @@ const OrderPage = ({ items }) => {
   return (
     <>
       <Navbar />
+      <div
+        className={`fixed top-0 left-1/2 transform -translate-x-1/2 ${
+          toast ? "top-2" : "translate-y-[-100%]"
+        } transition-all duration-300`}
+      >
+        {toast.length > 0 && (
+          <div className="bg-red-500 px-4 py-2 text-white rounded">
+            <p>{toast}</p>
+          </div>
+        )}
+      </div>
       <div className="bg-gray-100 px-2 sm:px-8">
         <Heading title="Checkout" />
         <div className="bg-white p-4 my-8">

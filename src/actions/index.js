@@ -269,6 +269,23 @@ const getNavBarLink = async (id) => {
   }
 };
 
+const updateProductQuantity = async (productId, quantity) => {
+  try {
+    await database
+      .updateDocument(mainDatabaseID, productsCollectionID, productId, {
+        quantity,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
 const getRelations = async () => {
   try {
     return await database
@@ -284,7 +301,7 @@ const getChildCategories = async (parentId) => {
   try {
     return await database
       .listDocuments(mainDatabaseID, categoryRelationCollectionID, [
-        Query.equal('parent', parentId),
+        Query.equal("parent", parentId),
       ])
       .then((res) => res)
       .catch((e) => console.error(e));
@@ -297,7 +314,7 @@ const getProudctsWithSearchTerm = async (text) => {
   try {
     return await database
       .listDocuments(mainDatabaseID, productsCollectionID, [
-        Query.search('title', text)
+        Query.search("title", text),
       ])
       .then((res) => res)
       .catch((e) => console.error(e.message));
@@ -324,5 +341,6 @@ export {
   getNavBarLink,
   getChildCategories,
   getRelations,
-  getProudctsWithSearchTerm
+  getProudctsWithSearchTerm,
+  updateProductQuantity,
 };
