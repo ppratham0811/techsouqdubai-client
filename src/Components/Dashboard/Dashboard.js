@@ -10,10 +10,21 @@ import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
 import CarouselImages from "./CarouselImages";
 import ContactQuery from "../ContactQuery/ContactQuery";
+import Loading from "../../utils/Loading";
 
 const Dashboard = ({ products, categories }) => {
+  const [loading, setLoading] = useState(true);
+
+  
+  
   return (
     <>
+    <div className={loading ? "block" : "hidden"}>
+
+      <Loading />
+    </div>
+    <div className={loading ? "hidden" : "block"}>
+
       <Navbar />
 
       <ContactQuery />
@@ -21,7 +32,7 @@ const Dashboard = ({ products, categories }) => {
         <div className="grid grid-cols-12 h-[600px] gap-4 w-full">
           <div className="col-span-12 lg:col-span-8 shadow-lg">
             {/* Carousel */}
-            <CarouselImages />
+            <CarouselImages setLoad={setLoading} load={loading} />
           </div>
           <div className="group relative col-span-12 lg:col-span-4 overflow-hidden rounded-lg md:block shadow-lg">
             <div className="overlay-gradient absolute z-[1] h-full w-full"></div>
@@ -110,7 +121,7 @@ const Dashboard = ({ products, categories }) => {
             relevantProducts.push(prod);
           }
         }
-
+        
         if (relevantProducts.length)
           return <Products title={cat.name} products={relevantProducts} />;
       })}
@@ -120,6 +131,7 @@ const Dashboard = ({ products, categories }) => {
       <Categories />
 
       <Footer />
+        </div>
     </>
   );
 };
