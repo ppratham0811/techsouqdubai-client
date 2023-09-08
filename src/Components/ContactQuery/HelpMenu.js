@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import emailjs from "@emailjs/browser";
 
-const HelpMenu = ({ setShowHelpMenu }) => {
+const HelpMenu = ({ setShowHelpMenu, showMenu }) => {
   const [loading, setLoading] = useState(false);
 
   const form = useRef();
@@ -29,14 +29,16 @@ const HelpMenu = ({ setShowHelpMenu }) => {
       );
   };
 
+  console.log(showMenu);
+
   return (
-    <div className="bg-primary p-4 rounded-md z-[200] fixed sm:bottom-0 md:bottom-2 md:right-2 lg:bottom-8 lg:right-8">
+    <div className="bg-primary p-4 rounded-md z-[200] absolute max-w-screen bottom-0 right-0">
       <div className="flex justify-between">
         <span className="text-xl text-white pr-10">
           Contact us for more details!
         </span>
         <ClearIcon
-          className="text-white text-left"
+          className="text-white text-left cursor-pointer"
           onClick={() => setShowHelpMenu(false)}
         />
       </div>
