@@ -15,8 +15,6 @@ import Loading from "../../utils/Loading";
 const Dashboard = ({ products, categories }) => {
   const [loading, setLoading] = useState(true);
 
-  console.log(loading);
-
   
   
   return (

@@ -182,7 +182,7 @@ const ProductPage = ({ products }) => {
               </div>
             )}
             <div className='my-4'>
-              <p className='clamp-5 break-all'>
+              <p className='clamp-5  break-normal'>
                 {trimCharacters(product.description)}
               </p>
             </div>

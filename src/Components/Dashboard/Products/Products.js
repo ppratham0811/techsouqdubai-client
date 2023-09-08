@@ -98,7 +98,8 @@ const Products = ({ title, products }) => {
           {products?.map((prod, idx) => {
             return (
               <div key={prod.$id} className="flex flex-col w-full h-full">
-                <div className="card-container  transition-all-300 translateY-2 relative flex h-full flex-col  rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl">
+                <a href={`/products/${prod.$id}`} className="h-full">
+                <div className="card-container  transition-all-300 translateY-2 relative flex h-full flex-col  rounded-lg bg-white p-5 shadow-md hover:z-[2] hover:shadow-xl hover:shadow-primary">
                   <div className="absolute top-[10px] right-[10px]">
                     <div
                       className="p-[2px] transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover"
@@ -127,13 +128,13 @@ const Products = ({ title, products }) => {
                       {prod.title}
                     </a>
                   </div>
-                  <div className="mt-1 mb-6">
-                    <p className="clamp-2 line-clamp-3 text-sm text-gray-400">
+                  <div className="mt-1 mb-1">
+                    <p className="clamp-2 line-clamp-3 break-normal text-sm text-gray-400">
                       {trimCharacters(prod.description)}
                     </p>
                   </div>
 
-                  <div className="mt-auto">
+                  {/* <div className="mt-auto">
                     <a
                       className="btn-effect transition-all-300  flex w-full items-center justify-center rounded-lg bg-primary px-3 py-4"
                       href={`/products/${prod.$id}`}
@@ -142,8 +143,9 @@ const Products = ({ title, products }) => {
                         View details
                       </span>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
+                </a>
               </div>
             );
           })}
