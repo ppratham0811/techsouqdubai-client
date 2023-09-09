@@ -165,7 +165,7 @@ const OrderPage = ({ items }) => {
     <>
       <Navbar />
       <div
-        className={`fixed top-0 left-1/2 transform -translate-x-1/2 ${
+        className={`fixed z-[999999] top-0 left-1/2 transform -translate-x-1/2 ${
           toast ? 'top-2' : 'translate-y-[-100%]'
         } transition-all duration-300`}
       >

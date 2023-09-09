@@ -55,7 +55,7 @@ const Products = ({ title, products }) => {
   return (
     <>
       <div
-        className={`absolute top-0 left-1/2 transform -translate-x-1/2 ${
+        className={`absolute top-0 z-[999999] left-1/2 transform -translate-x-1/2 ${
           toast ? 'top-2' : 'translate-y-[-100%]'
         } transition-all duration-300`}
       >
@@ -79,9 +79,13 @@ const Products = ({ title, products }) => {
                     <span className='bg-red-600 text-xs px-[8px] py-[3px] rounded-full text-white'>
                       SOLD OUT
                     </span>
+                  ) :  prod.contactForPrice ? (
+                    <span className='bg-yellow-500 text-xs px-[8px] py-[3px] rounded-full text-white'>
+                      CONTACT FOR PRICE
+                    </span>
                   ) : null}
                 </div>
-                {prod.quantity > 0 ? (
+                {prod.quantity > 0 && !prod.contactForPrice ? (
                   <div className='absolute z-10 top-[10px] right-[10px]'>
                     <div
                       className='p-[2px] transition-all-300 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg bg-gray-400 text-white hover:bg-primary-hover'

@@ -29,12 +29,12 @@ const Dashboard = ({ products, categories }) => {
 
       <ContactQuery />
       <div className="mx-auto my-5 md:px-12 px-8">
-        <div className="grid grid-cols-12 h-[600px] gap-4 w-full">
-          <div className="col-span-12 lg:col-span-8 shadow-lg">
+        <div className="grid grid-cols-12 min-h-[200px] gap-4 w-full">
+          <div className="col-span-12  shadow-lg">
             {/* Carousel */}
             <CarouselImages setLoad={setLoading} load={loading} />
           </div>
-          <div className="group relative col-span-12 lg:col-span-4 overflow-hidden rounded-lg md:block shadow-lg">
+          {/* <div className="group relative col-span-12 lg:col-span-4 overflow-hidden rounded-lg md:block shadow-lg">
             <div className="overlay-gradient absolute z-[1] h-full w-full"></div>
             <img
               className="transition-all duration-300 h-full w-full object-cover hover:transform group-hover:scale-110"
@@ -57,7 +57,7 @@ const Dashboard = ({ products, categories }) => {
                 </a>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

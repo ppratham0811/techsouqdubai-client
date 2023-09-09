@@ -69,7 +69,7 @@ const Profile = () => {
                 <ul className="w-full text-sm">
                   <li className="btn-tabs tab-active-2 transition-all-300 active border-t hover:bg-gray-100">
                     <button
-                      className="flex items-center gap-2 px-1 py-2"
+                      className="flex items-center w-full gap-2 px-1 py-2"
                       onClick={() => setActiveTab("Account")}
                     >
                       <AccountCircleIcon className="text-primary" />
@@ -78,7 +78,7 @@ const Profile = () => {
                   </li>
                   <li className="btn-tabs tab-active-2 transition-all-300 border-t hover:bg-gray-100">
                     <button
-                      className="flex items-center gap-2 px-1 py-2"
+                      className="flex items-center w-full gap-2 px-1 py-2"
                       onClick={() => setActiveTab("Orders")}
                     >
                       <BookIcon className="text-primary" />
@@ -88,7 +88,7 @@ const Profile = () => {
 
                   <li className="transition-all-300 border-t hover:bg-gray-100">
                     <button
-                      className="flex items-center gap-2 px-1 py-2"
+                      className="flex w-full items-center gap-2 px-1 py-2"
                       onClick={logoutUser}
                     >
                       <LogoutIcon className="text-primary" />
