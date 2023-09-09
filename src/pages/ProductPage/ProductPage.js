@@ -189,11 +189,12 @@ const ProductPage = ({ products }) => {
             </div>
 
             {product.quantity > 0 && !product.contactForPrice ? (
-              <div className='flex justify-start items-center gap-4'>
+              <>
+              <div className='flex justify-between md:justify-start items-center gap-4'>
                 <div className='inline-flex rounded-lg bg-white shadow'>
                   <select
                     
-                    className='w-12 p-2 border-none bg-transparent text-center text-lg text-gray-800 focus:border-none focus:outline-none focus:ring-0'
+                    className='w-16 p-2 border-none bg-transparent text-center text-lg text-gray-800 focus:border-none focus:outline-none focus:ring-0'
                     value={addQtyValue}
                     onChange={(e) => setAddQtyValue(e.target.value)}
                   >
@@ -205,7 +206,7 @@ const ProductPage = ({ products }) => {
                   </select>
                 </div>
                 <button
-                  className='bg-primary transition-all-300 flex h-full items-center justify-center gap-2 rounded-lg bg-primary-color p-2'
+                  className='bg-primary hidden md:flex transition-all-300 h-full items-center justify-center gap-2 rounded-lg bg-primary-color p-2'
                   type='submit'
                   onClick={() => addProductToCart(product)}
                 >
@@ -221,6 +222,17 @@ const ProductPage = ({ products }) => {
                   <FavoriteBorderOutlinedIcon className='text-white' />
                 </button>
               </div>
+              <button
+                  className='bg-primary transition-all-300 mt-5 h-12 flex w-full md:hidden items-center justify-center gap-2 rounded-lg bg-primary-color p-2'
+                  type='submit'
+                  onClick={() => addProductToCart(product)}
+                >
+                  <AddShoppingCartOutlinedIcon className='text-white' />
+                  <span className='font-bold uppercase text-white'>
+                    Add to cart
+                  </span>
+                </button>
+              </>
             ) : (
               <div className='w-full flex h-[100px] items-center text-red-500'>
                 Contact us for more details!
