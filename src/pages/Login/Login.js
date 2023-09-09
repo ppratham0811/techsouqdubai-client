@@ -92,7 +92,7 @@ const Login = () => {
       <Navbar />
       <div className="relative bg-gray-100">
         <div
-          className={`absolute top-0 left-1/2 transform -translate-x-1/2 ${
+          className={`absolute z-[999999] top-0 left-1/2 transform -translate-x-1/2 ${
             toast ? "top-2" : "translate-y-[-100%]"
           } transition-all duration-300`}
         >
@@ -104,8 +104,8 @@ const Login = () => {
         </div>
         <div className="shadow-2xl mx-auto max-w-[500px] rounded-lg my-14 bg-white p-5">
           <div className="my-5 flex items-center justify-center">
-            <img className="h-16 w-16" src="logo.png" alt="logo" />
-            <p className="font-bold mx-2 text-2xl">TechSouqDubai</p>
+            <img className="h-16 w-16" src="logo2.png" alt="logo" />
+            <p className="font-bold mx-2 text-2xl" style={{ fontFamily: "'Audiowide', cursive" }}>TechSouqDubai</p>
           </div>
           {login ? (
             <form>

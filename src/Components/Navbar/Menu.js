@@ -33,9 +33,9 @@ const Menu = () => {
 
   return (
     // Navbar Menu
-    <div className="hidden  lg:block bg-white shadow-xl">
-      <nav className="container mx-auto px-2 sm:px-8 ">
-        <ul className="flex flex-wrap items-center justify-between py-[10px] text-lg">
+    <div className="hidden  lg:flex w-full bg-white shadow-xl">
+      <nav className="px-8 flex w-full justify-between md:px-12 ">
+        <ul className="flex w-full items-center justify-between py-[10px] text-lg">
           <li className="underlined-animated group relative group-hover:border-b-2 border-b-4 border-transparent hover:border-primary">
             <button
               onClick={() => setMenu(!menu)}

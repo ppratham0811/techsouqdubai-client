@@ -55,7 +55,7 @@ const Products = ({ title, products }) => {
   return (
     <>
       <div
-        className={`absolute top-0 left-1/2 transform -translate-x-1/2 ${
+        className={`absolute top-0 z-[999999] left-1/2 transform -translate-x-1/2 ${
           toast ? 'top-2' : 'translate-y-[-100%]'
         } transition-all duration-300`}
       >

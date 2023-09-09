@@ -70,7 +70,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
 
   return (
     <>
-      <div className="absolute top-0 lg:hidden flex h-full w-full z-[100] bg-black bg-opacity-50 items-center justify-center">
+      <div className="absolute top-0 lg:hidden flex h-full w-full z-[999999] bg-black bg-opacity-50 items-center justify-center">
         <div className="transition-all-300 relative left-0 mr-auto flex h-full w-full min-w-[250px] flex-col bg-white px-8 overflow-auto">
           <CloseIcon
             className="absolute top-4 right-4"

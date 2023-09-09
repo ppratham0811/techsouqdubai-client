@@ -25,6 +25,7 @@ const Navbar = () => {
   const cartProducts = useSelector(currentCartState);
   const wishlistProducts = useSelector(currentWishlistState);
   const [searchTerm, setSearchTerm] = useState('');
+  const [userData, setUserData] = useState({});
 
   const navigate = useNavigate();
 
@@ -39,7 +40,9 @@ const Navbar = () => {
 
   const loadCurrentUser = async () => {
     const currentUser = await getCurrentUser();
+    
     if (currentUser) {
+      setUserData(currentUser);
       setUser(true);
     }
     return currentUser;
@@ -50,7 +53,6 @@ const Navbar = () => {
       setUser(false);
       navigate('/login');
     });
-    console.log(loadCurrentUser());
   };
 
   useEffect(() => {
@@ -73,13 +75,13 @@ const Navbar = () => {
   font-family: 'Poppins', sans-serif; */
   return (
     <>
-      <header className='relative bg-primary text-xl'>
-        <div className='bg-secondary-color'>
-          <div className='container mx-auto grid grid-cols-4 gap-1 px-2 py-4 sm:px-8 lg:grid-cols-12 lg:gap-0'>
+      <header className='sticky top-0 z-[99999] left-0 bg-[#0b0d17] text-xl'>
+        <div className=' flex w-full md:px-12 px-8  '>
+          <div className='w-full grid grid-cols-4 gap-1  py-4  lg:grid-cols-12 lg:gap-0'>
             <div className='flex items-center order-1 col-span-2 lg:order-1 lg:col-span-3'>
               <img
                 onClick={() => navigate('/')}
-                className='w-10 cursor-pointer h-10 mx-2'
+                className='w-10 cursor-pointer h-10 mr-2'
                 src='/logo2_white.png'
                 alt='logo'
               />
@@ -114,7 +116,7 @@ const Navbar = () => {
                   data-target='.menu-mob'
                   onClick={() => setMenu(true)}
                 >
-                  <MenuOutlinedIcon />
+                  <MenuOutlinedIcon style={{height:"2rem",width:"2rem"}} />
                 </button>
               </div>
               <div className='hidden items-center gap-5 text-white lg:flex'>
@@ -146,12 +148,12 @@ const Navbar = () => {
 
               <div className='group relative hidden lg:flex'>
                 <div className='flex cursor-pointer select-none items-center gap-1'>
-                  <span className='font-semibold text-white'>My account</span>
+                  {user ? <div className='rounded-full w-12 h-12 flex justify-center items-center bg-primary'><span className='text-white'>{userData?.name[0]}</span></div> : <span className='font-semibold text-white'>My account</span>}
                   <ArrowDropDownOutlinedIcon className='bi bi-caret-down-fill transition-all-300 flex rotate-0 text-sm text-white group-hover:rotate-180' />
                 </div>
-                <div className='transition-all-300 invisible absolute top-full z-30 w-[120%] pt-[10px] opacity-0 group-hover:visible group-hover:opacity-100'>
+                <div className='transition-all-300 invisible absolute top-full z-30 right-0 pt-[10px] opacity-0 group-hover:visible group-hover:opacity-100'>
                   <div className='relative'>
-                    <ul className='overflow-hidden rounded-md bg-white p-[6px]'>
+                    <ul className=' rounded-md flex w-[160px] flex-col bg-white p-[6px]'>
                       {user ? (
                         <>
                           <li key={1} className='hover:font-semibold'>
