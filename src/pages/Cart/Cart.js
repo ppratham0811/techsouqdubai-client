@@ -127,16 +127,23 @@ const Cart = () => {
                           <div className='flex flex-col'>
                             <span className='text-xs font-light'>Quantity</span>
                             <div className='quantity inline-flex rounded-lg bg-white shadow'>
-                              <input
-                                className='quantity-value input-number w-12 border-none bg-transparent p-1 text-center text-lg text-gray-400 focus:border-none focus:ring-0'
-                                type='number'
-                                min={1}
-                                max={prodObj.product.quantity}
+                            <select
+                                className='quantity-value input-number w-16 border-none bg-transparent p-1 text-center text-lg text-gray-400 focus:border-none focus:ring-0'
+                                value={prodObj.qty}
                                 onChange={(e) =>
                                   handleQuantityUpdate(prodObj, e.target.value)
                                 }
-                                value={prodObj.qty}
-                              />
+                              >
+                                {Array(prodObj.product.quantity)
+                                  .fill('')
+                                  .map((qty, index) => {
+                                    return (
+                                      <option value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    );
+                                  })}
+                              </select>
                             </div>
                           </div>
                           <div
@@ -199,7 +206,7 @@ const Cart = () => {
                           <td className='p-2'>
                             <div className='quantity inline-flex rounded-lg bg-white shadow'>
                               <select
-                                className='quantity-value input-number w-12 border-none bg-transparent p-1 text-center text-lg text-gray-400 focus:border-none focus:ring-0'
+                                className='quantity-value input-number w-16 border-none bg-transparent p-1 text-center text-lg text-gray-400 focus:border-none focus:ring-0'
                                 value={prodObj.qty}
                                 onChange={(e) =>
                                   handleQuantityUpdate(prodObj, e.target.value)
