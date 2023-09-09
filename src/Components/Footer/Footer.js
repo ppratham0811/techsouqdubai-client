@@ -2,6 +2,10 @@ import SendIcon from '@mui/icons-material/Send';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCategories } from '../../actions';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -58,7 +62,7 @@ const Footer = () => {
                 </h3>
                 <div>
                   <ul className='grid grid-cols-2 gap-2 text-sm'>
-                    {cats.length>0 &&
+                    {cats.length > 0 &&
                       cats.map((category) => {
                         return (
                           <li className='col-span-2 md:col-span-1 group relative flex items-center hover:text-primary-color'>
@@ -72,60 +76,48 @@ const Footer = () => {
                           </li>
                         );
                       })}
-                    
                   </ul>
                 </div>
               </div>
               <div className='col-span-12 lg:col-span-4'>
                 <h3 className='pb-2 font-semibold text-gray-300'>
-                  Be the first to know it
+                  Follow us on our Socials!
                 </h3>
                 <span className='py-2 text-sm'>
-                  Subscribe to receive updates on our store and special offers
+                  Be the first to know about all the upcoming updates.
                 </span>
-                <form className='py-2'>
-                  <div className='flex overflow-hidden rounded-lg bg-gray-800 p-2'>
-                    <input
-                      className='w-full border-none bg-transparent pl-2 focus:border-none focus:ring-0 focus:ring-transparent'
-                      type='text'
-                      placeholder='Your email address'
-                    />
-                    <button className='p-1' type='submit'>
-                      <SendIcon />
-                    </button>
-                  </div>
-                </form>
+
                 <div className='flex gap-2 py-2'>
                   <div className='relative h-8 w-8 overflow-hidden rounded-full'>
                     <a
-                      className='instagram-before flex h-8 w-8 items-center justify-center bg-gray-rgba text-center text-white'
-                      href='#'
+                      className='instagram-before flex h-8 w-8 items-center justify-center bg-gray-rgba text-center '
+                      href='https://www.instagram.com/kamptech11/'  target='_blank'
                     >
-                      <i className='bi bi-instagram relative z-[2] flex'></i>
+                      <InstagramIcon />
                     </a>
                   </div>
                   <div className='transition-all-300 h-8 w-8 rounded-full bg-gray-rgba hover:bg-facebook'>
                     <a
                       className='flex h-8 w-8 items-center justify-center'
-                      href='#'
+                      href='https://www.facebook.com/profile.php?id=100091748850716&mibextid=ZbWKwL' target='_blank'
                     >
-                      <i className='bi bi-facebook flex text-white'></i>
+                      <FacebookIcon />
                     </a>
                   </div>
                   <div className='transition-all-300 h-8 w-8 rounded-full bg-gray-rgba hover:bg-twitter'>
                     <a
                       className='flex h-8 w-8 items-center justify-center'
-                      href='#'
+                      href='https://twitter.com/Kamptech11/' target='_blank'
                     >
-                      <i className='bi bi-twitter flex text-white'></i>
+                      <TwitterIcon />
                     </a>
                   </div>
                   <div className='transition-all-300 h-8 w-8 rounded-full bg-gray-rgba hover:bg-youtube'>
                     <a
                       className='flex h-8 w-8 items-center justify-center'
-                      href='#'
+                      href='https://www.linkedin.com/company/kamptech-solutions/' target='_blank'
                     >
-                      <i className='bi bi-youtube flex text-white'></i>
+                      <LinkedInIcon />
                     </a>
                   </div>
                 </div>
