@@ -91,31 +91,33 @@ const OrderPage = ({ items }) => {
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
+    console.log('here');
     if (!formDetails.firstName) {
       setToast('Please enter your First Name');
-      setFormCompleted(false);
+      return;
     } else if (!formDetails.lastName) {
       setToast('Please enter your Last Name');
-      setFormCompleted(false);
+      return;
     } else if (!formDetails.email) {
       setToast('Please enter your email');
-      setFormCompleted(false);
+      return;
     } else if (!formDetails.address) {
       setToast('Please enter your address');
-      setFormCompleted(false);
+      return;
     } else if (!formDetails.city) {
       setToast('Please enter your city');
-      setFormCompleted(false);
+      return;
     } else if (!formDetails.postalCode) {
       setToast('Please enter your postal code');
-      setFormCompleted(false);
+      return;
     } else if (!formDetails.telephone) {
       setToast('Please enter your telephone');
-      setFormCompleted(false);
+      return;
     } else {
       setToast('');
       if (formCompleted) {
-        
+        console.log(formCompleted);
+
         setLoading(true);
         const customer = formDetails.firstName + ' ' + formDetails.lastName;
         const address = `${formDetails.apt}, ${formDetails.address}, ${formDetails.city} - ${formDetails.postalCode}`;
@@ -155,7 +157,62 @@ const OrderPage = ({ items }) => {
             });
 
             // Join the table rows into a single string
-            const tableRowsHtml = tableRows.join('');
+            const tableRowsHtml = `
+            <html>
+            <head>
+            <style>
+              
+              body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+              }
+            
+              
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+            
+              
+              th {
+                background-color: #f2f2f2;
+                text-align: left;
+                padding: 8px;
+              }
+            
+              
+              tr:nth-child(even) {
+                background-color: #f2f2f2;
+              }
+            
+              
+              td {
+                padding: 8px;
+              }
+            </style>
+            </head>
+            <body>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Item</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                  <th>Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${tableRows.join('')}
+              
+              </tbody>
+            </table>
+            
+            </body>
+            </html>
+            `;
 
             const orderContent = {
               user_email: formDetails.email,
@@ -197,6 +254,8 @@ const OrderPage = ({ items }) => {
             setOrderCompleted(true);
           })
           .catch((e) => console.error(e.message));
+      } else {
+        console.log(formDetails);
       }
     }
   };
