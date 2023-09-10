@@ -7,9 +7,44 @@ import EmailIcon from "@mui/icons-material/Email";
 import TagIcon from "@mui/icons-material/Tag";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import emailjs from "@emailjs/browser";
+
 const Contact = () => {
   const { state } = useLocation();
   const [product, setProduct] = useState(state?.product || null);
+  const [loading, setLoading] = useState(false);
+  const [formValues, setFormValues] = useState({
+    from_name: "",
+    from_email: "",
+    product_title: product?.title,
+    message: "",
+  });
+
+  const sendEmail = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE,
+      templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_DEFAULT;
+    await emailjs
+      .send("service_78itxwa", templateId, formValues, "xDU7Al3eXxSSqGs_e")
+      .then(
+        (result) => {
+          setFormValues({
+            from_name: "",
+            message: "",
+            from_email: "",
+            product_title: "",
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+
+    setLoading(false);
+  };
+
   return (
     <>
       <Navbar />
@@ -149,6 +184,13 @@ const Contact = () => {
                   <input
                     className="p-2 border-gray-400 border-solid border-[1px] rounded-lg focus:outline-primary"
                     type="text"
+                    value={formValues.from_name}
+                    onChange={(e) =>
+                      setFormValues({
+                        ...formValues,
+                        from_name: e.target.value,
+                      })
+                    }
                   />
                 </label>
               </div>
@@ -158,6 +200,13 @@ const Contact = () => {
                   <input
                     className="p-2 border-gray-400 border-solid border-[1px] rounded-lg focus:outline-primary"
                     type="text"
+                    value={formValues.from_email}
+                    onChange={(e) =>
+                      setFormValues({
+                        ...formValues,
+                        from_email: e.target.value,
+                      })
+                    }
                   />
                 </label>
               </div>
@@ -181,6 +230,10 @@ const Contact = () => {
                     className="p-2 border-gray-400 border-solid border-[1px] rounded-lg focus:outline-primary"
                     type="text"
                     rows={10}
+                    value={formValues.message}
+                    onChange={(e) =>
+                      setFormValues({ ...formValues, message: e.target.value })
+                    }
                   />
                 </label>
               </div>
@@ -188,6 +241,7 @@ const Contact = () => {
                 <button
                   class="btn-view-shopping-cart btn-effect transition-all-300 flex items-center justify-center rounded-lg bg-primary p-4"
                   type="submit"
+                  onClick={sendEmail}
                 >
                   <span class="font-bold uppercase text-white">
                     Send Message

@@ -8,6 +8,7 @@ const HelpMenu = ({ setShowHelpMenu, toast }) => {
     from_name: "",
     from_email: "",
     message: "",
+    product_title: "",
   });
 
   const form = useRef();
