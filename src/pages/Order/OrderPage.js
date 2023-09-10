@@ -123,7 +123,10 @@ const OrderPage = ({ items }) => {
         await placeOrder({
           customer,
           address,
-          email: formDetails.email,
+          email:
+            currentUser.email.length > 0
+              ? currentUser.email
+              : formDetails.email,
           amount: cartTotal,
           method: formDetails.method,
           orderTime: new Date(),
