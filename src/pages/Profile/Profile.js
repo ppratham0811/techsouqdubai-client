@@ -11,10 +11,17 @@ import Loading from "../../utils/Loading";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BookIcon from "@mui/icons-material/Book";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { deleteUserState } from "../../app/userSlice";
+import { store } from "../../app/persist";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [userOrders, setUserOrders] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const getCurrentLoggedInUser = async () => {
     await getCurrentUser()
       .then((res) => {
@@ -30,7 +37,13 @@ const Profile = () => {
   };
 
   const logoutUser = async () => {
-    await deleteCurrentSession();
+    await deleteCurrentSession().then((res) => {
+      if (res.status) {
+        dispatch(deleteUserState);
+        console.log(store.getState());
+        navigate("/");
+      }
+    });
   };
 
   const [activeTab, setActiveTab] = useState("Account");

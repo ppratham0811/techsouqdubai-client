@@ -15,9 +15,11 @@ import {
   getNavLinks,
 } from "../../actions";
 import { currentCartState } from "../../app/cartSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { currentWishlistState } from "../../app/wishlistSlice";
+import { deleteUserState } from "../../app/userSlice";
+import { store } from "../../app/persist";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -27,6 +29,7 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [userData, setUserData] = useState({});
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
@@ -51,6 +54,8 @@ const Navbar = () => {
   const logoutCurrentUser = async () => {
     await deleteCurrentSession().then(() => {
       setUser(false);
+      dispatch(deleteUserState());
+      console.log(store.getState());
       navigate("/login");
     });
   };

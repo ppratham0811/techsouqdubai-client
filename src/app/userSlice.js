@@ -10,24 +10,24 @@ export const userSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    login: (state, action) => {
-      state.user = action.payload;
+    setUserState: (state, action) => {
+      return {
+        ...state.user,
+        userId: action.payload.userId,
+        email: action.payload.email,
+      };
     },
-    logout: (state) => {
+    deleteUserState: (state) => {
       return {
         userId: "",
         email: "",
       };
     },
-    setEmail: (state, action) => {
-      state.email = action.payload;
-    },
   },
 });
 
-export const { login, logout, setEmail } = userSlice.actions;
+export const { setUserState, deleteUserState } = userSlice.actions;
 
-export const selectUser = (state) => state.user.userId;
-export const getEmail = (state) => state.user.email;
+export const selectUserFromState = (state) => state.user;
 
 export default userSlice.reducer;

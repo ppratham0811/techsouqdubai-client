@@ -83,6 +83,7 @@ const loginUser = async (loginDetails) => {
       return {
         status: true,
         userId: loggedUser.$id,
+        email: loginDetails.email,
       };
     }
   } catch (error) {
@@ -101,9 +102,16 @@ const deleteCurrentSession = async () => {
     if (currentUser) {
       // Delete the current session
       await account.deleteSession("current");
+      return {
+        status: true,
+      };
     } else {
       // The user is not logged in
       console.log("The user is not logged in");
+      return {
+        status: false,
+        message: "The User is logged in",
+      };
     }
   } catch (error) {
     console.error(error);

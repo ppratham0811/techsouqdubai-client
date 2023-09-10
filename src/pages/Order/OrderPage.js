@@ -9,12 +9,16 @@ import emailjs from "@emailjs/browser";
 import { placeOrder, updateProductQuantity } from "../../actions";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Loading from "../../utils/Loading";
+import { selectUserFromState } from "../../app/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const OrderPage = ({ items }) => {
+  const currentUser = useSelector(selectUserFromState);
+
   const [formDetails, setFormDetails] = useState({
     firstName: "",
     lastName: "",
-    email: "",
+    email: currentUser.email.length > 0 ? currentUser.email : "",
     address: "",
     apt: "",
     city: "",
@@ -36,12 +40,7 @@ const OrderPage = ({ items }) => {
   const [formCompleted, setFormCompleted] = useState(true);
   const [orderedProducts, setOrderedProducts] = useState([]);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (currentCart && currentCart.length < 1) {
-      window.location.href = "/";
-    }
-  }, []);
+  const navigate = useNavigate();
 
   const calculateSubtotal = () => {
     let total = 0;
@@ -59,9 +58,12 @@ const OrderPage = ({ items }) => {
     setFormDetails({ ...formDetails, products: formProducts });
     setCartTotal(total);
   };
-
   useEffect(() => {
-    calculateSubtotal();
+    if (currentCart && currentCart.length < 1) {
+      navigate("/");
+    } else {
+      calculateSubtotal();
+    }
   }, []);
 
   useEffect(() => {
@@ -96,19 +98,19 @@ const OrderPage = ({ items }) => {
       setToast("Please enter your Last Name");
       setFormCompleted(false);
     } else if (!formDetails.email) {
-      setToast("Please enter your Last Name");
+      setToast("Please enter your email");
       setFormCompleted(false);
     } else if (!formDetails.address) {
-      setToast("Please enter your Last Name");
+      setToast("Please enter your address");
       setFormCompleted(false);
     } else if (!formDetails.city) {
-      setToast("Please enter your Last Name");
+      setToast("Please enter your city");
       setFormCompleted(false);
     } else if (!formDetails.postalCode) {
-      setToast("Please enter your Last Name");
+      setToast("Please enter your postal code");
       setFormCompleted(false);
     } else if (!formDetails.telephone) {
-      setToast("Please enter your Last Name");
+      setToast("Please enter your telephone");
       setFormCompleted(false);
     } else {
       setToast("");
@@ -259,7 +261,12 @@ const OrderPage = ({ items }) => {
                       <input
                         className="p-2 border-gray-400 border-solid border-[1px] rounded-lg focus:outline-primary"
                         type="text"
-                        value={formDetails.email}
+                        value={
+                          currentUser?.email
+                            ? currentUser.email
+                            : formDetails.email
+                        }
+                        readonly={currentUser?.email?.length > 0}
                         onChange={(e) =>
                           setFormDetails({
                             ...formDetails,

@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { loginUser, registerUser, deleteCurrentSession } from "../../actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { setUserState } from "../../app/userSlice";
+import { store } from "../../app/persist";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -20,6 +22,7 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
@@ -66,6 +69,10 @@ const Login = () => {
         });
 
         if (loggedUser.status) {
+          dispatch(
+            setUserState({ userId: loggedUser.userId, email: loggedUser.email })
+          );
+          console.log(store.getState());
           navigate("/");
         } else {
           setToast(loggedUser.error.message);
@@ -105,7 +112,12 @@ const Login = () => {
         <div className="shadow-2xl mx-auto max-w-[500px] rounded-lg my-14 bg-white p-5">
           <div className="my-5 flex items-center justify-center">
             <img className="h-16 w-16" src="logo2.png" alt="logo" />
-            <p className="font-bold mx-2 text-2xl" style={{ fontFamily: "'Audiowide', cursive" }}>TechSouqDubai</p>
+            <p
+              className="font-bold mx-2 text-2xl"
+              style={{ fontFamily: "'Audiowide', cursive" }}
+            >
+              TechSouqDubai
+            </p>
           </div>
           {login ? (
             <form>
@@ -134,9 +146,6 @@ const Login = () => {
                     value={userData.password}
                   />
                 </div>
-                <p className="text-sm text-gray-600 cursor-pointer">
-                  Forgot Password?
-                </p>
               </div>
               <button
                 className="btn-effect transition-all-300 h-full w-full rounded-lg bg-primary p-2 mt-4"
