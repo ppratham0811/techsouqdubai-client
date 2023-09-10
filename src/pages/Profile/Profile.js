@@ -45,7 +45,6 @@ const Profile = () => {
     }
   }, [user]);
 
-
   if (!user) {
     return <Loading />;
   }

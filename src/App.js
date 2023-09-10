@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react';
-import Dashboard from './Components/Dashboard/Dashboard.js';
-import Login from './pages/Login/Login.js';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ProgressBar } from 'react-loader-spinner';
-import ProductPage from './pages/ProductPage/ProductPage.js';
-import { getCategories, getAllProducts, getRelations } from './actions';
-import Loading from './utils/Loading.js';
-import Wishlist from './pages/Wishlist/Wishlist.js';
-import Cart from './pages/Cart/Cart.js';
-import Profile from './pages/Profile/Profile.js';
-import CategoryPage from './pages/Category/CategoryPage.js';
-import GroupPage from './pages/GroupCategory/GroupPage.js';
-import SearchPage from './pages/Search/SearchPage.js';
-import OrderDetails from './pages/Order/OrderDetails.js';
-import OrderPage from './pages/Order/OrderPage.js';
+import { useEffect, useState } from "react";
+import Dashboard from "./Components/Dashboard/Dashboard.js";
+import Login from "./pages/Login/Login.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ProgressBar } from "react-loader-spinner";
+import ProductPage from "./pages/ProductPage/ProductPage.js";
+import { getCategories, getAllProducts, getRelations } from "./actions";
+import Loading from "./utils/Loading.js";
+import Wishlist from "./pages/Wishlist/Wishlist.js";
+import Cart from "./pages/Cart/Cart.js";
+import Profile from "./pages/Profile/Profile.js";
+import CategoryPage from "./pages/Category/CategoryPage.js";
+import GroupPage from "./pages/GroupCategory/GroupPage.js";
+import SearchPage from "./pages/Search/SearchPage.js";
+import OrderDetails from "./pages/Order/OrderDetails.js";
+import OrderPage from "./pages/Order/OrderPage.js";
+import Contact from "./pages/Contact/Contact.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -73,29 +74,29 @@ function App() {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className='App flex min-h-screen flex-col'>
+        <div className="App flex min-h-screen flex-col">
           <BrowserRouter>
             <Routes>
               <Route
-                path='/'
+                path="/"
                 exact
                 element={
                   <Dashboard products={products} categories={categories} />
                 }
               />
-              <Route path='/login' element={<Login />} />
+              <Route path="/login" element={<Login />} />
               <Route
-                path='/products/:productId'
+                path="/products/:productId"
                 element={<ProductPage products={products} />}
               />
-              <Route path='/cart' element={<Cart />} />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/wishlist' element={<Wishlist />} />
-              <Route path='/order-checkout' element={<OrderPage />} />
-              <Route path='/orders/:invoiceId' element={<OrderDetails />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/order-checkout" element={<OrderPage />} />
+              <Route path="/orders/:invoiceId" element={<OrderDetails />} />
               <Route
                 exact
-                path='/category/:categoryId'
+                path="/category/:categoryId"
                 element={
                   <CategoryPage
                     relations={relations}
@@ -104,18 +105,19 @@ function App() {
                   />
                 }
               />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/wishlist' element={<Wishlist />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/wishlist" element={<Wishlist />} />
               <Route
-                path='/search'
+                path="/search"
                 element={<SearchPage products={products} />}
               />
               <Route
-                path='/group/:groupID'
+                path="/group/:groupID"
                 element={
                   <GroupPage products={products} relations={relations} />
                 }
               />
+              <Route path="/contact" element={<Contact />} />
             </Routes>
           </BrowserRouter>
         </div>

@@ -72,7 +72,7 @@ const Menu = () => {
             <a href="faqs.html">FAQ's</a>
           </li>
           <li className="underlined-animated border-b-4 border-transparent hover:border-primary">
-            <a href="contact-us.html">Contact Us</a>
+            <a href="/contact">Contact Us</a>
           </li>
         </ul>
       </nav>

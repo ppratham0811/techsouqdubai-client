@@ -191,7 +191,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
               <li className="border-b border-gray-200">
                 <a
                   className="flex select-none items-center p-2"
-                  href="contact-us.html"
+                  href="/contact"
                 >
                   <i className="bi bi-telephone mr-3 flex text-xl text-primary-color"></i>
                   <span className="font-semibold">Contact Us</span>
