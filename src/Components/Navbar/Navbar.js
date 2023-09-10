@@ -114,7 +114,13 @@ const Navbar = () => {
                 <button
                   className="btn-open-modal text-white"
                   data-target=".menu-mob"
-                  onClick={() => setMenu(true)}
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    });
+                    setMenu(true);
+                  }}
                 >
                   <MenuOutlinedIcon style={{ height: "2rem", width: "2rem" }} />
                 </button>

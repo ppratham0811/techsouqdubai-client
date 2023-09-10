@@ -133,6 +133,8 @@ const OrderPage = ({ items }) => {
         const serviceId = process.env.REACT_APP_EMAILJS_SERVICE,
           templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ORDERS;
         const tableRows = orderedProducts.map((prodObj, index) => {
+          // orderedProducts array of prodObjs
+          // prodObj = {product: , quantity: }
           const srNo = index + 1;
           const netAmount = prodObj.quantity * prodObj.product.salePrice;
 
