@@ -6,7 +6,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart, currentCartState } from "../../app/cartSlice";
 import emailjs from "@emailjs/browser";
-import { placeOrder, updateProductQuantity } from "../../actions";
+import {
+  getAllProducts,
+  getProductById,
+  placeOrder,
+  updateProductQuantity,
+} from "../../actions";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Loading from "../../utils/Loading";
 import { selectUserFromState } from "../../app/userSlice";
@@ -37,7 +42,6 @@ const OrderPage = ({ items }) => {
   const [orderCompleted, setOrderCompleted] = useState(false);
   const [toast, setToast] = useState("");
   const [loading, setLoading] = useState(false);
-  const [formCompleted, setFormCompleted] = useState(true);
   const [orderedProducts, setOrderedProducts] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -91,7 +95,7 @@ const OrderPage = ({ items }) => {
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("here");
+
     if (!formDetails.firstName) {
       setToast("Please enter your First Name");
       return;
@@ -115,14 +119,13 @@ const OrderPage = ({ items }) => {
       return;
     } else {
       setToast("");
-      if (formCompleted) {
-        console.log(formCompleted);
 
-        setLoading(true);
-        const customer = formDetails.firstName + " " + formDetails.lastName;
-        const address = `${formDetails.apt}, ${formDetails.address}, ${formDetails.city} - ${formDetails.postalCode}`;
-        const invoice = generateInvoiceNumber();
-        await placeOrder({
+      setLoading(true);
+      const customer = formDetails.firstName + " " + formDetails.lastName;
+      const address = `${formDetails.apt}, ${formDetails.address}, ${formDetails.city} - ${formDetails.postalCode}`;
+      const invoice = generateInvoiceNumber();
+      await placeOrder(
+        {
           customer,
           address,
           email:
@@ -134,8 +137,11 @@ const OrderPage = ({ items }) => {
           orderTime: new Date(),
           products: formDetails.products,
           invoice,
-        })
-          .then(async (res) => {
+        },
+        orderedProducts
+      )
+        .then(async (res) => {
+          if (res.status) {
             // ********** SENDING EMAILS ************
             const serviceId = process.env.REACT_APP_EMAILJS_SERVICE;
             const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ORDERS;
@@ -146,73 +152,73 @@ const OrderPage = ({ items }) => {
               const netAmount = prodObj.quantity * prodObj.product.salePrice;
 
               return `
-              <tr>
-                <td>${srNo}</td>
-                <td>${prodObj.product.title}</td>
-                <td>${prodObj.quantity}</td>
-                <td>${prodObj.product.salePrice}</td>
-                <td>${netAmount}</td>
-              </tr>
-            `;
+                  <tr>
+                    <td>${srNo}</td>
+                    <td>${prodObj.product.title}</td>
+                    <td>${prodObj.quantity}</td>
+                    <td>${prodObj.product.salePrice}</td>
+                    <td>${netAmount}</td>
+                  </tr>
+                `;
             });
 
             // Join the table rows into a single string
             const tableRowsHtml = `
-            <html>
-            <head>
-            <style>
-              
-              body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-              }
-            
-              
-              table {
-                width: 100%;
-                border-collapse: collapse;
-              }
-            
-              
-              th {
-                background-color: #f2f2f2;
-                text-align: left;
-                padding: 8px;
-              }
-            
-              
-              tr:nth-child(even) {
-                background-color: #f2f2f2;
-              }
-            
-              
-              td {
-                padding: 8px;
-              }
-            </style>
-            </head>
-            <body>
-            
-            <table>
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Item</th>
-                  <th>Quantity</th>
-                  <th>Unit Price</th>
-                  <th>Total Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${tableRows.join("")}
-              
-              </tbody>
-            </table>
-            
-            </body>
-            </html>
-            `;
+                <html>
+                <head>
+                <style>
+                  
+                  body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                  }
+                
+                  
+                  table {
+                    width: 100%;
+                    border-collapse: collapse;
+                  }
+                
+                  
+                  th {
+                    background-color: #f2f2f2;
+                    text-align: left;
+                    padding: 8px;
+                  }
+                
+                  
+                  tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                  }
+                
+                  
+                  td {
+                    padding: 8px;
+                  }
+                </style>
+                </head>
+                <body>
+                
+                <table>
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Item</th>
+                      <th>Quantity</th>
+                      <th>Unit Price</th>
+                      <th>Total Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${tableRows.join("")}
+                  
+                  </tbody>
+                </table>
+                
+                </body>
+                </html>
+                `;
 
             const orderContent = {
               user_email: formDetails.email,
@@ -222,15 +228,6 @@ const OrderPage = ({ items }) => {
               emailBody: tableRowsHtml,
               totalOrderAmount: cartTotal,
             };
-
-            // !UPDATING PRODUCT QUANTITY IN BACKEND
-            for (let prod of formDetails.products) {
-              const p = JSON.parse(prod);
-              await updateProductQuantity(
-                p.product.$id,
-                p.product.quantity - p.quantity
-              );
-            }
 
             await emailjs
               .send(
@@ -252,11 +249,12 @@ const OrderPage = ({ items }) => {
             dispatch(clearCart());
             setLoading(false);
             setOrderCompleted(true);
-          })
-          .catch((e) => console.error(e.message));
-      } else {
-        console.log(formDetails);
-      }
+          } else {
+            setLoading(false);
+            setToast(res.result);
+          }
+        })
+        .catch((e) => console.error(e.message));
     }
   };
 

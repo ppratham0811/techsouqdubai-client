@@ -96,7 +96,7 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                 <input
                   className="w-full text-sm border-none py-[5px] bg-white pl-5 text-black focus:border-none focus:outline-none appearance-none search-bar placeholder-black"
                   type="search"
-                  placeholder="Search..."
+                  placeholder="Search for any product..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -146,22 +146,6 @@ const MobileMenu = ({ menu, setMenu, categories }) => {
                     </a>
                     <span className="badge ml-auto h-[22px] min-w-[22px] px-[6px]">
                       {wishlistProducts.length}
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li className="border-b border-gray-200">
-                <div
-                  className="btn-open-modal cursor-pointer p-2"
-                  data-target=".shopping-cart-modal"
-                >
-                  <div className="flex cursor-pointer items-center">
-                    <a href="/cart">
-                      <ShoppingCartOutlinedIcon />
-                      <span className="font-semibold">Shopping Cart</span>
-                    </a>
-                    <span className="badge ml-auto h-[22px] min-w-[22px] px-[6px]">
-                      {cartProducts.length}
                     </span>
                   </div>
                 </div>

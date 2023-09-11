@@ -81,18 +81,18 @@ const Navbar = () => {
   return (
     <>
       <header className="sticky top-0 z-[400] left-0 bg-[#0b0d17] text-xl">
-        <div className=" flex w-full md:px-12 px-8  ">
-          <div className="w-full grid grid-cols-4 gap-1  py-4  lg:grid-cols-12 lg:gap-0">
+        <div className="flex w-full md:px-12 px-8">
+          <div class="w-full justify-between grid grid-cols-4 gap-1 py-4 lg:grid-cols-12 lg:gap-0">
             <div className="flex items-center order-1 col-span-2 lg:order-1 lg:col-span-3">
               <img
                 onClick={() => navigate("/")}
-                className="w-10 cursor-pointer h-10 mr-2"
+                className="md:w-10 w-8 cursor-pointer md:h-10 h-8 mr-2"
                 src="/logo2_white.png"
                 alt="logo"
               />
               <h1
                 onClick={() => navigate("/")}
-                className="text-white cursor-pointer text-2xl text-bold"
+                className="text-white cursor-pointer hidden md:block md:text-xl lg:text-2xl text-bold"
                 style={{ fontFamily: "'Audiowide', cursive" }}
               >
                 TechSouqDubai
@@ -116,6 +116,18 @@ const Navbar = () => {
             </div>
             <div className="order-2 col-span-2 flex gap-2 self-center justify-self-end lg:order-3 lg:col-span-3 xl:gap-5">
               <div className="flex items-center lg:hidden">
+                <div className="relative text-white cursor:pointer mx-4">
+                  <a
+                    className="btn-open-modal"
+                    data-target=".shopping-cart-modal"
+                    href="/cart"
+                  >
+                    <ShoppingCartOutlinedIcon className="text-xl" />
+                  </a>
+                  <span className="absolute bg-blue-500 top-0 right-[-6px] h-[15px] min-w-[15px] pb-[2px] rounded-[50%] text-center text-sm">
+                    {cartProducts.length}
+                  </span>
+                </div>
                 <button
                   className="btn-open-modal text-white"
                   data-target=".menu-mob"

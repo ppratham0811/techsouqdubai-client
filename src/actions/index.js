@@ -245,25 +245,69 @@ const getCurrentUserOrders = async (userEmail) => {
   }
 };
 
-const placeOrder = async (orderData) => {
+const updateProductQuantity = async (productId, quantity) => {
   try {
-    console.log(orderData);
-    await database
-      .createDocument(
+    const result = await database.updateDocument(
+      mainDatabaseID,
+      productsCollectionID,
+      productId,
+      {
+        quantity,
+      }
+    );
+    return result;
+  } catch (e) {
+    return {
+      status: false,
+      result: e.message,
+    };
+  }
+};
+
+const placeOrder = async (orderData, orderedProducts) => {
+  try {
+    let canPlaceOrder = true;
+    for (let prodObj of orderedProducts) {
+      try {
+        const resultObj = await getProductById(prodObj.product.$id);
+        if (resultObj.res.quantity < prodObj.quantity) {
+          canPlaceOrder = false;
+          return {
+            status: false,
+            result: `Quantity: ${prodObj.quantity} for ${resultObj.res.title} is not available`,
+          };
+        }
+      } catch (e) {
+        return {
+          status: false,
+          message: e.message,
+        };
+      }
+    }
+    for (let prod of orderedProducts) {
+      const prodQtyUpdate = await updateProductQuantity(
+        prod.product.$id,
+        prod.product.quantity - prod.quantity
+      );
+      if (prodQtyUpdate) {
+        continue;
+      }
+    }
+    console.log(canPlaceOrder);
+    if (canPlaceOrder) {
+      const res = await database.createDocument(
         mainDatabaseID,
         ordersCollectionID,
         ID.unique(),
         orderData
-      )
-      .then(async (res) => {
-        return res;
-      })
-      .catch((e) => {
-        console.log(e.message);
-        return e.message;
-      });
+      );
+      return { status: true, result: res };
+    }
   } catch (e) {
-    console.log({ message: e.message });
+    return {
+      status: false,
+      result: e.message,
+    };
   }
 };
 const getNavBarLink = async (id) => {
@@ -274,23 +318,6 @@ const getNavBarLink = async (id) => {
       .catch((e) => console.error(e));
   } catch (e) {
     console.error(e);
-  }
-};
-
-const updateProductQuantity = async (productId, quantity) => {
-  try {
-    await database
-      .updateDocument(mainDatabaseID, productsCollectionID, productId, {
-        quantity,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  } catch (e) {
-    console.log(e.message);
   }
 };
 

@@ -97,6 +97,9 @@ const ProductPage = ({ products }) => {
         })
       );
       setToast("Updated Cart");
+      setTimeout(() => {
+        navigate("/cart");
+      }, 2000);
     } else if (
       flag &&
       parseInt(flag.qty) + parseInt(addQtyValue) > product.quantity
@@ -107,6 +110,10 @@ const ProductPage = ({ products }) => {
         addToCart({ productId: product.$id, product, qty: addQtyValue })
       );
       setToast("Added to Cart");
+
+      setTimeout(() => {
+        navigate("/cart");
+      }, 2000);
     }
   };
 
