@@ -20,21 +20,30 @@ const HelpMenu = ({ setShowHelpMenu, toast }) => {
     const serviceId = process.env.REACT_APP_EMAILJS_SERVICE,
       templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_DEFAULT;
     console.log(form.current);
-    await emailjs
-      .send("service_78itxwa", templateId, formValues, "xDU7Al3eXxSSqGs_e")
-      .then(
-        (result) => {
-          console.log(result);
-          setFormValues({
-            from_name: "",
-            message: "",
-            from_email: "",
-          });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+
+    if (!formValues.from_name) {
+      toast[1]("Please enter your name");
+    } else if (!formValues.from_email) {
+      toast[1]("Please enter your name");
+    } else if (!formValues.message) {
+      toast[1]("Please enter your name");
+    } else {
+      await emailjs
+        .send("service_78itxwa", templateId, formValues, "xDU7Al3eXxSSqGs_e")
+        .then(
+          (result) => {
+            console.log(result);
+            setFormValues({
+              from_name: "",
+              message: "",
+              from_email: "",
+            });
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
 
     setLoading(false);
     setShowHelpMenu(false);
